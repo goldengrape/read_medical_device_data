@@ -11783,16 +11783,30 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="&#24517;&#35201;&#30340;&#20989;&#25968;&#24211;">&#24517;&#35201;&#30340;&#20989;&#25968;&#24211;<a class="anchor-link" href="#&#24517;&#35201;&#30340;&#20989;&#25968;&#24211;">&#182;</a></h2>
+<p>从数据文件中读取所需要的数据, 并转换成Pandas DataFrame的形式.</p>
+<p>Pandas DataFrame支持多种索引方式, 并且能够方便转换成numpy array进行运算.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="&#24517;&#35201;&#30340;&#20989;&#25968;&#24211;">&#24517;&#35201;&#30340;&#20989;&#25968;&#24211;<a class="anchor-link" href="#&#24517;&#35201;&#30340;&#20989;&#25968;&#24211;">&#182;</a></h2><ul>
+<li>pandas: 常用数据读写处理的工具包, 如果未安装应考虑使用anaconda安装</li>
+</ul>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="c1"># import numpy as np</span>
 <span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">Series</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">os</span>
@@ -11842,7 +11856,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[58]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">read_sirius</span><span class="p">(</span><span class="n">filepath_or_buffer</span><span class="p">,</span><span class="n">catalog</span><span class="p">):</span>
@@ -11885,11 +11899,11 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[61]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 测试用: </span>
-<span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span> <span class="ow">and</span> <span class="kc">False</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span> <span class="ow">and</span> <span class="kc">True</span><span class="p">:</span>
     <span class="n">fpath</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span><span class="s1">&#39;testdata&#39;</span><span class="p">)</span>
     <span class="n">fname</span><span class="o">=</span><span class="s1">&#39;sirius.csv&#39;</span>
     <span class="n">filename</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">fpath</span><span class="p">,</span><span class="n">fname</span><span class="p">)</span>
@@ -11903,16 +11917,290 @@ div#notebook {
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>          0          1          2          3          4          5    \
+0    621.9440   621.9440   621.9440   621.9440   621.9440   621.9440   
+1    623.1229   623.1656   623.2072   623.2475   623.2865   623.3240   
+2    624.8762   624.9506   625.0231   625.0938   625.1624   625.2291   
+3    627.3560   627.4747   627.5919   627.7073   627.8210   627.9326   
+4    630.7875   630.9597   631.1305   631.2994   631.4661   631.6304   
+5    635.1459   635.3712   635.5947   635.8160   636.0348   636.2505   
+6    640.0944   640.3879   640.6793   640.9679   641.2530   641.5339   
+7    645.7549   646.1091   646.4610   646.8098   647.1545   647.4940   
+8    651.8187   652.2406   652.6607   653.0776   653.4902   653.8972   
+9    658.3864   658.8671   659.3480   659.8279   660.3053   660.7786   
+10   665.2798   665.8257   666.3752   666.9268   667.4789   668.0296   
+11   673.3134   673.8997   674.4913   675.0869   675.6847   676.2828   
+12   681.7916   682.4629   683.1432   683.8311   684.5245   685.2215   
+13   691.8193   692.6236   693.4380   694.2610   695.0905   695.9238   
+14   703.7021   704.6613   705.6315   706.6104   707.5953   708.5829   
+15   719.1700   720.2312   721.2980   722.3676   723.4365   724.5012   
+16   737.3628   738.4274   739.4918   740.5525   741.6058   742.6478   
+17   757.0291   758.0607   759.0825   760.0911   761.0823   762.0521   
+18   777.2213   778.1376   779.0334   779.9051   780.7487   781.5602   
+19   797.9824   798.6882   799.3577   799.9870   800.5721   801.1092   
+20   816.3358   816.6557   816.9246   817.1395   817.2977   817.3970   
+21   830.6282   830.4045   830.1207   829.7754   829.3679   828.8981   
+22   837.4751   836.5329   835.5726   834.6099   833.6621   832.7484   
+23   840.2649   839.5950   839.0403   838.6140   838.3265   838.1850   
+24   832.1213   831.1108   830.2504   829.5557   829.0436   828.7328   
+25   813.2228   812.9484   813.0119   813.4481   814.2934   815.5846   
+26   787.3682   789.7105   792.6398   796.1805   800.3538   805.1778   
+27 -1000.0000 -1000.0000 -1000.0000 -1000.0000 -1000.0000 -1000.0000   
+28 -1000.0000 -1000.0000 -1000.0000 -1000.0000 -1000.0000 -1000.0000   
+29 -1000.0000 -1000.0000 -1000.0000 -1000.0000 -1000.0000 -1000.0000   
+30 -1000.0000 -1000.0000 -1000.0000 -1000.0000 -1000.0000 -1000.0000   
+
+          6          7          8          9      ...            246  \
+0    621.9440   621.9440   621.9440   621.9440    ...       621.9440   
+1    623.3602   623.3948   623.4280   623.4597    ...       622.6525   
+2    625.2938   625.3565   625.4172   625.4760    ...       624.0572   
+3    628.0422   628.1497   628.2548   628.3577    ...       626.1191   
+4    631.7921   631.9507   632.1063   632.2584    ...       629.0409   
+5    636.4628   636.6713   636.8754   637.0750    ...       632.8792   
+6    641.8098   642.0800   642.3438   642.6006    ...       637.1738   
+7    647.8274   648.1536   648.4717   648.7809    ...       642.2576   
+8    654.2972   654.6890   655.0712   655.4427    ...       647.6835   
+9    661.2464   661.7070   662.1588   662.6003    ...       653.7773   
+10   668.5770   669.1191   669.6539   670.1792    ...       660.1954   
+11   676.8791   677.4714   678.0575   678.6349    ...       667.8688   
+12   685.9197   686.6166   687.3095   687.9957    ...       675.6711   
+13   696.7585   697.5914   698.4196   699.2396    ...       684.4483   
+14   709.5698   710.5520   711.5255   712.4858    ...       694.8509   
+15   725.5577   726.6017   727.6286   728.6337    ...       709.1273   
+16   743.6738   744.6793   745.6595   746.6096    ...       727.0563   
+17   762.9957   763.9086   764.7860   765.6230    ...       746.6013   
+18   782.3353   783.0696   783.7591   784.3995    ...       767.3913   
+19   801.5944   802.0240   802.3948   802.7039    ...       789.4897   
+20   817.4354   817.4115   817.3246   817.1748    ...       810.7877   
+21   828.3675   827.7783   827.1342   826.4401    ...       829.7806   
+22   831.8888   831.1043   830.4155   829.8420    ...       843.5610   
+23   838.1934   838.3526   838.6606   839.1125    ...       849.0498   
+24   828.6444   828.8014   829.2285   829.9507    ...       846.4683   
+25   817.3580   819.6474   822.4814   825.8818    ...       827.6304   
+26   810.6665   816.8282   823.6646   831.1676    ...       788.5803   
+27 -1000.0000 -1000.0000 -1000.0000 -1000.0000    ...       774.4830   
+28 -1000.0000 -1000.0000 -1000.0000 -1000.0000    ...     -1000.0000   
+29 -1000.0000 -1000.0000 -1000.0000 -1000.0000    ...     -1000.0000   
+30 -1000.0000 -1000.0000 -1000.0000 -1000.0000    ...     -1000.0000   
+
+          247        248        249        250        251        252  \
+0    621.9440   621.9440   621.9440   621.9440   621.9440   621.9440   
+1    622.7012   622.7499   622.7984   622.8466   622.8945   622.9417   
+2    624.1431   624.2286   624.3134   624.3974   624.4805   624.5624   
+3    626.2440   626.3692   626.4944   626.6194   626.7441   626.8683   
+4    629.2136   629.3873   629.5620   629.7372   629.9128   630.0886   
+5    633.1025   633.3273   633.5532   633.7802   634.0078   634.2358   
+6    637.4581   637.7450   638.0342   638.3256   638.6186   638.9130   
+7    642.5960   642.9377   643.2827   643.6306   643.9812   644.3339   
+8    648.0819   648.4844   648.8910   649.3013   649.7153   650.1323   
+9    654.2160   654.6599   655.1089   655.5634   656.0231   656.4877   
+10   660.6702   661.1519   661.6410   662.1378   662.6425   663.1553   
+11   668.3815   668.8995   669.4238   669.9551   670.4943   671.0416   
+12   676.2408   676.8173   677.4019   677.9958   678.6001   679.2153   
+13   685.1363   685.8327   686.5387   687.2555   687.9840   688.7250   
+14   695.6835   696.5245   697.3753   698.2375   699.1126   700.0014   
+15   710.0848   711.0507   712.0261   713.0120   714.0093   715.0186   
+16   728.0547   729.0587   730.0693   731.0875   732.1140   733.1489   
+17   747.6444   748.6867   749.7289   750.7715   751.8151   752.8594   
+18   768.4166   769.4325   770.4393   771.4374   772.4269   773.4076   
+19   790.4374   791.3642   792.2701   793.1552   794.0192   794.8614   
+20   811.5211   812.2151   812.8697   813.4854   814.0621   814.5999   
+21   830.1219   830.4028   830.6250   830.7901   830.8997   830.9547   
+22   843.3344   843.0100   842.5907   842.0806   841.4850   840.8100   
+23   848.3105   847.4896   846.6030   845.6692   844.7085   843.7426   
+24   845.0174   843.5068   841.9595   840.4001   838.8536   837.3447   
+25   825.7022   823.7982   821.9498   820.1888   818.5475   817.0576   
+26   787.0842   785.7692   784.6823   783.8718   783.3860   783.2715   
+27   776.8535   779.7062   783.0430   786.8596 -1000.0000 -1000.0000   
+28 -1000.0000 -1000.0000 -1000.0000 -1000.0000 -1000.0000 -1000.0000   
+29 -1000.0000 -1000.0000 -1000.0000 -1000.0000 -1000.0000 -1000.0000   
+30 -1000.0000 -1000.0000 -1000.0000 -1000.0000 -1000.0000 -1000.0000   
+
+          253        254        255  
+0    621.9440   621.9440   621.9440  
+1    622.9883   623.0341   623.0790  
+2    624.6431   624.7224   624.8001  
+3    626.9918   627.1143   627.2358  
+4    630.2642   630.4394   630.6140  
+5    634.4640   634.6920   634.9194  
+6    639.2083   639.5040   639.7996  
+7    644.6883   645.0438   645.3995  
+8    650.5518   650.9733   651.3959  
+9    656.9570   657.4304   657.9072  
+10   663.6759   664.2040   664.7389  
+11   671.5973   672.1614   672.7336  
+12   679.8420   680.4805   681.1306  
+13   689.4791   690.2463   691.0266  
+14   700.9047   701.8228   702.7555  
+15   716.0398   717.0727   718.1165  
+16   734.1922   735.2432   736.3006  
+17   753.9042   754.9485   755.9908  
+18   774.3788   775.3394   776.2877  
+19   795.6808   796.4756   797.2438  
+20   815.0976   815.5542   815.9677  
+21   830.9556   830.9022   830.7936  
+22   840.0627   839.2514   838.3853  
+23   842.7935   841.8834   841.0338  
+24   835.8967   834.5309   833.2666  
+25   815.7498   814.6546   813.8021  
+26   783.5731   784.3318   785.5854  
+27 -1000.0000 -1000.0000 -1000.0000  
+28 -1000.0000 -1000.0000 -1000.0000  
+29 -1000.0000 -1000.0000 -1000.0000  
+30 -1000.0000 -1000.0000 -1000.0000  
+
+[31 rows x 256 columns]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="&#35835;&#21462;PentaCam&#35282;&#33180;&#22320;&#24418;&#22270;&#25968;&#25454;">&#35835;&#21462;PentaCam&#35282;&#33180;&#22320;&#24418;&#22270;&#25968;&#25454;<a class="anchor-link" href="#&#35835;&#21462;PentaCam&#35282;&#33180;&#22320;&#24418;&#22270;&#25968;&#25454;">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>PentaCam 角膜地形图. 数据存储为CSV文件.</p>
+<ul>
+<li>Front, Back以二维矩阵形式存储直角座标位置数据, 分别141行, 141列 </li>
+<li>其他数据一般标题在第一列, 数据放在第二列. 看起来非常凌乱. 于是读取很费力. </li>
+<li>格式这么难看, 德国人真的好意思? ? ? </li>
+</ul>
+<p>read_pentacam函数需要两个参数:</p>
+<ul>
+<li>filepath_or_buffer:  一般来说是文件名</li>
+<li>catalog:  需要获取的数据类别. 包含的类别有: <ul>
+<li>'FRONT'</li>
+<li>'BACK'</li>
+<li>'Cornea'</li>
+<li>'Pachy'</li>
+<li>'Chamber'</li>
+<li>'K'</li>
+<li>'Pupil'</li>
+</ul>
+</li>
+</ul>
+<p><strong> 务必注意类别名称的大小写 </strong></p>
+<p>列索引目前需要用字符串, 例如'7.000'</p>
+
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">read_pentacam</span><span class="p">(</span><span class="n">filepath_or_buffer</span><span class="p">,</span><span class="n">catalog</span><span class="p">):</span>
+    <span class="c1"># based on Sirius CSV</span>
+    <span class="n">catalog_dict</span><span class="o">=</span><span class="p">{</span>
+        <span class="s1">&#39;FRONT&#39;</span><span class="p">:{</span><span class="s2">&quot;skiprows&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;nrows&quot;</span><span class="p">:</span><span class="mi">141</span><span class="p">,</span> <span class="s2">&quot;header&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;keepCol&quot;</span><span class="p">:</span><span class="mi">141</span><span class="p">,</span><span class="s2">&quot;new_col_name&quot;</span><span class="p">:[]},</span>
+        <span class="s1">&#39;BACK&#39;</span><span class="p">:{</span><span class="s2">&quot;skiprows&quot;</span><span class="p">:</span><span class="mi">142</span><span class="p">,</span> <span class="s2">&quot;nrows&quot;</span><span class="p">:</span><span class="mi">141</span><span class="p">,</span> <span class="s2">&quot;header&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s2">&quot;keepCol&quot;</span><span class="p">:</span><span class="mi">141</span><span class="p">,</span><span class="s2">&quot;new_col_name&quot;</span><span class="p">:[]},</span>
+        <span class="s1">&#39;Cornea&#39;</span><span class="p">:{</span><span class="s2">&quot;skiprows&quot;</span><span class="p">:</span><span class="mi">311</span><span class="p">,</span> <span class="s2">&quot;nrows&quot;</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;header&quot;</span><span class="p">:</span><span class="kc">None</span><span class="p">,</span><span class="s2">&quot;keepCol&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">&quot;new_col_name&quot;</span><span class="p">:[</span><span class="s1">&#39;value&#39;</span><span class="p">]},</span>
+        <span class="s1">&#39;Pachy&#39;</span><span class="p">:{</span><span class="s2">&quot;skiprows&quot;</span><span class="p">:</span><span class="mi">316</span><span class="p">,</span> <span class="s2">&quot;nrows&quot;</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;header&quot;</span><span class="p">:</span><span class="kc">None</span><span class="p">,</span><span class="s2">&quot;keepCol&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">&quot;new_col_name&quot;</span><span class="p">:[</span><span class="s1">&#39;value&#39;</span><span class="p">]},</span> 
+        <span class="s1">&#39;Chamber&#39;</span><span class="p">:{</span><span class="s2">&quot;skiprows&quot;</span><span class="p">:</span><span class="mi">320</span><span class="p">,</span> <span class="s2">&quot;nrows&quot;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;header&quot;</span><span class="p">:</span><span class="kc">None</span><span class="p">,</span><span class="s2">&quot;keepCol&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">&quot;new_col_name&quot;</span><span class="p">:[</span><span class="s1">&#39;value&#39;</span><span class="p">]},</span> 
+        <span class="s1">&#39;K&#39;</span><span class="p">:{</span><span class="s2">&quot;skiprows&quot;</span><span class="p">:</span><span class="mi">325</span><span class="p">,</span> <span class="s2">&quot;nrows&quot;</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;header&quot;</span><span class="p">:</span><span class="kc">None</span><span class="p">,</span><span class="s2">&quot;keepCol&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">&quot;new_col_name&quot;</span><span class="p">:[</span><span class="s1">&#39;value&#39;</span><span class="p">]},</span>
+        <span class="c1"># 下面这个我也不知道为什么</span>
+        <span class="s1">&#39;Pupil&#39;</span><span class="p">:{</span><span class="s2">&quot;skiprows&quot;</span><span class="p">:</span><span class="mi">328</span><span class="p">,</span> <span class="s2">&quot;nrows&quot;</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;header&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">&quot;keepCol&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">&quot;new_col_name&quot;</span><span class="p">:[</span><span class="s1">&#39;value&#39;</span><span class="p">]}</span> 
+    <span class="p">}</span>
+    <span class="c1"># extract skiprows and nrows from dict</span>
+    <span class="n">s</span><span class="o">=</span><span class="n">catalog_dict</span><span class="p">[</span><span class="n">catalog</span><span class="p">][</span><span class="s2">&quot;skiprows&quot;</span><span class="p">]</span>
+    <span class="n">n</span><span class="o">=</span><span class="n">catalog_dict</span><span class="p">[</span><span class="n">catalog</span><span class="p">][</span><span class="s2">&quot;nrows&quot;</span><span class="p">]</span>
+    <span class="n">h</span><span class="o">=</span><span class="n">catalog_dict</span><span class="p">[</span><span class="n">catalog</span><span class="p">][</span><span class="s2">&quot;header&quot;</span><span class="p">]</span>
+    <span class="n">k</span><span class="o">=</span><span class="n">catalog_dict</span><span class="p">[</span><span class="n">catalog</span><span class="p">][</span><span class="s2">&quot;keepCol&quot;</span><span class="p">]</span>
+    <span class="n">newname</span><span class="o">=</span><span class="n">catalog_dict</span><span class="p">[</span><span class="n">catalog</span><span class="p">][</span><span class="s2">&quot;new_col_name&quot;</span><span class="p">]</span>
+    
+    <span class="c1"># read CSV after skiprows and get nrows</span>
+    <span class="n">pentacam_data</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">filepath_or_buffer</span><span class="p">,</span>
+                        <span class="n">skiprows</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="n">s</span><span class="p">),</span>
+                       <span class="c1"># header=h,</span>
+                        <span class="n">nrows</span><span class="o">=</span><span class="n">n</span><span class="p">,</span>
+                        <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span>
+                             <span class="p">)</span>
+    <span class="c1"># set index and index name</span>
+    <span class="n">first_column_name</span><span class="o">=</span> <span class="n">pentacam_data</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">pentacam_data</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">first_column_name</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">pentacam_data</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
+    
+    <span class="c1"># keep columns</span>
+    <span class="n">pentacam_data</span><span class="o">=</span><span class="n">pentacam_data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">)]</span>
+    
+    <span class="c1"># change column name</span>
+    <span class="n">newnameDict</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">pentacam_data</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span><span class="n">newname</span><span class="p">))</span>
+    <span class="n">pentacam_data</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">newnameDict</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>    
+    <span class="k">return</span> <span class="n">pentacam_data</span>
 </pre></div>
 
 </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 测试用: </span>
+<span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span> <span class="ow">and</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">fpath</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span><span class="s1">&#39;testdata&#39;</span><span class="p">)</span>
+    <span class="n">fname</span><span class="o">=</span><span class="s1">&#39;pentacam.csv&#39;</span>
+    <span class="n">filename</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">fpath</span><span class="p">,</span><span class="n">fname</span><span class="p">)</span>
+    <span class="n">catalog</span><span class="o">=</span><span class="s1">&#39;Pupil&#39;</span>
+<span class="c1">#     catalog=&#39;Cornea&#39;</span>
+<span class="c1">#     catalog=&#39;FRONT&#39;</span>
+
+    <span class="n">data</span><span class="o">=</span><span class="n">read_pentacam</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="n">catalog</span><span class="p">)</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>            value
+                 
+[PUPIL]       NaN
+Pupil Dia    2.69
+XPupil    -125.00
+YPupil      24.00
+(4, 1)
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 

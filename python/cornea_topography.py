@@ -3,12 +3,20 @@
 
 # # 读取角膜地形图
 
-# ## 必要的函数库
+# 从数据文件中读取所需要的数据, 并转换成Pandas DataFrame的形式. 
+# 
+# Pandas DataFrame支持多种索引方式, 并且能够方便转换成numpy array进行运算. 
 
-# In[1]:
+# ## 必要的函数库
+# 
+# * pandas: 常用数据读写处理的工具包, 如果未安装应考虑使用anaconda安装
+# 
+
+# In[6]:
 
 
 import pandas as pd
+# import numpy as np
 from pandas import DataFrame, Series
 import re
 import os
@@ -37,7 +45,7 @@ import os
 # ** 务必注意类别名称的大小写 **
 # 
 
-# In[58]:
+# In[7]:
 
 
 def read_sirius(filepath_or_buffer,catalog):
@@ -73,11 +81,11 @@ def read_sirius(filepath_or_buffer,catalog):
     return sirius_data
 
 
-# In[61]:
+# In[8]:
 
 
 # 测试用: 
-if __name__=="__main__" and False:
+if __name__=="__main__" and True:
     fpath=os.path.join('..','testdata')
     fname='sirius.csv'
     filename=os.path.join(fpath,fname)
@@ -87,8 +95,86 @@ if __name__=="__main__" and False:
     print(data)
 
 
-# In[ ]:
+# ## 读取PentaCam角膜地形图数据
+
+# PentaCam 角膜地形图. 数据存储为CSV文件. 
+# 
+# * Front, Back以二维矩阵形式存储直角座标位置数据, 分别141行, 141列 
+# * 其他数据一般标题在第一列, 数据放在第二列. 看起来非常凌乱. 于是读取很费力. 
+# * 格式这么难看, 德国人真的好意思? ? ? 
+# 
+# read_pentacam函数需要两个参数: 
+# * filepath_or_buffer:  一般来说是文件名
+# * catalog:  需要获取的数据类别. 包含的类别有: 
+#   * 'FRONT'
+#   * 'BACK'
+#   * 'Cornea'
+#   * 'Pachy'
+#   * 'Chamber'
+#   * 'K'
+#   * 'Pupil'
+#   
+# ** 务必注意类别名称的大小写 **
+# 
+# 列索引目前需要用字符串, 例如'7.000'
+
+# In[11]:
 
 
+def read_pentacam(filepath_or_buffer,catalog):
+    # based on Sirius CSV
+    catalog_dict={
+        'FRONT':{"skiprows":0, "nrows":141, "header":0, "keepCol":141,"new_col_name":[]},
+        'BACK':{"skiprows":142, "nrows":141, "header":0,"keepCol":141,"new_col_name":[]},
+        'Cornea':{"skiprows":311, "nrows":4, "header":None,"keepCol":1,"new_col_name":['value']},
+        'Pachy':{"skiprows":316, "nrows":4, "header":None,"keepCol":1,"new_col_name":['value']}, 
+        'Chamber':{"skiprows":320, "nrows":2, "header":None,"keepCol":1,"new_col_name":['value']}, 
+        'K':{"skiprows":325, "nrows":3, "header":None,"keepCol":1,"new_col_name":['value']},
+        # 下面这个我也不知道为什么
+        'Pupil':{"skiprows":328, "nrows":4, "header":1,"keepCol":1,"new_col_name":['value']} 
+    }
+    # extract skiprows and nrows from dict
+    s=catalog_dict[catalog]["skiprows"]
+    n=catalog_dict[catalog]["nrows"]
+    h=catalog_dict[catalog]["header"]
+    k=catalog_dict[catalog]["keepCol"]
+    newname=catalog_dict[catalog]["new_col_name"]
+    
+    # read CSV after skiprows and get nrows
+    pentacam_data=pd.read_csv(filepath_or_buffer,
+                        skiprows=range(s),
+                       # header=h,
+                        nrows=n,
+                        sep=';'
+                             )
+    # set index and index name
+    first_column_name= pentacam_data.columns[0]
+    pentacam_data.set_index(first_column_name,inplace=True)
+    pentacam_data.index.name=''
+    
+    # keep columns
+    pentacam_data=pentacam_data.iloc[:,range(k)]
+    
+    # change column name
+    newnameDict=dict(zip(pentacam_data.columns,newname))
+    pentacam_data.rename(columns=newnameDict,inplace=True)    
+    return pentacam_data
 
+
+# In[5]:
+
+
+# 测试用: 
+if __name__=="__main__" and True:
+    fpath=os.path.join('..','testdata')
+    fname='pentacam.csv'
+    filename=os.path.join(fpath,fname)
+    catalog='Pupil'
+#     catalog='Cornea'
+#     catalog='FRONT'
+
+    data=read_pentacam(filename,catalog)
+    
+    print(data)
+    print(data.shape)
 
