@@ -1,0 +1,11 @@
+{"Radii":"A2..AE2",
+        "CornealThickness":"A4..IV34",
+        "ElevationAnterior":"A36..IV66",
+        "ElevationPosterior":"A68..IV98",
+        "RefractiveEquivalentPower":"A100..IV130",
+        "RefractiveFrontalPowerAnterior":"A132..IV162",
+        "RefractiveFrontalPowerPosterior":"A164..IV194",
+        "SagittalAnterior":"A196..IV226",
+        "SagittalPosterior":"A228..IV258",
+        "TangentialAnterior":"A260..IV290",
+        "TangentialPosterior":"A292..IV322"}
