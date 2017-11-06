@@ -11821,6 +11821,106 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="&#26500;&#36896;dlmread">&#26500;&#36896;dlmread<a class="anchor-link" href="#&#26500;&#36896;dlmread">&#182;</a></h1><p>仿照MatLab里面的dlmread</p>
+<div class="highlight"><pre><span></span><span class="n">M</span> <span class="p">=</span> <span class="n">dlmread</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="n">delimiter</span><span class="p">,[</span><span class="n">R1</span> <span class="n">C1</span> <span class="n">R2</span> <span class="n">C2</span><span class="p">])</span>
+</pre></div>
+<p>注意其中行列数字按照excel表格中的形式写, 首行=1, 首列=1. 否则一个大的表格数起来太麻烦了.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[78]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">dlmread</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="n">delimiter</span><span class="p">,</span><span class="n">R1</span><span class="p">,</span><span class="n">C1</span><span class="p">,</span><span class="n">R2</span><span class="p">,</span><span class="n">C2</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">s</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="n">R1</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">n</span><span class="o">=</span><span class="n">R2</span><span class="o">-</span><span class="n">R1</span><span class="o">+</span><span class="mi">1</span>
+    <span class="n">cols</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="n">C1</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">C2</span><span class="p">)</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span>
+                     <span class="n">sep</span><span class="o">=</span><span class="n">delimiter</span><span class="p">,</span>
+                     <span class="n">skiprows</span><span class="o">=</span><span class="n">s</span><span class="p">,</span>
+                     <span class="n">nrows</span><span class="o">=</span><span class="n">n</span><span class="p">,</span>
+                     <span class="n">header</span><span class="o">=</span><span class="n">header</span><span class="p">,</span>
+                     <span class="n">usecols</span><span class="o">=</span><span class="n">cols</span>
+                    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">data</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[97]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 测试用: </span>
+<span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span> <span class="ow">and</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">fpath</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span><span class="s1">&#39;testdata&#39;</span><span class="p">)</span>
+    <span class="n">fname</span><span class="o">=</span><span class="s1">&#39;standard.csv&#39;</span>
+    <span class="n">filename</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">fpath</span><span class="p">,</span><span class="n">fname</span><span class="p">)</span>
+    <span class="n">standard_data</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">dlmread</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="s1">&#39;;&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;原始表格&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">standard_data</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;部分读取&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="n">fname</span><span class="o">=</span><span class="s1">&#39;pentacam.csv&#39;</span>
+    <span class="n">filename</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">fpath</span><span class="p">,</span><span class="n">fname</span><span class="p">)</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">dlmread</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="s1">&#39;;&#39;</span><span class="p">,</span><span class="mi">313</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">317</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>原始表格
+    0   1   2   3   4
+0  A1  B1  C1  D1 NaN
+1  A2  B2  C2  D2 NaN
+2  A3  B3  C3  D3 NaN
+3  A4  B4  C4  D4 NaN
+4  A5  B5  C5  D5 NaN
+部分读取
+    1
+0  B1
+1  B2
+2  B3
+3  B4
+                    0      1
+0     Cornea Front Rh   7.81
+1     Cornea Front Rv   7.72
+2   Cornea Front Axis  13.70
+3  Cornea Front Astig  -0.50
+4    Cornea Front Exz  -0.41
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="&#35835;&#21462;-Sirius--&#35282;&#33180;&#22320;&#24418;&#22270;">&#35835;&#21462; Sirius  &#35282;&#33180;&#22320;&#24418;&#22270;<a class="anchor-link" href="#&#35835;&#21462;-Sirius--&#35282;&#33180;&#22320;&#24418;&#22270;">&#182;</a></h2>
 </div>
 </div>
@@ -12108,7 +12208,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[46]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">read_pentacam</span><span class="p">(</span><span class="n">filepath_or_buffer</span><span class="p">,</span><span class="n">catalog</span><span class="p">):</span>
@@ -12120,8 +12220,8 @@ div#notebook {
         <span class="s1">&#39;Pachy&#39;</span><span class="p">:{</span><span class="s2">&quot;skiprows&quot;</span><span class="p">:</span><span class="mi">316</span><span class="p">,</span> <span class="s2">&quot;nrows&quot;</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;header&quot;</span><span class="p">:</span><span class="kc">None</span><span class="p">,</span><span class="s2">&quot;keepCol&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">&quot;new_col_name&quot;</span><span class="p">:[</span><span class="s1">&#39;value&#39;</span><span class="p">]},</span> 
         <span class="s1">&#39;Chamber&#39;</span><span class="p">:{</span><span class="s2">&quot;skiprows&quot;</span><span class="p">:</span><span class="mi">320</span><span class="p">,</span> <span class="s2">&quot;nrows&quot;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;header&quot;</span><span class="p">:</span><span class="kc">None</span><span class="p">,</span><span class="s2">&quot;keepCol&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">&quot;new_col_name&quot;</span><span class="p">:[</span><span class="s1">&#39;value&#39;</span><span class="p">]},</span> 
         <span class="s1">&#39;K&#39;</span><span class="p">:{</span><span class="s2">&quot;skiprows&quot;</span><span class="p">:</span><span class="mi">325</span><span class="p">,</span> <span class="s2">&quot;nrows&quot;</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;header&quot;</span><span class="p">:</span><span class="kc">None</span><span class="p">,</span><span class="s2">&quot;keepCol&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">&quot;new_col_name&quot;</span><span class="p">:[</span><span class="s1">&#39;value&#39;</span><span class="p">]},</span>
-        <span class="c1"># 下面这个我也不知道为什么</span>
-        <span class="s1">&#39;Pupil&#39;</span><span class="p">:{</span><span class="s2">&quot;skiprows&quot;</span><span class="p">:</span><span class="mi">328</span><span class="p">,</span> <span class="s2">&quot;nrows&quot;</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;header&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">&quot;keepCol&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">&quot;new_col_name&quot;</span><span class="p">:[</span><span class="s1">&#39;value&#39;</span><span class="p">]}</span> 
+        <span class="c1"># 下面这个我也不知道为什么,329,330我都已经测试过了, header也试过不同的</span>
+        <span class="s1">&#39;Pupil&#39;</span><span class="p">:{</span><span class="s2">&quot;skiprows&quot;</span><span class="p">:</span><span class="mi">328</span><span class="p">,</span> <span class="s2">&quot;nrows&quot;</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;header&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s2">&quot;keepCol&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">&quot;new_col_name&quot;</span><span class="p">:[</span><span class="s1">&#39;value&#39;</span><span class="p">]}</span> 
     <span class="p">}</span>
     <span class="c1"># extract skiprows and nrows from dict</span>
     <span class="n">s</span><span class="o">=</span><span class="n">catalog_dict</span><span class="p">[</span><span class="n">catalog</span><span class="p">][</span><span class="s2">&quot;skiprows&quot;</span><span class="p">]</span>
@@ -12133,7 +12233,7 @@ div#notebook {
     <span class="c1"># read CSV after skiprows and get nrows</span>
     <span class="n">pentacam_data</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">filepath_or_buffer</span><span class="p">,</span>
                         <span class="n">skiprows</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="n">s</span><span class="p">),</span>
-                       <span class="c1"># header=h,</span>
+                        <span class="n">header</span><span class="o">=</span><span class="n">h</span><span class="p">,</span>
                         <span class="n">nrows</span><span class="o">=</span><span class="n">n</span><span class="p">,</span>
                         <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span>
                              <span class="p">)</span>
@@ -12158,17 +12258,17 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[50]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 测试用: </span>
-<span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span> <span class="ow">and</span> <span class="kc">True</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span> <span class="ow">and</span> <span class="kc">False</span><span class="p">:</span>
     <span class="n">fpath</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span><span class="s1">&#39;testdata&#39;</span><span class="p">)</span>
     <span class="n">fname</span><span class="o">=</span><span class="s1">&#39;pentacam.csv&#39;</span>
     <span class="n">filename</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">fpath</span><span class="p">,</span><span class="n">fname</span><span class="p">)</span>
     <span class="n">catalog</span><span class="o">=</span><span class="s1">&#39;Pupil&#39;</span>
 <span class="c1">#     catalog=&#39;Cornea&#39;</span>
-<span class="c1">#     catalog=&#39;FRONT&#39;</span>
+    <span class="n">catalog</span><span class="o">=</span><span class="s1">&#39;FRONT&#39;</span>
 
     <span class="n">data</span><span class="o">=</span><span class="n">read_pentacam</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="n">catalog</span><span class="p">)</span>
     
@@ -12180,27 +12280,29 @@ div#notebook {
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
 
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>            value
-                 
-[PUPIL]       NaN
-Pupil Dia    2.69
-XPupil    -125.00
-YPupil      24.00
-(4, 1)
-</pre>
+</div>
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+</div>
 </div>
 </div>
 

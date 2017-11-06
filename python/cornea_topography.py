@@ -22,6 +22,51 @@ import re
 import os
 
 
+# # 构造dlmread
+# 仿照MatLab里面的dlmread
+# ```matlab
+# M = dlmread(filename,delimiter,[R1 C1 R2 C2])
+# ```
+# 注意其中行列数字按照excel表格中的形式写, 首行=1, 首列=1. 否则一个大的表格数起来太麻烦了. 
+
+# In[78]:
+
+
+def dlmread(filename,delimiter,R1,C1,R2,C2,header=None):
+    s=range(R1-1)
+    n=R2-R1+1
+    cols=range(C1-1,C2)
+    data=pd.read_csv(filename,
+                     sep=delimiter,
+                     skiprows=s,
+                     nrows=n,
+                     header=header,
+                     usecols=cols
+                    )
+    return data
+
+
+# In[97]:
+
+
+# 测试用: 
+if __name__=="__main__" and True:
+    fpath=os.path.join('..','testdata')
+    fname='standard.csv'
+    filename=os.path.join(fpath,fname)
+    standard_data=pd.read_csv(filename,header=None,sep=';')
+    data=dlmread(filename,';',1,2,4,2,header=None)
+    print("原始表格")
+    print(standard_data)
+    print("部分读取")
+    print(data)
+
+    fname='pentacam.csv'
+    filename=os.path.join(fpath,fname)
+    data=dlmread(filename,';',313,1,317,2,header=None)
+    print(data)
+
+
 # ## 读取 Sirius  角膜地形图
 
 # Sirius 角膜地形图. 数据存储为CSV文件. 
@@ -118,7 +163,7 @@ if __name__=="__main__" and True:
 # 
 # 列索引目前需要用字符串, 例如'7.000'
 
-# In[11]:
+# In[46]:
 
 
 def read_pentacam(filepath_or_buffer,catalog):
@@ -130,8 +175,8 @@ def read_pentacam(filepath_or_buffer,catalog):
         'Pachy':{"skiprows":316, "nrows":4, "header":None,"keepCol":1,"new_col_name":['value']}, 
         'Chamber':{"skiprows":320, "nrows":2, "header":None,"keepCol":1,"new_col_name":['value']}, 
         'K':{"skiprows":325, "nrows":3, "header":None,"keepCol":1,"new_col_name":['value']},
-        # 下面这个我也不知道为什么
-        'Pupil':{"skiprows":328, "nrows":4, "header":1,"keepCol":1,"new_col_name":['value']} 
+        # 下面这个我也不知道为什么,329,330我都已经测试过了, header也试过不同的
+        'Pupil':{"skiprows":328, "nrows":4, "header":0,"keepCol":1,"new_col_name":['value']} 
     }
     # extract skiprows and nrows from dict
     s=catalog_dict[catalog]["skiprows"]
@@ -143,7 +188,7 @@ def read_pentacam(filepath_or_buffer,catalog):
     # read CSV after skiprows and get nrows
     pentacam_data=pd.read_csv(filepath_or_buffer,
                         skiprows=range(s),
-                       # header=h,
+                        header=h,
                         nrows=n,
                         sep=';'
                              )
@@ -161,20 +206,32 @@ def read_pentacam(filepath_or_buffer,catalog):
     return pentacam_data
 
 
-# In[5]:
+# In[50]:
 
 
 # 测试用: 
-if __name__=="__main__" and True:
+if __name__=="__main__" and False:
     fpath=os.path.join('..','testdata')
     fname='pentacam.csv'
     filename=os.path.join(fpath,fname)
     catalog='Pupil'
 #     catalog='Cornea'
-#     catalog='FRONT'
+    catalog='FRONT'
 
     data=read_pentacam(filename,catalog)
     
     print(data)
     print(data.shape)
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
 
