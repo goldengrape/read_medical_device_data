@@ -41,7 +41,7 @@ switch catalog
         location='B337..B592';
 
 end
-data=dlmread(filename,';',location);
+data=dlmread_nan(filename,';',location);
 
 return
 

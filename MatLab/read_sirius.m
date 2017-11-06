@@ -27,6 +27,6 @@ switch catalog
     case 'TangentialPosterior'
         location='A292..IV322';
 end
-data=dlmread(filename,';',location);
+data=dlmread_nan(filename,';',location);
 return
 end

@@ -6,7 +6,7 @@ function [ data ] = read_medical_data(data_file, catalog,json_data_file )
 
 catalog_dict=loadjson(json_data_file);
 location=catalog_dict.(catalog);
-data=dlmread(data_file,';',location);
+data=dlmread_nan(data_file,';',location);
 
 return
 end
