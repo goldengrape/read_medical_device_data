@@ -22,7 +22,10 @@ import re
 import os
 
 
-# # 构造dlmread
+# # 构造工具
+# 
+
+# ## 构造dlmread
 # 仿照MatLab里面的dlmread
 # ```matlab
 # M = dlmread(filename,delimiter,[R1 C1 R2 C2])
@@ -49,7 +52,7 @@ def dlmread(filename,delimiter,R1,C1,R2,C2,header=None):
 # In[97]:
 
 
-# 测试用: 
+# 测试用, 测试开关使用and True: 
 if __name__=="__main__" and True:
     fpath=os.path.join('..','testdata')
     fname='standard.csv'
@@ -65,6 +68,58 @@ if __name__=="__main__" and True:
     filename=os.path.join(fpath,fname)
     data=dlmread(filename,';',313,1,317,2,header=None)
     print(data)
+
+
+# ## 翻译单元格位置
+# 比如给定A1, 应返回R=1,C=1
+
+# In[103]:
+
+
+def col_to_num(col_str):
+    """ Convert base26 column string to number. """
+    expn = 0
+    col_num = 0
+    for char in reversed(col_str):
+        col_num += (ord(char) - ord('A') + 1) * (26 ** expn)
+        expn += 1
+
+    return col_num
+def cell2num(cellname):
+    col_letter="".join(re.findall('[A-Z][a-z]*',cellname))
+    col=col_to_num(col_letter)
+    row="".join(re.findall('[0-9]*',cellname))
+    return (row,col)
+    
+
+
+# In[108]:
+
+
+# 测试用, 测试开关使用and True: 
+if __name__=="__main__" and True:
+    (r,c)=cell2num('AA1')
+    print("({0},{1})".format(r,c))
+
+
+# ## 翻译单元格范围
+# 例如: A1..B5->[1,1,5,2]
+
+# In[113]:
+
+
+def cell_block(cell_string):
+    cell_name=re.split('\..',cell_string)
+    (r1,c1)=cell2num(cell_name[0])
+    (r2,c2)=cell2num(cell_name[1])
+    return(r1,c1,r2,c2)    
+
+
+# In[114]:
+
+
+(r1,c1,r2,c2)=cell_block('A1..B5')
+print("({0},{1},{2},{3})".format(r1,c1,r2,c2))
 
 
 # ## 读取 Sirius  角膜地形图
@@ -96,7 +151,7 @@ if __name__=="__main__" and True:
 def read_sirius(filepath_or_buffer,catalog):
     # based on Sirius CSV
     catalog_dict={
-        'Radii':                           {"skiprows":1, "nrows":1},
+        'Radii':                           [2,1,],
         'CornealThickness':                {"skiprows":3, "nrows":31},
         'ElevationAnterior':               {"skiprows":35, "nrows":31},
         'ElevationPosterior':              {"skiprows":67, "nrows":31},
