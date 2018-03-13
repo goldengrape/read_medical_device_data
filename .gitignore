@@ -6,6 +6,7 @@ __pycache__/
 # test data
 testdata/
 *.csv
+*.pdf
 
 # C extensions
 *.so
