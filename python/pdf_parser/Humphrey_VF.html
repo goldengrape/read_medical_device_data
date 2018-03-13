@@ -11795,6 +11795,7 @@ div#notebook {
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">input_path</span><span class="o">=</span><span class="s1">&#39;../../testdata/Humphrey&#39;</span>
     <span class="n">output_path</span><span class="o">=</span><span class="s2">&quot;../../testdata/Humphrey&quot;</span>
+<span class="c1">#     fname=&quot;右眼-sfa_zh.pdf&quot; # for test</span>
 </pre></div>
 
 </div>
@@ -11876,6 +11877,20 @@ div#notebook {
 </div>
 
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># if __name__==&quot;__main__&quot;:</span>
+<span class="c1">#     ori_df=pdfparser(input_path,fname)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
@@ -11887,7 +11902,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">check_eye</span><span class="p">(</span><span class="n">ori_df</span><span class="p">):</span>
@@ -11956,7 +11971,22 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># if __name__==&quot;__main__&quot;:</span>
+<span class="c1">#     print(check_eye(ori_df))</span>
+<span class="c1">#     print(get_version(ori_df))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_vf_data</span><span class="p">(</span><span class="n">ori_df</span><span class="p">):</span>
@@ -11966,9 +11996,29 @@ div#notebook {
         <span class="n">data_pos</span><span class="o">=</span><span class="n">ori_df</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">ori_df</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span><span class="o">==</span><span class="s2">&quot;30°&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">index</span>
         <span class="n">data</span><span class="o">=</span><span class="n">ori_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">data_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span><span class="n">data_pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
     <span class="k">elif</span> <span class="n">ver</span><span class="o">==</span><span class="s2">&quot;zh&quot;</span><span class="p">:</span>
-        <span class="n">data</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">ori_df</span><span class="p">[</span><span class="mi">25</span><span class="p">:</span><span class="mi">44</span><span class="p">],</span><span class="n">ori_df</span><span class="p">[</span><span class="mi">58</span><span class="p">:</span><span class="mi">145</span><span class="p">]])</span>
-        
+<span class="c1">#         data=pd.concat([ori_df[25:44],ori_df[58:145]])</span>
+        <span class="n">data</span><span class="o">=</span><span class="p">(</span><span class="n">ori_df</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">ori_df</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s2">&quot;(&lt;*\d+)$&quot;</span><span class="p">))</span> <span class="c1">#有&lt;0或者整数</span>
+                   <span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+<span class="c1">#                    .reset_index()</span>
+                   <span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">56</span><span class="p">,:])</span>
+        <span class="k">if</span> <span class="n">eye</span><span class="o">==</span><span class="s2">&quot;OD&quot;</span><span class="p">:</span> <span class="c1"># 右眼+中文的时候, 貌似把年龄数据混进来了</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">70</span><span class="p">,:]</span><span class="o">=</span><span class="s2">&quot;&quot;</span> <span class="c1"># 改法虽然难看, 但暂时可用</span>
+            
     <span class="k">return</span> <span class="n">reformat_vf_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">eye</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># if __name__==&quot;__main__&quot;:</span>
+<span class="c1">#     print(get_vf_data(ori_df))</span>
 </pre></div>
 
 </div>
@@ -11986,7 +12036,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_patient_info</span><span class="p">(</span><span class="n">ori_df</span><span class="p">):</span>
@@ -12012,6 +12062,20 @@ div#notebook {
 </div>
 
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># if __name__==&quot;__main__&quot;:</span>
+<span class="c1">#     print(get_patient_info(ori_df))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
@@ -12030,25 +12094,43 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_stat</span><span class="p">(</span><span class="n">ori_df</span><span class="p">):</span>
-    <span class="n">df</span><span class="o">=</span><span class="p">(</span><span class="n">ori_df</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span>
+    <span class="n">df1</span><span class="o">=</span><span class="p">(</span><span class="n">ori_df</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span>
      <span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">ori_df</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;%&#39;</span><span class="p">))</span>
      <span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
-     <span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span>
+     <span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+     <span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">&quot;(\d+)%&quot;</span><span class="p">)</span>
+     <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="mi">100</span><span class="p">)</span>
      <span class="p">)</span>
+    
+<span class="c1">#     df.iloc[0:3]=df.iloc[0:3].str.findall(&quot;(\d+)%&quot;).apply(lambda x:float(x[0])/100)</span>
+    
+    <span class="n">df2</span><span class="o">=</span><span class="p">(</span><span class="n">ori_df</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span>
+     <span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">ori_df</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;dB&#39;</span><span class="p">))</span>
+     <span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+     <span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">&quot;(\-*\d.*\d*)\sdB&quot;</span><span class="p">)</span>
+     <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+     <span class="p">)</span>
+    <span class="n">df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df1</span><span class="p">,</span><span class="n">df2</span><span class="p">])</span>
     <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;False POS Errors %&quot;</span><span class="p">,</span><span class="s2">&quot;False NEG Errors %&quot;</span><span class="p">,</span><span class="s2">&quot;VFI %&quot;</span><span class="p">,</span><span class="s2">&quot;MD&quot;</span><span class="p">,</span><span class="s2">&quot;PSD&quot;</span><span class="p">]</span>
-    
-    <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">&quot;(\d+)%&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="mi">100</span><span class="p">)</span>
-    
-    <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="s2">&quot;MD&quot;</span><span class="p">,</span> <span class="s2">&quot;PSD&quot;</span><span class="p">]]</span><span class="o">=</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="s2">&quot;MD&quot;</span><span class="p">,</span> <span class="s2">&quot;PSD&quot;</span><span class="p">]]</span>
-       <span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">&quot;(\-*\d.*\d*)(\sdB)&quot;</span><span class="p">)</span>
-       <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]))</span>
-                          <span class="p">)</span>
-<span class="c1">#     df=df.apply(float)</span>
     <span class="k">return</span> <span class="n">df</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># if __name__==&quot;__main__&quot;:</span>
+<span class="c1">#     print(get_stat(ori_df))</span>
 </pre></div>
 
 </div>
@@ -12066,7 +12148,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_out_name</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span><span class="n">fname</span><span class="p">,</span><span class="n">cat</span><span class="p">):</span>
@@ -12102,7 +12184,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">convert_folder</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span><span class="n">output_path</span><span class="p">):</span>
@@ -12121,7 +12203,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>    
@@ -12142,51 +12224,21 @@ div#notebook {
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Convert PDF file HFA右眼.pdf to CSV
+<pre>Convert PDF file LZB_OS-sfa(2).pdf to CSV
+done
+Convert PDF file humphrey2_zh.pdf to CSV
+done
+Convert PDF file HFA_zh.pdf to CSV
+done
+Convert PDF file LZB_OD-sfa(2).pdf to CSV
+done
+Convert PDF file 左眼-sfa_en.pdf to CSV
+done
+Convert PDF file 右眼-sfa_zh.pdf to CSV
+done
+Convert PDF file humphrey1_en.pdf to CSV
+done
 </pre>
-</div>
-</div>
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">ValueError</span>                                Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-10-a6a3db7f7455&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
-<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-green-fg">if</span> __name__<span class="ansi-blue-fg">==</span><span class="ansi-blue-fg">&#34;__main__&#34;</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">----&gt; 2</span><span class="ansi-red-fg">     </span>convert_folder<span class="ansi-blue-fg">(</span>input_path<span class="ansi-blue-fg">,</span>output_path<span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">&lt;ipython-input-9-d56caf771549&gt;</span> in <span class="ansi-cyan-fg">convert_folder</span><span class="ansi-blue-fg">(input_path, output_path)</span>
-<span class="ansi-green-intense-fg ansi-bold">      4</span>     <span class="ansi-green-fg">for</span> fname <span class="ansi-green-fg">in</span> pdffiles<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">      5</span>         print<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;Convert PDF file {} to CSV&#34;</span><span class="ansi-blue-fg">.</span>format<span class="ansi-blue-fg">(</span>fname<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-fg">----&gt; 6</span><span class="ansi-red-fg">         </span>save_to_csv<span class="ansi-blue-fg">(</span>input_path<span class="ansi-blue-fg">,</span>output_path<span class="ansi-blue-fg">,</span>fname<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      7</span>         print<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;done&#34;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      8</span> 
-
-<span class="ansi-green-fg">&lt;ipython-input-8-083a9cbff021&gt;</span> in <span class="ansi-cyan-fg">save_to_csv</span><span class="ansi-blue-fg">(input_path, output_path, fname)</span>
-<span class="ansi-green-intense-fg ansi-bold">      5</span>     ori_df<span class="ansi-blue-fg">=</span>pdfparser<span class="ansi-blue-fg">(</span>input_path<span class="ansi-blue-fg">,</span>fname<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      6</span> 
-<span class="ansi-green-fg">----&gt; 7</span><span class="ansi-red-fg">     </span>data<span class="ansi-blue-fg">=</span>get_vf_data<span class="ansi-blue-fg">(</span>ori_df<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      8</span>     data<span class="ansi-blue-fg">.</span>to_csv<span class="ansi-blue-fg">(</span>get_out_name<span class="ansi-blue-fg">(</span>output_path<span class="ansi-blue-fg">,</span>fname<span class="ansi-blue-fg">,</span><span class="ansi-blue-fg">&#34;data&#34;</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span>sep<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;,&#39;</span><span class="ansi-blue-fg">,</span>header<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">False</span><span class="ansi-blue-fg">,</span> index<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">False</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      9</span> 
-
-<span class="ansi-green-fg">&lt;ipython-input-5-3bcc2fb9693b&gt;</span> in <span class="ansi-cyan-fg">get_vf_data</span><span class="ansi-blue-fg">(ori_df)</span>
-<span class="ansi-green-intense-fg ansi-bold">      8</span>         data<span class="ansi-blue-fg">=</span>pd<span class="ansi-blue-fg">.</span>concat<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">[</span>ori_df<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">25</span><span class="ansi-blue-fg">:</span><span class="ansi-cyan-fg">44</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span>ori_df<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">58</span><span class="ansi-blue-fg">:</span><span class="ansi-cyan-fg">145</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      9</span> 
-<span class="ansi-green-fg">---&gt; 10</span><span class="ansi-red-fg">     </span><span class="ansi-green-fg">return</span> reformat_vf_data<span class="ansi-blue-fg">(</span>data<span class="ansi-blue-fg">,</span>eye<span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">&lt;ipython-input-4-4640064b21c1&gt;</span> in <span class="ansi-cyan-fg">reformat_vf_data</span><span class="ansi-blue-fg">(data, eye)</span>
-<span class="ansi-green-intense-fg ansi-bold">     53</span>     two_D_data<span class="ansi-blue-fg">=</span>np<span class="ansi-blue-fg">.</span>zeros<span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">72</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     54</span>     <span class="ansi-green-fg">for</span> i <span class="ansi-green-fg">in</span> range<span class="ansi-blue-fg">(</span>len<span class="ansi-blue-fg">(</span>index<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">---&gt; 55</span><span class="ansi-red-fg">         </span>two_D_data<span class="ansi-blue-fg">[</span>index<span class="ansi-blue-fg">[</span>i<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">=</span>data<span class="ansi-blue-fg">[</span>i<span class="ansi-blue-fg">]</span>
-<span class="ansi-green-intense-fg ansi-bold">     56</span>     df<span class="ansi-blue-fg">=</span>DataFrame<span class="ansi-blue-fg">(</span>two_D_data<span class="ansi-blue-fg">.</span>reshape<span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">9</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">8</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>T<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     57</span>     <span class="ansi-green-fg">return</span> df
-
-<span class="ansi-red-fg">ValueError</span>: could not convert string to float: &#39;0%&#39;</pre>
 </div>
 </div>
 

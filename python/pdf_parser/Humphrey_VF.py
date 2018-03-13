@@ -11,6 +11,7 @@
 if __name__=="__main__":
     input_path='../../testdata/Humphrey'
     output_path="../../testdata/Humphrey"
+#     fname="右眼-sfa_zh.pdf" # for test
 
 
 # ## 导入依赖包
@@ -61,11 +62,18 @@ def pdfparser(input_path,fname):
     return ori_df
 
 
+# In[4]:
+
+
+# if __name__=="__main__":
+#     ori_df=pdfparser(input_path,fname)
+
+
 # # 读取视野测量原始数据
 # 
 # 注意设定中英文和眼别
 
-# In[4]:
+# In[5]:
 
 
 def check_eye(ori_df):
@@ -127,7 +135,15 @@ def reformat_vf_data(data,eye):
     return df
 
 
-# In[5]:
+# In[6]:
+
+
+# if __name__=="__main__":
+#     print(check_eye(ori_df))
+#     print(get_version(ori_df))
+
+
+# In[7]:
 
 
 def get_vf_data(ori_df):
@@ -137,14 +153,27 @@ def get_vf_data(ori_df):
         data_pos=ori_df.where(ori_df["value"]=="30°").dropna().index
         data=ori_df.iloc[data_pos[0]+1:data_pos[1]]
     elif ver=="zh":
-        data=pd.concat([ori_df[25:44],ori_df[58:145]])
-        
+#         data=pd.concat([ori_df[25:44],ori_df[58:145]])
+        data=(ori_df.where(ori_df.value.str.match("(<*\d+)$")) #有<0或者整数
+                   .dropna()
+#                    .reset_index()
+                   .iloc[:56,:])
+        if eye=="OD": # 右眼+中文的时候, 貌似把年龄数据混进来了
+            data.loc[70,:]="" # 改法虽然难看, 但暂时可用
+            
     return reformat_vf_data(data,eye)
+
+
+# In[8]:
+
+
+# if __name__=="__main__":
+#     print(get_vf_data(ori_df))
 
 
 # # 读取病人信息
 
-# In[6]:
+# In[9]:
 
 
 def get_patient_info(ori_df):
@@ -165,6 +194,13 @@ def get_patient_info(ori_df):
     return df
 
 
+# In[10]:
+
+
+# if __name__=="__main__":
+#     print(get_patient_info(ori_df))
+
+
 # # 读取统计值
 # 
 # 包含
@@ -174,31 +210,42 @@ def get_patient_info(ori_df):
 # * MD
 # * PSD
 
-# In[7]:
+# In[11]:
 
 
 def get_stat(ori_df):
-    df=(ori_df['value']
+    df1=(ori_df['value']
      .where(ori_df['value'].str.contains('%'))
      .dropna()
-     .iloc[0:5]
+     .iloc[0:3]
+     .str.findall("(\d+)%")
+     .apply(lambda x:float(x[0])/100)
      )
+    
+#     df.iloc[0:3]=df.iloc[0:3].str.findall("(\d+)%").apply(lambda x:float(x[0])/100)
+    
+    df2=(ori_df['value']
+     .where(ori_df['value'].str.contains('dB'))
+     .dropna()
+     .str.findall("(\-*\d.*\d*)\sdB")
+     .apply(lambda x: float(x[0]))
+     )
+    df=pd.concat([df1,df2])
     df.index=["False POS Errors %","False NEG Errors %","VFI %","MD","PSD"]
-    
-    df.iloc[0:3]=df.iloc[0:3].str.findall("(\d+)%").apply(lambda x:float(x[0])/100)
-    
-    df.loc[["MD", "PSD"]]=(df.loc[["MD", "PSD"]]
-       .str.findall("(\-*\d.*\d*)(\sdB)")
-       .apply(lambda x: float(x[0][0]))
-                          )
-#     df=df.apply(float)
     return df
+
+
+# In[12]:
+
+
+# if __name__=="__main__":
+#     print(get_stat(ori_df))
 
 
 # # 保存数据
 # 
 
-# In[8]:
+# In[13]:
 
 
 def get_out_name(output_path,fname,cat):
@@ -221,7 +268,7 @@ def save_to_csv(input_path,output_path,fname):
 
 # # 处理目录
 
-# In[9]:
+# In[14]:
 
 
 def convert_folder(input_path,output_path):
@@ -234,7 +281,7 @@ def convert_folder(input_path,output_path):
 
 
 
-# In[10]:
+# In[15]:
 
 
 if __name__=="__main__":    
