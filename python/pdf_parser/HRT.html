@@ -11803,6 +11803,16 @@ div#notebook {
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>在使用notebook.azure.com在线运行时, 由于默认没有安装pdfminer.six这个包, 所以在首次运行时需要安装, 已经将安装代码加入到下面导入依赖包的代码内, 因此首次运行时速度会较慢.</p>
+<p>同时, 在使用notebook.azure.com在线运行时, 服务器端不会保存曾经安装过的包, 因此在1小时没有操作之后, 服务器会关闭, 再次打开时就已经丢失了之前安装的包, 相当于首次运行.</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[2]:</div>
@@ -11811,18 +11821,24 @@ div#notebook {
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">os.path</span>
-
-<span class="kn">from</span> <span class="nn">pdfminer.pdfinterp</span> <span class="k">import</span> <span class="n">PDFResourceManager</span><span class="p">,</span> <span class="n">PDFPageInterpreter</span>
-<span class="kn">from</span> <span class="nn">pdfminer.pdfpage</span> <span class="k">import</span> <span class="n">PDFPage</span>
-<span class="kn">from</span> <span class="nn">pdfminer.converter</span> <span class="k">import</span> <span class="n">XMLConverter</span><span class="p">,</span> <span class="n">HTMLConverter</span><span class="p">,</span> <span class="n">TextConverter</span>
-<span class="kn">from</span> <span class="nn">pdfminer.layout</span> <span class="k">import</span> <span class="n">LAParams</span>
 <span class="kn">import</span> <span class="nn">io</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">Series</span><span class="p">,</span><span class="n">DataFrame</span>
-
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">reduce</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">pdfminer.pdfinterp</span> <span class="k">import</span> <span class="n">PDFResourceManager</span><span class="p">,</span> <span class="n">PDFPageInterpreter</span>
+    <span class="kn">from</span> <span class="nn">pdfminer.pdfpage</span> <span class="k">import</span> <span class="n">PDFPage</span>
+    <span class="kn">from</span> <span class="nn">pdfminer.converter</span> <span class="k">import</span> <span class="n">XMLConverter</span><span class="p">,</span> <span class="n">HTMLConverter</span><span class="p">,</span> <span class="n">TextConverter</span>
+    <span class="kn">from</span> <span class="nn">pdfminer.layout</span> <span class="k">import</span> <span class="n">LAParams</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="o">!</span>conda install pdfminer.six --yes
+    <span class="kn">from</span> <span class="nn">pdfminer.pdfinterp</span> <span class="k">import</span> <span class="n">PDFResourceManager</span><span class="p">,</span> <span class="n">PDFPageInterpreter</span>
+    <span class="kn">from</span> <span class="nn">pdfminer.pdfpage</span> <span class="k">import</span> <span class="n">PDFPage</span>
+    <span class="kn">from</span> <span class="nn">pdfminer.converter</span> <span class="k">import</span> <span class="n">XMLConverter</span><span class="p">,</span> <span class="n">HTMLConverter</span><span class="p">,</span> <span class="n">TextConverter</span>
+    <span class="kn">from</span> <span class="nn">pdfminer.layout</span> <span class="k">import</span> <span class="n">LAParams</span>
 </pre></div>
 
 </div>
