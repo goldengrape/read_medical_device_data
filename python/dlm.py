@@ -27,8 +27,15 @@ def col2num(col_str):
     return col_num
 def cell2num(cellname):
     col_letter="".join(re.findall('[A-Z][a-z]*',cellname))
-    col=int(col2num(col_letter))
-    row=int("".join(re.findall('[0-9]*',cellname)))
+    # 也可以不给出具体的终止位置, 这样将处理成整列读取
+    try:
+        col=int(col2num(col_letter))
+    except:
+        col=None
+    try:
+        row=int("".join(re.findall('[0-9]*',cellname)))
+    except:
+        row=None
     return (row,col)
 
 
@@ -45,6 +52,12 @@ def cellblock2num(cell_string):
     return(r1,c1,r2,c2)   
 
 
+# In[4]:
+
+
+cellblock2num("A1..")
+
+
 # ## 构造dlmread
 # 仿照MatLab里面的dlmread
 # ```matlab
@@ -52,13 +65,20 @@ def cellblock2num(cell_string):
 # ```
 # 注意其中行列数字按照excel表格中的形式写, 首行=1, 首列=1. 否则一个大的表格数起来太麻烦了. 
 
-# In[4]:
+# In[16]:
 
 
 def dlmread(filename,delimiter,cell_block,header=None):
     (R1,C1,R2,C2)=cellblock2num(cell_block)
-    s=range(R1-1)
-    n=R2-R1+1
+    # 也可以不给出具体的终止位置, 这样将处理成整列读取
+    try:
+        s=range(R1-1)
+    except:
+        s=None
+    try: 
+        n=R2-R1+1
+    except:
+        n=None
     cols=range(C1-1,C2)
     data=pd.read_csv(filename,
                      sep=delimiter,
@@ -70,7 +90,7 @@ def dlmread(filename,delimiter,cell_block,header=None):
     return data
 
 
-# In[5]:
+# In[19]:
 
 
 # 测试用, 测试开关使用and True: 
@@ -80,15 +100,11 @@ if __name__=="__main__" and True:
     fname='standard.csv'
     filename=os.path.join(fpath,fname)
     standard_data=pd.read_csv(filename,header=None,sep=';')
-    data=dlmread(filename,';',"B1..C4",header=None)
+#     data=dlmread(filename,';',"B1..C4",header=None)
+    data=dlmread(filename,';',"B3..B",header=None)     # 也可以不给出具体的终止位置, 这样将处理成整列读取
+
     print("原始表格")
     print(standard_data)
     print("部分读取")
     print(data)
-
-
-# In[ ]:
-
-
-
 

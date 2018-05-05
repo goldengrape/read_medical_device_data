@@ -45,9 +45,3 @@ if __name__=="__main__" and True:
     data=read_medical_data(datafilename,catalog,jsonfilename)
     print(data)
 
-
-# In[ ]:
-
-
-
-
