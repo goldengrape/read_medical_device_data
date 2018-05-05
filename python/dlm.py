@@ -65,7 +65,7 @@ cellblock2num("A1..")
 # ```
 # 注意其中行列数字按照excel表格中的形式写, 首行=1, 首列=1. 否则一个大的表格数起来太麻烦了. 
 
-# In[16]:
+# In[5]:
 
 
 def dlmread(filename,delimiter,cell_block,header=None):
@@ -85,12 +85,13 @@ def dlmread(filename,delimiter,cell_block,header=None):
                      skiprows=s,
                      nrows=n,
                      header=header,
-                     usecols=cols
+                     usecols=cols,
+                     memory_map=True
                     )
     return data
 
 
-# In[19]:
+# In[6]:
 
 
 # 测试用, 测试开关使用and True: 

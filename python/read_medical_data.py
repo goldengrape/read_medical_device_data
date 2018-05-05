@@ -3,7 +3,7 @@
 
 # # 通用读取函数
 
-# In[16]:
+# In[9]:
 
 
 import pandas as pd
@@ -12,7 +12,7 @@ import os
 from dlm import dlmread
 
 
-# In[19]:
+# In[12]:
 
 
 def read_medical_data(data_file,catalog,json_data_file):
@@ -24,11 +24,18 @@ def read_medical_data(data_file,catalog,json_data_file):
     '''
     
     catalog_dict= pd.read_json(json_data_file,typ = 'series')
-    data=dlmread(data_file,';',catalog_dict[catalog])
+    if type(catalog)==str:
+        if catalog.lower() != "all":
+            data=dlmread(data_file,';',catalog_dict[catalog])
+        elif catalog.lower() == "all":
+            catalog=catalog_dict.keys()
+            data={cat:dlmread(data_file,';',catalog_dict[cat]) for cat in catalog}
+    elif type(catalog)==list:
+        data={cat:dlmread(data_file,';',catalog_dict[cat]) for cat in catalog}
     return data
 
 
-# In[20]:
+# In[15]:
 
 
 # 测试用: 
@@ -36,7 +43,8 @@ if __name__=="__main__" and True:
     dpath=os.path.join('..','testdata')
     dname='sirius.csv'
     datafilename=os.path.join(dpath,dname)
-    catalog='CornealThickness'
+#     catalog='CornealThickness'
+    catalog=["TangentialAnterior","TangentialPosterior"]
     
     jpath=os.path.join("..","medical_device_data")
     jname="sirius.json"
