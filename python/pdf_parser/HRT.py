@@ -232,9 +232,3 @@ def convert_folder(input_path,output_path):
 if __name__=="__main__":
     convert_folder(input_path,output_path)
 
-
-# In[ ]:
-
-
-
-

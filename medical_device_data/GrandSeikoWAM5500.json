@@ -1,5 +1,5 @@
 {   "sep":",",
-    "catalog":
+    "category":
         {"time": {"location":"A2..A","dtype":"second"},
          "eye":  {"location":"B2..B","dtype":"category"},
          "target":{"location":"C2..C","dtype":"boolean"},

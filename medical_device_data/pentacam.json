@@ -1,5 +1,5 @@
 {   "sep":";",
-    "catalog":
+    "category":
     {
         "FRONT":{"location":"B2..EL142","dtype":"numeric"},
         "BACK":{"location":"B144..EL284","dtype":"numeric"},

@@ -52,12 +52,6 @@ def cellblock2num(cell_string):
     return(r1,c1,r2,c2)   
 
 
-# In[10]:
-
-
-cellblock2num("A1..")
-
-
 # ## 构造dlmread
 # 仿照MatLab里面的dlmread
 # ```matlab
@@ -98,23 +92,10 @@ def dlmread(filename,delimiter, cell_block,header=None): #
 # In[ ]:
 
 
-def dlmread_df(df, cell_block,dtype): # 
+def dlmread_df(df, cell_block,dtype):  
+    # 已经载入DataFrame时, 读取其中的区域块, 并转换成相应的数据格式
     (R1,C1,R2,C2)=cellblock2num(cell_block)
-    # 也可以不给出具体的终止位置, 这样将处理成整列读取
-#     try:
-#         R2=R2+1
-#     except:
-#         R2=None
-#     try:
-#         C2=C2+1
-#     except:
-#         C2=None
-
-    data = df.iloc[R1-1:R2,C1-1:C2]#.values
-#     try:
-#         data=pd.to_numeric(data.str.strip())
-#     except:
-#         pass
+    data = df.iloc[R1-1:R2,C1-1:C2]
     if dtype=="numeric":
         for col in data:
             data[col]=pd.to_numeric(data[col],errors='coerce')
@@ -127,8 +108,6 @@ def dlmread_df(df, cell_block,dtype): #
     else:
         for col in data:
             data[col]=data[col].astype(dtype="str").str.strip()
-
-    
     return data
 
 
@@ -149,11 +128,4 @@ if __name__=="__main__" and True:
     print(standard_data)
     print("部分读取")
     print(data)
-
-
-# In[32]:
-
-
-data=dlmread("../testdata/WAM5500.csv",",","A2..B")
-data
 

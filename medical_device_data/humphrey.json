@@ -1,0 +1,14 @@
+{   "sep":",",
+    "category":
+    {
+        "DOB":{"location":"C2..C2","dtype":"datetime"},
+        "eye":{"location":"C5..C5","dtype":"category"},
+        "date":{"location":"C6..C6","dtype":"datetime"},
+        "False POS Errors":{"location":"D7..D7","dtype":"numeric"},
+        "False NEG Errors":{"location":"D8..D8","dtype":"numeric"},
+        "VFI":{"location":"D9..D9","dtype":"numeric"},
+        "MD":{"location":"D10..D10","dtype":"numeric"},
+        "PSD":{"location":"D11..D11","dtype":"numeric"},
+        "data":{"location":"D12..L19","dtype":"numeric"}
+        }
+}

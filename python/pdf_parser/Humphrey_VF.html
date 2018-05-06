@@ -12182,6 +12182,9 @@ div#notebook {
     <span class="n">stat</span><span class="o">=</span><span class="n">get_stat</span><span class="p">(</span><span class="n">ori_df</span><span class="p">)</span>
     <span class="n">stat</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">get_out_name</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span><span class="n">fname</span><span class="p">,</span><span class="s2">&quot;statistics&quot;</span><span class="p">),</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     
+    <span class="n">together</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">patient_info</span><span class="p">,</span><span class="n">stat</span><span class="p">,</span><span class="n">data</span><span class="p">])</span>
+    <span class="n">together</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">get_out_name</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span><span class="n">fname</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">),</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
     <span class="k">return</span> <span class="kc">True</span>
 </pre></div>
 
@@ -12241,7 +12244,29 @@ div#notebook {
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Convert PDF file LZB_OS-sfa(2).pdf to CSV
-done
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/Users/goldengrape/anaconda3/envs/blog/lib/python3.5/site-packages/pandas/core/indexes/api.py:87: RuntimeWarning: unorderable types: str() &lt; int(), sort order is undefined for incomparable objects
+  result = result.union(other)
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>done
 Convert PDF file humphrey2_zh.pdf to CSV
 done
 Convert PDF file HFA_zh.pdf to CSV
@@ -12258,19 +12283,6 @@ done
 </div>
 </div>
 
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-</div>
 </div>
 </div>
 

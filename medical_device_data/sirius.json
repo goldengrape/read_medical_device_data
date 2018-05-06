@@ -1,5 +1,5 @@
 {   "sep":";",
-    "catalog":{
+    "category":{
             "Radii":{"location":"A2..AE2","dtype":"numeric"},
             "CornealThickness":{"location":"A4..IV34","dtype":"numeric"},
             "ElevationAnterior":{"location":"A36..IV66","dtype":"numeric"},

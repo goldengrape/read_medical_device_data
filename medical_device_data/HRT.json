@@ -1,0 +1,12 @@
+{   "sep":",",
+    "category":
+    {
+        "DOB":{"location":"B3..B3","dtype":"Chinese_datetime"},
+        "sex":{"location":"B4..B4","dtype":"category"},
+        "date":{"location":"B6..B6","dtype":"Chinese_datetime"},
+        "OS_data":{"location":"B10..B29","dtype":"numeric"},
+        "OD_data":{"location":"B30..B49","dtype":"numeric"},
+        "Asymmetry_data":{"location":"B50..B60","dtype":"numeric"},
+        "classifiction":{"location":"B61..B62","dtype":"category"}
+        }
+}

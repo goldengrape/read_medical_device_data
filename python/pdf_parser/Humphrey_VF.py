@@ -273,6 +273,9 @@ def save_to_csv(input_path,output_path,fname):
     stat=get_stat(ori_df)
     stat.to_csv(get_out_name(output_path,fname,"statistics"),sep=',',header=False)
     
+    together=pd.concat([patient_info,stat,data])
+    together.to_csv(get_out_name(output_path,fname,""),sep=',',header=False)
+
     return True
 
 
@@ -296,10 +299,4 @@ def convert_folder(input_path,output_path):
 
 if __name__=="__main__":    
     convert_folder(input_path,output_path)
-
-
-# In[ ]:
-
-
-
 
