@@ -1,9 +1,14 @@
-{"FRONT":"B2..EL142",
-"BACK":"B144..EL284",
-"Cornea":"B313..B317",
-"Pachy":"B318..B321",
-"Chamber":"B322..B323",
-"K":"B327..B329",
-"Pupil":"B332..B334",
-"X":"A337..A592",
-"Y":"B337..B592"}
+{   "sep":";",
+    "catalog":
+    {
+        "FRONT":{"location":"B2..EL142","dtype":"numeric"},
+        "BACK":{"location":"B144..EL284","dtype":"numeric"},
+        "Cornea":{"location":"B313..B317","dtype":"numeric"},
+        "Pachy":{"location":"B318..B321","dtype":"numeric"},
+        "Chamber":{"location":"B322..B323","dtype":"numeric"},
+        "K":{"location":"B327..B329","dtype":"numeric"},
+        "Pupil":{"location":"B332..B334","dtype":"numeric"},
+        "X":{"location":"A337..A592","dtype":"numeric"},
+        "Y":{"location":"B337..B592","dtype":"numeric"}
+    }
+}

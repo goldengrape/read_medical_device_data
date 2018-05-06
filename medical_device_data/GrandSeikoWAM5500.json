@@ -1,8 +1,11 @@
-{"time": "A2..A",
- "eye":  "B2..B",
- "target":"C2..C",
- "power": "D2..D",
- "pupil": "E2..E",
- "date": "C1..C1",
- "start_time":"D1..D1"
+{   "sep":",",
+    "catalog":
+        {"time": {"location":"A2..A","dtype":"second"},
+         "eye":  {"location":"B2..B","dtype":"category"},
+         "target":{"location":"C2..C","dtype":"boolean"},
+         "power": {"location":"D2..D","dtype":"numeric"},
+         "pupil": {"location":"E2..E","dtype":"numeric"},
+         "date": {"location":"C1..C1","dtype":"datetime"},
+         "start_time":{"location":"D1..D1","dtype":"datetime"}
+        }
 }

@@ -1,11 +1,15 @@
-{"Radii":"A2..AE2",
-"CornealThickness":"A4..IV34",
-"ElevationAnterior":"A36..IV66",
-"ElevationPosterior":"A68..IV98",
-"RefractiveEquivalentPower":"A100..IV130",
-"RefractiveFrontalPowerAnterior":"A132..IV162",
-"RefractiveFrontalPowerPosterior":"A164..IV194",
-"SagittalAnterior":"A196..IV226",
-"SagittalPosterior":"A228..IV258",
-"TangentialAnterior":"A260..IV290",
-"TangentialPosterior":"A292..IV322"}
+{   "sep":";",
+    "catalog":{
+            "Radii":{"location":"A2..AE2","dtype":"numeric"},
+            "CornealThickness":{"location":"A4..IV34","dtype":"numeric"},
+            "ElevationAnterior":{"location":"A36..IV66","dtype":"numeric"},
+            "ElevationPosterior":{"location":"A68..IV98","dtype":"numeric"},
+            "RefractiveEquivalentPower":{"location":"A100..IV130","dtype":"numeric"},
+            "RefractiveFrontalPowerAnterior":{"location":"A132..IV162","dtype":"numeric"},
+            "RefractiveFrontalPowerPosterior":{"location":"A164..IV194","dtype":"numeric"},
+            "SagittalAnterior":{"location":"A196..IV226","dtype":"numeric"},
+            "SagittalPosterior":{"location":"A228..IV258","dtype":"numeric"},
+            "TangentialAnterior":{"location":"A260..IV290","dtype":"numeric"},
+            "TangentialPosterior":{"location":"A292..IV322","dtype":"numeric"}
+        }
+}
