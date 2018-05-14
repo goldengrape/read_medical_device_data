@@ -11862,6 +11862,42 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">read_medical_data_one_by_one</span><span class="p">(</span><span class="n">data_file</span><span class="p">,</span><span class="n">catalog</span><span class="p">,</span><span class="n">json_data_file</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    从datafile中读取category所定义的数据块, 以pandas DataFrame的格式返回数据. </span>
+<span class="sd">    - datafile: 需要读取的数据文件, 例如&quot;病人ID.csv&quot;</span>
+<span class="sd">    - category:  需要读取的数据块类型, 例如角膜地形图前表面数据&quot;FRONT&quot;</span>
+<span class="sd">    - jsondatafile: 用于描述设备文件的json文件, 规定了每个类型所对应的数据块</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    
+    <span class="n">catalog_dict</span><span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="n">json_data_file</span><span class="p">,</span><span class="n">typ</span> <span class="o">=</span> <span class="s1">&#39;series&#39;</span><span class="p">)</span>
+    <span class="n">data</span><span class="o">=</span><span class="p">[]</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">data_file</span><span class="p">,</span><span class="s1">&#39;rt&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span> 
+<span class="c1">#     if True:</span>
+<span class="c1">#         f=data_file</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">catalog</span><span class="p">)</span><span class="o">==</span><span class="nb">str</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">catalog</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">!=</span> <span class="s2">&quot;all&quot;</span><span class="p">:</span>
+                <span class="n">data</span><span class="o">=</span><span class="n">dlmread</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="s1">&#39;;&#39;</span><span class="p">,</span><span class="n">catalog_dict</span><span class="p">[</span><span class="n">catalog</span><span class="p">])</span>
+            <span class="k">elif</span> <span class="n">catalog</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;all&quot;</span><span class="p">:</span>
+                <span class="n">catalog</span><span class="o">=</span><span class="n">catalog_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+                <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="n">cat</span><span class="p">:</span><span class="n">dlmread</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="s1">&#39;;&#39;</span><span class="p">,</span><span class="n">catalog_dict</span><span class="p">[</span><span class="n">cat</span><span class="p">])</span> <span class="k">for</span> <span class="n">cat</span> <span class="ow">in</span> <span class="n">catalog</span><span class="p">}</span>
+<span class="c1">#         elif type(catalog)==list:</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;list!&quot;</span><span class="p">)</span>
+            <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="n">cat</span><span class="p">:</span><span class="n">dlmread</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="s1">&#39;;&#39;</span><span class="p">,</span><span class="n">catalog_dict</span><span class="p">[</span><span class="n">cat</span><span class="p">])</span> <span class="k">for</span> <span class="n">cat</span> <span class="ow">in</span> <span class="n">catalog</span><span class="p">}</span>
+    <span class="k">return</span> <span class="n">data</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">read_medical_data</span><span class="p">(</span><span class="n">data_file</span><span class="p">,</span><span class="n">category</span><span class="p">,</span><span class="n">json_data_file</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    从datafile中读取category所定义的数据块, 以pandas DataFrame的格式返回数据. </span>
@@ -11879,8 +11915,10 @@ div#notebook {
         <span class="k">elif</span> <span class="n">category</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;all&quot;</span><span class="p">:</span> <span class="c1"># 如果是all, 要提取所有类别</span>
             <span class="n">category</span><span class="o">=</span><span class="n">category_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
             <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="n">cat</span><span class="p">:</span><span class="n">dlmread_df</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">category_dict</span><span class="p">[</span><span class="n">cat</span><span class="p">][</span><span class="s2">&quot;location&quot;</span><span class="p">],</span><span class="n">category_dict</span><span class="p">[</span><span class="n">cat</span><span class="p">][</span><span class="s2">&quot;dtype&quot;</span><span class="p">])</span> <span class="k">for</span> <span class="n">cat</span> <span class="ow">in</span> <span class="n">category</span><span class="p">}</span>
-        <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">category</span><span class="p">)</span><span class="o">==</span><span class="nb">list</span><span class="p">:</span> 
-            <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="n">cat</span><span class="p">:</span><span class="n">dlmread_df</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">category_dict</span><span class="p">[</span><span class="n">cat</span><span class="p">][</span><span class="s2">&quot;location&quot;</span><span class="p">],</span><span class="n">category_dict</span><span class="p">[</span><span class="n">cat</span><span class="p">][</span><span class="s2">&quot;dtype&quot;</span><span class="p">])</span> <span class="k">for</span> <span class="n">cat</span> <span class="ow">in</span> <span class="n">category</span><span class="p">}</span>
+    <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">category</span><span class="p">)</span><span class="o">==</span><span class="nb">list</span><span class="p">:</span> 
+<span class="c1">#     else:</span>
+        <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="n">cat</span><span class="p">:</span><span class="n">dlmread_df</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">category_dict</span><span class="p">[</span><span class="n">cat</span><span class="p">][</span><span class="s2">&quot;location&quot;</span><span class="p">],</span><span class="n">category_dict</span><span class="p">[</span><span class="n">cat</span><span class="p">][</span><span class="s2">&quot;dtype&quot;</span><span class="p">])</span> 
+              <span class="k">for</span> <span class="n">cat</span> <span class="ow">in</span> <span class="n">category</span> <span class="p">}</span>
     <span class="k">return</span> <span class="n">data</span>
     
 </pre></div>
@@ -11892,99 +11930,247 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">read_medical_data_one_by_one</span><span class="p">(</span><span class="n">data_file</span><span class="p">,</span><span class="n">catalog</span><span class="p">,</span><span class="n">json_data_file</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    从datafile中读取category所定义的数据块, 以pandas DataFrame的格式返回数据. </span>
-<span class="sd">    - datafile: 需要读取的数据文件, 例如&quot;病人ID.csv&quot;</span>
-<span class="sd">    - category:  需要读取的数据块类型, 例如角膜地形图前表面数据&quot;FRONT&quot;</span>
-<span class="sd">    - jsondatafile: 用于描述设备文件的json文件, 规定了每个类型所对应的数据块</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-    
-    <span class="n">catalog_dict</span><span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="n">json_data_file</span><span class="p">,</span><span class="n">typ</span> <span class="o">=</span> <span class="s1">&#39;series&#39;</span><span class="p">)</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">data_file</span><span class="p">,</span><span class="s1">&#39;rt&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span> 
-<span class="c1">#     if True:</span>
-<span class="c1">#         f=data_file</span>
-        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">catalog</span><span class="p">)</span><span class="o">==</span><span class="nb">str</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">catalog</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">!=</span> <span class="s2">&quot;all&quot;</span><span class="p">:</span>
-                <span class="n">data</span><span class="o">=</span><span class="n">dlmread</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="s1">&#39;;&#39;</span><span class="p">,</span><span class="n">catalog_dict</span><span class="p">[</span><span class="n">catalog</span><span class="p">])</span>
-            <span class="k">elif</span> <span class="n">catalog</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;all&quot;</span><span class="p">:</span>
-                <span class="n">catalog</span><span class="o">=</span><span class="n">catalog_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
-                <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="n">cat</span><span class="p">:</span><span class="n">dlmread</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="s1">&#39;;&#39;</span><span class="p">,</span><span class="n">catalog_dict</span><span class="p">[</span><span class="n">cat</span><span class="p">])</span> <span class="k">for</span> <span class="n">cat</span> <span class="ow">in</span> <span class="n">catalog</span><span class="p">}</span>
-        <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">catalog</span><span class="p">)</span><span class="o">==</span><span class="nb">list</span><span class="p">:</span>
-            <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="n">cat</span><span class="p">:</span><span class="n">dlmread</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="s1">&#39;;&#39;</span><span class="p">,</span><span class="n">catalog_dict</span><span class="p">[</span><span class="n">cat</span><span class="p">])</span> <span class="k">for</span> <span class="n">cat</span> <span class="ow">in</span> <span class="n">catalog</span><span class="p">}</span>
-    <span class="k">return</span> <span class="n">data</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 测试用: </span>
 <span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span> <span class="ow">and</span> <span class="kc">True</span><span class="p">:</span>
-    <span class="n">dpath</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span><span class="s1">&#39;testdata&#39;</span><span class="p">,</span><span class="s2">&quot;HRT&quot;</span><span class="p">,</span><span class="s2">&quot;csv&quot;</span><span class="p">)</span>
-    <span class="n">dname</span><span class="o">=</span><span class="s1">&#39;HRT.csv&#39;</span>
+    <span class="n">dpath</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span><span class="s1">&#39;testdata&#39;</span><span class="p">)</span>
+    <span class="n">dname</span><span class="o">=</span><span class="s1">&#39;HRT001.csv&#39;</span>
 
     <span class="n">datafilename</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dpath</span><span class="p">,</span><span class="n">dname</span><span class="p">)</span>
 
 <span class="c1">#     category=&#39;CornealThickness&#39;</span>
 <span class="c1">#     category=[&quot;TangentialAnterior&quot;,&quot;TangentialPosterior&quot;]</span>
-    <span class="n">category</span><span class="o">=</span><span class="s1">&#39;all&#39;</span>
+    <span class="n">category</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;DOB&#39;</span><span class="p">,</span> <span class="s1">&#39;sex&#39;</span><span class="p">,</span> <span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="s1">&#39;Asymmetry_data&#39;</span><span class="p">]</span>
     
     <span class="n">jpath</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;..&quot;</span><span class="p">,</span><span class="s2">&quot;medical_device_data&quot;</span><span class="p">)</span>
     <span class="n">jname</span><span class="o">=</span><span class="s2">&quot;HRT.json&quot;</span>
     <span class="n">jsonfilename</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">jpath</span><span class="p">,</span><span class="n">jname</span><span class="p">)</span>
     <span class="n">data</span><span class="o">=</span><span class="n">read_medical_data</span><span class="p">(</span><span class="n">datafilename</span><span class="p">,</span><span class="n">category</span><span class="p">,</span><span class="n">jsonfilename</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;OS_data&quot;</span><span class="p">])</span>
+<span class="c1">#     print(data[&quot;OS_data&quot;])</span>
 </pre></div>
 
 </div>
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>        1
-9    -2.6
-10    5.0
-11  104.0
-12  236.0
-13  138.0
-14  113.0
-15  148.0
-16   97.0
-17  104.0
-18   76.0
-19  110.0
-20  136.0
-21  172.0
-22  144.0
-23  236.0
-24   72.0
-25  166.0
-26  102.0
-27   54.0
-28  106.0
-</pre>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="&#26681;&#25454;&#20998;&#31867;&#25991;&#20214;&#35835;&#21462;&#25968;&#25454;&#25991;&#20214;&#24207;&#21015;">&#26681;&#25454;&#20998;&#31867;&#25991;&#20214;&#35835;&#21462;&#25968;&#25454;&#25991;&#20214;&#24207;&#21015;<a class="anchor-link" href="#&#26681;&#25454;&#20998;&#31867;&#25991;&#20214;&#35835;&#21462;&#25968;&#25454;&#25991;&#20214;&#24207;&#21015;">&#182;</a></h1>
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>分类文件class.csv: </li>
+</ul>
+<table>
+<thead><tr>
+<th style="text-align:left">class</th>
+<th style="text-align:left">HRT</th>
+<th style="text-align:left">humphrey</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">OS_glaucoma</td>
+<td style="text-align:left">HRT001.csv</td>
+<td style="text-align:left">HFA001.csv</td>
+</tr>
+<tr>
+<td style="text-align:left">OD_glaucoma</td>
+<td style="text-align:left">HRT002.csv</td>
+<td style="text-align:left">HFA002.csv</td>
+</tr>
+<tr>
+<td style="text-align:left">OS_normal</td>
+<td style="text-align:left">HRT003.csv</td>
+<td style="text-align:left">HFA003.csv</td>
+</tr>
+<tr>
+<td style="text-align:left">OD_normal</td>
+<td style="text-align:left">HRT004.csv</td>
+<td style="text-align:left">HFA004.csv</td>
+</tr>
+</tbody>
+</table>
+<p>第一列说明分类, 可以是数字或字符, 可以有多个类别</p>
+<p>之后的列是不同检查的设备名称和文件列表. 设备仅支持带有json文件说明的</p>
 
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>数据类别选取文件analysis_catagory.csv, </li>
+</ul>
+<p>需要用户手动编辑, 首行说明检查的设备, 每一列说明从每个检查设备数据文件提取的数据类别.</p>
+<table>
+<thead><tr>
+<th style="text-align:left">HRT</th>
+<th style="text-align:left">humphrey</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">DOB</td>
+<td style="text-align:left">DOB</td>
+</tr>
+<tr>
+<td style="text-align:left">sex</td>
+<td style="text-align:left">MD</td>
+</tr>
+<tr>
+<td style="text-align:left">date</td>
+<td style="text-align:left">data</td>
+</tr>
+<tr>
+<td style="text-align:left">Asymmetry_data</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>JSON字典: 
+每种设备的JSON说明文件所在的位置</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_class_and_category_df</span><span class="p">(</span><span class="n">class_path</span><span class="p">,</span><span class="n">class_fname</span><span class="p">,</span><span class="n">category_path</span><span class="p">,</span><span class="n">category_fname</span><span class="p">,</span><span class="n">jpath</span><span class="p">):</span>
+    <span class="c1">#读取分类文件</span>
+<span class="c1">#     class_path=os.path.join(&#39;..&#39;,&#39;testdata&#39;)</span>
+<span class="c1">#     class_fname=&quot;class.csv&quot;</span>
+    <span class="n">classfilename</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">class_path</span><span class="p">,</span><span class="n">class_fname</span><span class="p">)</span>
+    <span class="n">class_df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">classfilename</span><span class="p">)</span>
+
+    <span class="c1"># 读取数据类别选取文件</span>
+<span class="c1">#     category_path=class_path</span>
+<span class="c1">#     category_fname=&quot;analysis_category.csv&quot;</span>
+    <span class="n">category_filename</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">category_path</span><span class="p">,</span><span class="n">category_fname</span><span class="p">)</span>
+    <span class="n">category_df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">category_filename</span><span class="p">)</span>
+
+    <span class="c1"># jsonfile_dict:</span>
+<span class="c1">#     jpath=os.path.join(&quot;..&quot;,&quot;medical_device_data&quot;)</span>
+    <span class="n">jname_dict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;HRT&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">jpath</span><span class="p">,</span><span class="s2">&quot;HRT.json&quot;</span><span class="p">),</span>
+                <span class="s2">&quot;humphrey&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">jpath</span><span class="p">,</span><span class="s2">&quot;humphrey.json&quot;</span><span class="p">),</span>
+                <span class="s2">&quot;GrandSeikoWAM5500&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">jpath</span><span class="p">,</span><span class="s2">&quot;GrandSeikoWAM5500.json&quot;</span><span class="p">),</span>
+                <span class="s2">&quot;pentacam&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">jpath</span><span class="p">,</span><span class="s2">&quot;pentacam.json&quot;</span><span class="p">),</span>
+                <span class="s2">&quot;sirius&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">jpath</span><span class="p">,</span><span class="s2">&quot;sirius.json&quot;</span><span class="p">)</span>
+               <span class="p">}</span>
+    <span class="k">return</span> <span class="n">class_df</span><span class="p">,</span><span class="n">category_df</span><span class="p">,</span><span class="n">jname_dict</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="&#23637;&#24320;&#25968;&#25454;">&#23637;&#24320;&#25968;&#25454;<a class="anchor-link" href="#&#23637;&#24320;&#25968;&#25454;">&#182;</a></h2><p>每个数据应当展开成一列</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">flatten_data</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">data_list</span><span class="o">=</span><span class="p">[]</span>
+    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="n">data_list</span><span class="o">+=</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">data_list</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="&#21462;&#24471;&#25968;&#25454;&#38598;">&#21462;&#24471;&#25968;&#25454;&#38598;<a class="anchor-link" href="#&#21462;&#24471;&#25968;&#25454;&#38598;">&#182;</a></h2><p>数据集包括两部分, X和Y.</p>
+<ul>
+<li>Y是标签数据, 也就是class.csv中class的那一列数据. </li>
+<li>X是每个数据文件中蕴含的所有数据, 排成一列. </li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_data</span><span class="p">(</span><span class="n">class_path</span><span class="p">,</span><span class="n">class_fname</span><span class="p">,</span><span class="n">category_path</span><span class="p">,</span><span class="n">category_fname</span><span class="p">,</span><span class="n">jpath</span><span class="p">):</span>
+    <span class="n">class_df</span><span class="p">,</span><span class="n">category_df</span><span class="p">,</span><span class="n">jname_dict</span><span class="o">=</span> <span class="n">get_class_and_category_df</span><span class="p">(</span><span class="n">class_path</span><span class="p">,</span><span class="n">class_fname</span><span class="p">,</span><span class="n">category_path</span><span class="p">,</span><span class="n">category_fname</span><span class="p">,</span><span class="n">jpath</span><span class="p">)</span>
+    <span class="n">machine_list</span><span class="o">=</span><span class="n">class_df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+    <span class="n">X_data</span><span class="o">=</span><span class="p">[]</span>
+    <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">class_df</span><span class="p">)):</span>
+<span class="c1">#         class_data=class_df.loc[idx,&quot;class&quot;]</span>
+        <span class="n">row_data</span><span class="o">=</span><span class="p">[]</span>
+        <span class="k">for</span> <span class="n">machine</span> <span class="ow">in</span> <span class="n">machine_list</span><span class="p">:</span>
+        <span class="c1"># machine=&quot;HRT&quot;</span>
+            <span class="n">dname</span><span class="o">=</span><span class="n">class_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span><span class="n">machine</span><span class="p">]</span>
+            <span class="n">datafilename</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dpath</span><span class="p">,</span><span class="n">dname</span><span class="p">)</span>
+            <span class="n">category</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">category_df</span><span class="p">[</span><span class="n">machine</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+            <span class="n">jsonfilename</span><span class="o">=</span><span class="n">jname_dict</span><span class="p">[</span><span class="n">machine</span><span class="p">]</span>
+            <span class="n">mdata</span><span class="o">=</span><span class="n">read_medical_data</span><span class="p">(</span><span class="n">datafilename</span><span class="p">,</span><span class="n">category</span><span class="p">,</span><span class="n">jsonfilename</span><span class="p">)</span>
+            <span class="n">row_data</span><span class="o">+=</span><span class="n">flatten_data</span><span class="p">(</span><span class="n">mdata</span><span class="p">)</span>
+        <span class="n">X_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row_data</span><span class="p">)</span>
+    <span class="n">X</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">X_data</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">Y</span><span class="o">=</span><span class="n">class_df</span><span class="p">[</span><span class="s2">&quot;class&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">X</span><span class="p">,</span><span class="n">Y</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">data_path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span><span class="s1">&#39;testdata&#39;</span><span class="p">)</span>
+    <span class="n">jpath</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;..&quot;</span><span class="p">,</span><span class="s2">&quot;medical_device_data&quot;</span><span class="p">)</span>
+    <span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="o">=</span><span class="n">get_data</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span><span class="s2">&quot;class.csv&quot;</span><span class="p">,</span><span class="n">data_path</span><span class="p">,</span><span class="s2">&quot;analysis_category.csv&quot;</span><span class="p">,</span><span class="n">jpath</span><span class="p">)</span>
+</pre></div>
+
+</div>
 </div>
 </div>
 
