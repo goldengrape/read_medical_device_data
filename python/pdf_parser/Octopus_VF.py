@@ -5,7 +5,7 @@
 
 # ## 设定文件路径参数
 
-# In[6]:
+# In[1]:
 
 
 if __name__=="__main__":
@@ -47,7 +47,7 @@ except:
 
 # # 读取原始数据
 
-# In[28]:
+# In[3]:
 
 
 def pdfparser(input_path,fname, page_num_list=[0]):
@@ -68,54 +68,51 @@ def pdfparser(input_path,fname, page_num_list=[0]):
         interpreter.process_page(page)
         txt_string =  retstr.getvalue()
         
-    ori_df=DataFrame(re.split("\n",txt_string)) % 看起来用换行来切割不太好用
+    ori_df=DataFrame(re.split("EyeSuite™",txt_string)) 
+    ori_df.drop([0],inplace=True)
     ori_df.columns=["value"]
 
     return ori_df
 
 
-# In[50]:
+# In[4]:
 
 
 if __name__=="__main__":
     ori_df=pdfparser(input_path,fname,page_num_list=[0,1])
 
 
-# In[51]:
+# In[5]:
 
 
-def check_eye(ori_df):
+def check_eye(df):
     '''
     确认眼别, 返回"OD"或"OS"
-    注意, 如果df中有多个眼别, 目前只识别第一个
     '''
-    if (ori_df['value']
-     .where(ori_df['value'].str.contains('O[D|S]'))
-     .dropna()
-     .str.contains("OD")
-     .iloc[0]
-    ):
-        return "OD"
-    elif (ori_df['value']
-     .where(ori_df['value'].str.contains('O[D|S]'))
-     .dropna()
-     .str.contains("OS")
-     .iloc[0]
-    ):
-        return "OS"
+    df["eye"]=""
+    df["eye"].loc[df['value'].str.contains('OD')]="OD"
+    df["eye"].loc[df['value'].str.contains('OS')]="OS"
+    return df
+def check_program(df):
+    '''
+    确认program, 如果是G Standard, 返回True
+    '''
+    df["G"]=df['value'].str.contains('G Standard')
+    return df
 
 
-# In[52]:
+# In[6]:
 
 
 check_eye(ori_df)
+check_program(ori_df)
 
 
 # # 读取视野测量原始数据
 # 
 # 注意设定中英文和眼别
 
-# In[5]:
+# In[ ]:
 
 
 def check_eye(ori_df):
@@ -177,7 +174,7 @@ def reformat_vf_data(data,eye):
     return df
 
 
-# In[6]:
+# In[ ]:
 
 
 # if __name__=="__main__":
@@ -185,7 +182,7 @@ def reformat_vf_data(data,eye):
 #     print(get_version(ori_df))
 
 
-# In[7]:
+# In[ ]:
 
 
 def get_vf_data(ori_df):
@@ -206,7 +203,7 @@ def get_vf_data(ori_df):
     return reformat_vf_data(data,eye)
 
 
-# In[8]:
+# In[ ]:
 
 
 # if __name__=="__main__":
@@ -215,7 +212,7 @@ def get_vf_data(ori_df):
 
 # # 读取病人信息
 
-# In[9]:
+# In[ ]:
 
 
 def get_patient_info(ori_df):
@@ -236,7 +233,7 @@ def get_patient_info(ori_df):
     return df
 
 
-# In[10]:
+# In[ ]:
 
 
 # if __name__=="__main__":
@@ -252,7 +249,7 @@ def get_patient_info(ori_df):
 # * MD
 # * PSD
 
-# In[11]:
+# In[ ]:
 
 
 def get_stat(ori_df):
@@ -277,7 +274,7 @@ def get_stat(ori_df):
     return df
 
 
-# In[12]:
+# In[ ]:
 
 
 # if __name__=="__main__":
@@ -287,7 +284,7 @@ def get_stat(ori_df):
 # # 保存数据
 # 
 
-# In[13]:
+# In[ ]:
 
 
 def get_out_name(output_path,fname,cat):
@@ -313,7 +310,7 @@ def save_to_csv(input_path,output_path,fname):
 
 # # 处理目录
 
-# In[14]:
+# In[ ]:
 
 
 def convert_folder(input_path,output_path):
@@ -325,7 +322,7 @@ def convert_folder(input_path,output_path):
         print("done")
 
 
-# In[15]:
+# In[ ]:
 
 
 if __name__=="__main__":    
