@@ -210,13 +210,25 @@ def flatten_data(data):
 # * Y是标签数据, 也就是class.csv中class的那一列数据. 
 # * X是每个数据文件中蕴含的所有数据, 排成一列. 
 
-# In[9]:
+# In[25]:
 
+
+from data_cleaner_WAM5500 import clean_WAM5500_data
+def identify(data):
+    return data
 
 def get_data(class_path,class_fname,category_path,category_fname,jpath):
     class_df,category_df,jname_dict= get_class_and_category_df(class_path,class_fname,category_path,category_fname,jpath)
     machine_list=class_df.columns[1:]
     X_data=[]
+    
+    cleaner_dict={"GrandSeikoWAM5500": clean_WAM5500_data,
+                 "HRT": identify,
+                "humphrey": identify,
+                "GrandSeikoWAM5500": identify,
+                "pentacam": identify,
+                "sirius": identify,}
+    
     for idx in range(len(class_df)):
 #         class_data=class_df.loc[idx,"class"]
         row_data=[]
@@ -227,18 +239,27 @@ def get_data(class_path,class_fname,category_path,category_fname,jpath):
             category=list(category_df[machine].dropna().values)
             jsonfilename=jname_dict[machine]
             mdata=read_medical_data(datafilename,category,jsonfilename)
+            # 此处应当分别调用各种类别数据的清洁器
+            mdata=cleaner_dict[machine](mdata)
+            
             row_data+=flatten_data(mdata)
         X_data.append(row_data)
     X=pd.DataFrame(X_data).T
-    Y=class_df["class"]
-    return X,Y
+    y=class_df["class"]
+    return X,y
 
 
-# In[10]:
+# In[26]:
 
 
 if __name__=="__main__":
     data_path=os.path.join('..','testdata')
     jpath=os.path.join("..","medical_device_data")
-    X,Y=get_data(data_path,"class.csv",data_path,"analysis_category.csv",jpath)
+    X,y=get_data(data_path,"class.csv",data_path,"analysis_category.csv",jpath)
+
+
+# In[28]:
+
+
+y
 

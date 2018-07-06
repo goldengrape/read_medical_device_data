@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>read_medical_data</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>Humphrey_VF-Copy1</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <style type="text/css">
@@ -11775,7 +11775,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="&#36890;&#29992;&#35835;&#21462;&#20989;&#25968;">&#36890;&#29992;&#35835;&#21462;&#20989;&#25968;<a class="anchor-link" href="#&#36890;&#29992;&#35835;&#21462;&#20989;&#25968;">&#182;</a></h1>
+<h1 id="&#25552;&#21462;Humphrey&#35270;&#37326;&#25968;&#25454;">&#25552;&#21462;Humphrey&#35270;&#37326;&#25968;&#25454;<a class="anchor-link" href="#&#25552;&#21462;Humphrey&#35270;&#37326;&#25968;&#25454;">&#182;</a></h1>
 </div>
 </div>
 </div>
@@ -11783,18 +11783,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>根据每个设备的json描述文件, 读取csv数据文件中的数据.</p>
-<p>json描述文件:</p>
-<div class="highlight"><pre><span></span><span class="p">{</span><span class="nt">&quot;sep&quot;</span><span class="p">:</span> <span class="err">csv文件的分隔符号</span>
- <span class="s2">&quot;category&quot;</span><span class="p">:</span> 
-   <span class="p">{</span>
-   <span class="nt">&quot;数据类1&quot;</span><span class="p">:</span> <span class="p">{</span><span class="nt">&quot;location&quot;</span><span class="p">:</span> <span class="err">数据块位置</span><span class="p">,</span> <span class="nt">&quot;dtype&quot;</span><span class="p">:</span> <span class="err">数据类型</span><span class="p">},</span> 
-   <span class="nt">&quot;数据类2&quot;</span><span class="p">:</span> <span class="p">{</span><span class="nt">&quot;location&quot;</span><span class="p">:</span> <span class="s2">&quot;A1..B3&quot;</span><span class="p">,</span> <span class="nt">&quot;dtype&quot;</span><span class="p">:</span> <span class="s2">&quot;numeric&quot;</span><span class="p">},</span> 
-   <span class="err">...</span>
-   <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-
+<h2 id="&#35774;&#23450;&#25991;&#20214;&#36335;&#24452;&#21442;&#25968;">&#35774;&#23450;&#25991;&#20214;&#36335;&#24452;&#21442;&#25968;<a class="anchor-link" href="#&#35774;&#23450;&#25991;&#20214;&#36335;&#24452;&#21442;&#25968;">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -11803,33 +11792,60 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">DataFrame</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">json</span>
-<span class="kn">from</span> <span class="nn">dlm</span> <span class="k">import</span> <span class="n">dlmread</span><span class="p">,</span> <span class="n">dlmread_df</span>
-<span class="kn">from</span> <span class="nn">dlm</span> <span class="k">import</span> <span class="n">cellblock2num</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">input_path</span><span class="o">=</span><span class="s1">&#39;../../testdata/Humphrey&#39;</span>
+    <span class="n">output_path</span><span class="o">=</span><span class="s2">&quot;../../testdata/Humphrey&quot;</span>
+<span class="c1">#     fname=&quot;右眼-sfa_zh.pdf&quot; # for test</span>
 </pre></div>
 
 </div>
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="&#23548;&#20837;&#20381;&#36182;&#21253;">&#23548;&#20837;&#20381;&#36182;&#21253;<a class="anchor-link" href="#&#23548;&#20837;&#20381;&#36182;&#21253;">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>在使用notebook.azure.com在线运行时, 由于默认没有安装pdfminer.six这个包, 所以在首次运行时需要安装, 已经将安装代码加入到下面导入依赖包的代码内, 因此首次运行时速度会较慢.</p>
+<p>同时, 在使用notebook.azure.com在线运行时, 服务器端不会保存曾经安装过的包, 因此在1小时没有操作之后, 服务器会关闭, 再次打开时就已经丢失了之前安装的包, 相当于首次运行.</p>
+
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">max_column</span><span class="p">(</span><span class="n">category_dict</span><span class="p">):</span>
-    <span class="c1"># 确定文件的最大列数. </span>
-    <span class="c1"># 形如</span>
-    <span class="c1"># 1, 2, 3</span>
-    <span class="c1"># 1, 2, 3, 4</span>
-    <span class="c1"># 这样的csv文件, 直接读取会出错, 需要设定所有的列名</span>
-    <span class="n">borders</span><span class="o">=</span><span class="p">[</span><span class="n">cellblock2num</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="s2">&quot;location&quot;</span><span class="p">])[</span><span class="mi">3</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">category_dict</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="p">]</span>
-    <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">borders</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">os.path</span>
+<span class="kn">import</span> <span class="nn">io</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">Series</span><span class="p">,</span><span class="n">DataFrame</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">pdfminer.pdfinterp</span> <span class="k">import</span> <span class="n">PDFResourceManager</span><span class="p">,</span> <span class="n">PDFPageInterpreter</span>
+    <span class="kn">from</span> <span class="nn">pdfminer.pdfpage</span> <span class="k">import</span> <span class="n">PDFPage</span>
+    <span class="kn">from</span> <span class="nn">pdfminer.converter</span> <span class="k">import</span> <span class="n">XMLConverter</span><span class="p">,</span> <span class="n">HTMLConverter</span><span class="p">,</span> <span class="n">TextConverter</span>
+    <span class="kn">from</span> <span class="nn">pdfminer.layout</span> <span class="k">import</span> <span class="n">LAParams</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="o">!</span>conda install pdfminer.six --yes
+    <span class="kn">from</span> <span class="nn">pdfminer.pdfinterp</span> <span class="k">import</span> <span class="n">PDFResourceManager</span><span class="p">,</span> <span class="n">PDFPageInterpreter</span>
+    <span class="kn">from</span> <span class="nn">pdfminer.pdfpage</span> <span class="k">import</span> <span class="n">PDFPage</span>
+    <span class="kn">from</span> <span class="nn">pdfminer.converter</span> <span class="k">import</span> <span class="n">XMLConverter</span><span class="p">,</span> <span class="n">HTMLConverter</span><span class="p">,</span> <span class="n">TextConverter</span>
+    <span class="kn">from</span> <span class="nn">pdfminer.layout</span> <span class="k">import</span> <span class="n">LAParams</span>
 </pre></div>
 
 </div>
@@ -11837,19 +11853,39 @@ div#notebook {
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="&#35835;&#21462;&#21407;&#22987;&#25968;&#25454;">&#35835;&#21462;&#21407;&#22987;&#25968;&#25454;<a class="anchor-link" href="#&#35835;&#21462;&#21407;&#22987;&#25968;&#25454;">&#182;</a></h1>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">open_data_file</span><span class="p">(</span><span class="n">data_file</span><span class="p">,</span><span class="n">json_data_file</span><span class="p">):</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">json_data_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">json_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-    <span class="n">sep</span><span class="o">=</span><span class="n">json_data</span><span class="p">[</span><span class="s2">&quot;sep&quot;</span><span class="p">]</span>
-    <span class="n">category_dict</span><span class="o">=</span><span class="n">json_data</span><span class="p">[</span><span class="s2">&quot;category&quot;</span><span class="p">]</span>
-    <span class="n">max_col</span><span class="o">=</span><span class="n">max_column</span><span class="p">(</span><span class="n">category_dict</span><span class="p">)</span>
-    <span class="n">df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">data_file</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="n">sep</span><span class="p">,</span><span class="n">names</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="n">max_col</span><span class="p">),</span><span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">df</span><span class="p">,</span><span class="n">category_dict</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">pdfparser</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span><span class="n">fname</span><span class="p">):</span>
+    <span class="n">filename</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span><span class="n">fname</span><span class="p">)</span>
+    <span class="n">fp</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span>
+    <span class="n">rsrcmgr</span> <span class="o">=</span> <span class="n">PDFResourceManager</span><span class="p">()</span>
+    <span class="n">retstr</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">()</span>
+    <span class="n">codec</span> <span class="o">=</span> <span class="s1">&#39;utf-8&#39;</span>
+    <span class="n">laparams</span> <span class="o">=</span> <span class="n">LAParams</span><span class="p">()</span>
+    <span class="n">device</span> <span class="o">=</span> <span class="n">TextConverter</span><span class="p">(</span><span class="n">rsrcmgr</span><span class="p">,</span> <span class="n">retstr</span><span class="p">,</span> <span class="n">codec</span><span class="o">=</span><span class="n">codec</span><span class="p">,</span> <span class="n">laparams</span><span class="o">=</span><span class="n">laparams</span><span class="p">)</span>
+    <span class="c1"># Create a PDF interpreter object.</span>
+    <span class="n">interpreter</span> <span class="o">=</span> <span class="n">PDFPageInterpreter</span><span class="p">(</span><span class="n">rsrcmgr</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+    <span class="c1"># Process each page contained in the document.</span>
+
+    <span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="n">PDFPage</span><span class="o">.</span><span class="n">get_pages</span><span class="p">(</span><span class="n">fp</span><span class="p">):</span>
+        <span class="n">interpreter</span><span class="o">.</span><span class="n">process_page</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>
+        <span class="n">txt_string</span> <span class="o">=</span>  <span class="n">retstr</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span>
+        
+    <span class="n">ori_df</span><span class="o">=</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">txt_string</span><span class="p">))</span>
+    <span class="n">ori_df</span><span class="o">.</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">ori_df</span>
 </pre></div>
 
 </div>
@@ -11862,30 +11898,8 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">read_medical_data_one_by_one</span><span class="p">(</span><span class="n">data_file</span><span class="p">,</span><span class="n">catalog</span><span class="p">,</span><span class="n">json_data_file</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    从datafile中读取category所定义的数据块, 以pandas DataFrame的格式返回数据. </span>
-<span class="sd">    - datafile: 需要读取的数据文件, 例如&quot;病人ID.csv&quot;</span>
-<span class="sd">    - category:  需要读取的数据块类型, 例如角膜地形图前表面数据&quot;FRONT&quot;</span>
-<span class="sd">    - jsondatafile: 用于描述设备文件的json文件, 规定了每个类型所对应的数据块</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-    
-    <span class="n">catalog_dict</span><span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="n">json_data_file</span><span class="p">,</span><span class="n">typ</span> <span class="o">=</span> <span class="s1">&#39;series&#39;</span><span class="p">)</span>
-    <span class="n">data</span><span class="o">=</span><span class="p">[]</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">data_file</span><span class="p">,</span><span class="s1">&#39;rt&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span> 
-<span class="c1">#     if True:</span>
-<span class="c1">#         f=data_file</span>
-        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">catalog</span><span class="p">)</span><span class="o">==</span><span class="nb">str</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">catalog</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">!=</span> <span class="s2">&quot;all&quot;</span><span class="p">:</span>
-                <span class="n">data</span><span class="o">=</span><span class="n">dlmread</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="s1">&#39;;&#39;</span><span class="p">,</span><span class="n">catalog_dict</span><span class="p">[</span><span class="n">catalog</span><span class="p">])</span>
-            <span class="k">elif</span> <span class="n">catalog</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;all&quot;</span><span class="p">:</span>
-                <span class="n">catalog</span><span class="o">=</span><span class="n">catalog_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
-                <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="n">cat</span><span class="p">:</span><span class="n">dlmread</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="s1">&#39;;&#39;</span><span class="p">,</span><span class="n">catalog_dict</span><span class="p">[</span><span class="n">cat</span><span class="p">])</span> <span class="k">for</span> <span class="n">cat</span> <span class="ow">in</span> <span class="n">catalog</span><span class="p">}</span>
-<span class="c1">#         elif type(catalog)==list:</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;list!&quot;</span><span class="p">)</span>
-            <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="n">cat</span><span class="p">:</span><span class="n">dlmread</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="s1">&#39;;&#39;</span><span class="p">,</span><span class="n">catalog_dict</span><span class="p">[</span><span class="n">cat</span><span class="p">])</span> <span class="k">for</span> <span class="n">cat</span> <span class="ow">in</span> <span class="n">catalog</span><span class="p">}</span>
-    <span class="k">return</span> <span class="n">data</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># if __name__==&quot;__main__&quot;:</span>
+<span class="c1">#     ori_df=pdfparser(input_path,fname)</span>
 </pre></div>
 
 </div>
@@ -11893,34 +11907,77 @@ div#notebook {
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="&#35835;&#21462;&#35270;&#37326;&#27979;&#37327;&#21407;&#22987;&#25968;&#25454;">&#35835;&#21462;&#35270;&#37326;&#27979;&#37327;&#21407;&#22987;&#25968;&#25454;<a class="anchor-link" href="#&#35835;&#21462;&#35270;&#37326;&#27979;&#37327;&#21407;&#22987;&#25968;&#25454;">&#182;</a></h1><p>注意设定中英文和眼别</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">read_medical_data</span><span class="p">(</span><span class="n">data_file</span><span class="p">,</span><span class="n">category</span><span class="p">,</span><span class="n">json_data_file</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">check_eye</span><span class="p">(</span><span class="n">ori_df</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    从datafile中读取category所定义的数据块, 以pandas DataFrame的格式返回数据. </span>
-<span class="sd">    - datafile: 需要读取的数据文件, 例如&quot;病人ID.csv&quot;</span>
-<span class="sd">    - category:  需要读取的数据块类型, 例如角膜地形图前表面数据&quot;FRONT&quot;</span>
-<span class="sd">    - jsondatafile: 用于描述设备文件的json文件, 规定了每个类型所对应的数据块</span>
-<span class="sd">    如果提取的是多个数据块类型, 返回字典</span>
+<span class="sd">    确认眼别, 返回&quot;OD&quot;或&quot;OS&quot;</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="c1"># 读取文件</span>
-    <span class="n">df</span><span class="p">,</span> <span class="n">category_dict</span><span class="o">=</span><span class="n">open_data_file</span><span class="p">(</span><span class="n">data_file</span><span class="p">,</span><span class="n">json_data_file</span><span class="p">)</span>
-    <span class="c1"># category可以是一个类别, 也可以是all描述为所有类别, 也可以是一个列表</span>
-    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">category</span><span class="p">)</span><span class="o">==</span><span class="nb">str</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">category</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">!=</span> <span class="s2">&quot;all&quot;</span><span class="p">:</span> <span class="c1"># 如果只是一个类别</span>
-            <span class="n">data</span><span class="o">=</span><span class="n">dlmread_df</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">category_dict</span><span class="p">[</span><span class="n">category</span><span class="p">][</span><span class="s2">&quot;location&quot;</span><span class="p">],</span><span class="n">category_dict</span><span class="p">[</span><span class="n">category</span><span class="p">][</span><span class="s2">&quot;dtype&quot;</span><span class="p">])</span>
-        <span class="k">elif</span> <span class="n">category</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;all&quot;</span><span class="p">:</span> <span class="c1"># 如果是all, 要提取所有类别</span>
-            <span class="n">category</span><span class="o">=</span><span class="n">category_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
-            <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="n">cat</span><span class="p">:</span><span class="n">dlmread_df</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">category_dict</span><span class="p">[</span><span class="n">cat</span><span class="p">][</span><span class="s2">&quot;location&quot;</span><span class="p">],</span><span class="n">category_dict</span><span class="p">[</span><span class="n">cat</span><span class="p">][</span><span class="s2">&quot;dtype&quot;</span><span class="p">])</span> <span class="k">for</span> <span class="n">cat</span> <span class="ow">in</span> <span class="n">category</span><span class="p">}</span>
-    <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">category</span><span class="p">)</span><span class="o">==</span><span class="nb">list</span><span class="p">:</span> 
-<span class="c1">#     else:</span>
-        <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="n">cat</span><span class="p">:</span><span class="n">dlmread_df</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">category_dict</span><span class="p">[</span><span class="n">cat</span><span class="p">][</span><span class="s2">&quot;location&quot;</span><span class="p">],</span><span class="n">category_dict</span><span class="p">[</span><span class="n">cat</span><span class="p">][</span><span class="s2">&quot;dtype&quot;</span><span class="p">])</span> 
-              <span class="k">for</span> <span class="n">cat</span> <span class="ow">in</span> <span class="n">category</span> <span class="p">}</span>
-    <span class="k">return</span> <span class="n">data</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">ori_df</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span>
+     <span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">ori_df</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;^O[D|S] &#39;</span><span class="p">))</span>
+     <span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+     <span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s2">&quot;OD&quot;</span><span class="p">)</span>
+     <span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;OD&quot;</span>
+    <span class="k">elif</span> <span class="p">(</span><span class="n">ori_df</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span>
+     <span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">ori_df</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;^O[D|S] &#39;</span><span class="p">))</span>
+     <span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+     <span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s2">&quot;OS&quot;</span><span class="p">)</span>
+     <span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;OS&quot;</span>
     
+<span class="k">def</span> <span class="nf">get_version</span><span class="p">(</span><span class="n">ori_df</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    确认版本</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="nb">ord</span><span class="p">(</span><span class="n">ori_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span><span class="o">&lt;=</span><span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;z&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;en&quot;</span>
+    <span class="k">elif</span> <span class="nb">ord</span><span class="p">(</span><span class="n">ori_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span><span class="o">&gt;</span><span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;z&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;zh&quot;</span>
+    
+<span class="k">def</span> <span class="nf">reformat_vf_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">eye</span><span class="p">):</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span><span class="o">!=</span><span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&lt;0&quot;</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span>
+
+    <span class="n">OD_index</span>  <span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">32</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">48</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>
+                           <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">17</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="mi">33</span><span class="p">,</span><span class="mi">41</span><span class="p">,</span><span class="mi">49</span><span class="p">,</span><span class="mi">57</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>
+                           <span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">26</span><span class="p">,</span><span class="mi">34</span><span class="p">,</span><span class="mi">42</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">58</span><span class="p">,</span><span class="mi">66</span><span class="p">,</span>
+                           <span class="mi">3</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">19</span><span class="p">,</span><span class="mi">27</span><span class="p">,</span><span class="mi">35</span><span class="p">,</span><span class="mi">43</span><span class="p">,</span><span class="mi">51</span><span class="p">,</span><span class="mi">59</span><span class="p">,</span><span class="mi">67</span><span class="p">,</span>
+                           <span class="mi">4</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">28</span><span class="p">,</span><span class="mi">36</span><span class="p">,</span><span class="mi">44</span><span class="p">,</span><span class="mi">52</span><span class="p">,</span><span class="mi">60</span><span class="p">,</span><span class="mi">68</span><span class="p">,</span>
+                           <span class="mi">0</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">21</span><span class="p">,</span><span class="mi">29</span><span class="p">,</span><span class="mi">37</span><span class="p">,</span><span class="mi">45</span><span class="p">,</span><span class="mi">53</span><span class="p">,</span><span class="mi">61</span><span class="p">,</span><span class="mi">69</span><span class="p">,</span>
+                           <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">22</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">38</span><span class="p">,</span><span class="mi">46</span><span class="p">,</span><span class="mi">54</span><span class="p">,</span><span class="mi">62</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>
+                           <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">31</span><span class="p">,</span><span class="mi">39</span><span class="p">,</span><span class="mi">47</span><span class="p">,</span><span class="mi">55</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">OS_index</span> <span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span>  <span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">16</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">32</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span>
+                            <span class="mi">0</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">17</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="mi">33</span><span class="p">,</span><span class="mi">41</span><span class="p">,</span><span class="mi">49</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span>
+                            <span class="mi">2</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">26</span><span class="p">,</span><span class="mi">34</span><span class="p">,</span><span class="mi">42</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">58</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span>
+                            <span class="mi">3</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">19</span><span class="p">,</span><span class="mi">27</span><span class="p">,</span><span class="mi">35</span><span class="p">,</span><span class="mi">43</span><span class="p">,</span><span class="mi">51</span><span class="p">,</span><span class="mi">59</span><span class="p">,</span><span class="mi">67</span><span class="p">,</span>
+                            <span class="mi">4</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">28</span><span class="p">,</span><span class="mi">36</span><span class="p">,</span><span class="mi">44</span><span class="p">,</span><span class="mi">52</span><span class="p">,</span><span class="mi">60</span><span class="p">,</span><span class="mi">68</span><span class="p">,</span>
+                            <span class="mi">5</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">21</span><span class="p">,</span><span class="mi">29</span><span class="p">,</span><span class="mi">37</span><span class="p">,</span><span class="mi">45</span><span class="p">,</span><span class="mi">53</span><span class="p">,</span><span class="mi">61</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span>
+                            <span class="mi">0</span><span class="p">,</span><span class="mi">14</span><span class="p">,</span><span class="mi">22</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">38</span><span class="p">,</span><span class="mi">46</span><span class="p">,</span><span class="mi">54</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span>
+                            <span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">23</span><span class="p">,</span><span class="mi">31</span><span class="p">,</span><span class="mi">39</span><span class="p">,</span><span class="mi">47</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">eye</span><span class="o">==</span><span class="s2">&quot;OD&quot;</span><span class="p">:</span>
+        <span class="n">index</span><span class="o">=</span><span class="n">OD_index</span><span class="p">[</span><span class="n">OD_index</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">eye</span><span class="o">==</span><span class="s2">&quot;OS&quot;</span><span class="p">:</span>
+        <span class="n">index</span><span class="o">=</span><span class="n">OS_index</span><span class="p">[</span><span class="n">OS_index</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">]</span>
+        
+    <span class="n">two_D_data</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">72</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">index</span><span class="p">)):</span>
+        <span class="n">two_D_data</span><span class="p">[</span><span class="n">index</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">df</span><span class="o">=</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">two_D_data</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">8</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span>
 </pre></div>
 
 </div>
@@ -11933,181 +11990,51 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 测试用: </span>
-<span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span> <span class="ow">and</span> <span class="kc">True</span><span class="p">:</span>
-    <span class="n">dpath</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span><span class="s1">&#39;testdata&#39;</span><span class="p">)</span>
-    <span class="n">dname</span><span class="o">=</span><span class="s1">&#39;HRT001.csv&#39;</span>
-
-    <span class="n">datafilename</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dpath</span><span class="p">,</span><span class="n">dname</span><span class="p">)</span>
-
-<span class="c1">#     category=&#39;CornealThickness&#39;</span>
-<span class="c1">#     category=[&quot;TangentialAnterior&quot;,&quot;TangentialPosterior&quot;]</span>
-    <span class="n">category</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;DOB&#39;</span><span class="p">,</span> <span class="s1">&#39;sex&#39;</span><span class="p">,</span> <span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="s1">&#39;Asymmetry_data&#39;</span><span class="p">]</span>
-    
-    <span class="n">jpath</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;..&quot;</span><span class="p">,</span><span class="s2">&quot;medical_device_data&quot;</span><span class="p">)</span>
-    <span class="n">jname</span><span class="o">=</span><span class="s2">&quot;HRT.json&quot;</span>
-    <span class="n">jsonfilename</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">jpath</span><span class="p">,</span><span class="n">jname</span><span class="p">)</span>
-    <span class="n">data</span><span class="o">=</span><span class="n">read_medical_data</span><span class="p">(</span><span class="n">datafilename</span><span class="p">,</span><span class="n">category</span><span class="p">,</span><span class="n">jsonfilename</span><span class="p">)</span>
-<span class="c1">#     print(data[&quot;OS_data&quot;])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># if __name__==&quot;__main__&quot;:</span>
+<span class="c1">#     print(check_eye(ori_df))</span>
+<span class="c1">#     print(get_version(ori_df))</span>
 </pre></div>
 
 </div>
 </div>
 </div>
 
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="&#26681;&#25454;&#20998;&#31867;&#25991;&#20214;&#35835;&#21462;&#25968;&#25454;&#25991;&#20214;&#24207;&#21015;">&#26681;&#25454;&#20998;&#31867;&#25991;&#20214;&#35835;&#21462;&#25968;&#25454;&#25991;&#20214;&#24207;&#21015;<a class="anchor-link" href="#&#26681;&#25454;&#20998;&#31867;&#25991;&#20214;&#35835;&#21462;&#25968;&#25454;&#25991;&#20214;&#24207;&#21015;">&#182;</a></h1>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li>分类文件class.csv: </li>
-</ul>
-<table>
-<thead><tr>
-<th style="text-align:left">class</th>
-<th style="text-align:left">HRT</th>
-<th style="text-align:left">humphrey</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">OS_glaucoma</td>
-<td style="text-align:left">HRT001.csv</td>
-<td style="text-align:left">HFA001.csv</td>
-</tr>
-<tr>
-<td style="text-align:left">OD_glaucoma</td>
-<td style="text-align:left">HRT002.csv</td>
-<td style="text-align:left">HFA002.csv</td>
-</tr>
-<tr>
-<td style="text-align:left">OS_normal</td>
-<td style="text-align:left">HRT003.csv</td>
-<td style="text-align:left">HFA003.csv</td>
-</tr>
-<tr>
-<td style="text-align:left">OD_normal</td>
-<td style="text-align:left">HRT004.csv</td>
-<td style="text-align:left">HFA004.csv</td>
-</tr>
-</tbody>
-</table>
-<p>第一列说明分类, 可以是数字或字符, 可以有多个类别</p>
-<p>之后的列是不同检查的设备名称和文件列表. 设备仅支持带有json文件说明的</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li>数据类别选取文件analysis_catagory.csv, </li>
-</ul>
-<p>需要用户手动编辑, 首行说明检查的设备, 每一列说明从每个检查设备数据文件提取的数据类别.</p>
-<table>
-<thead><tr>
-<th style="text-align:left">HRT</th>
-<th style="text-align:left">humphrey</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">DOB</td>
-<td style="text-align:left">DOB</td>
-</tr>
-<tr>
-<td style="text-align:left">sex</td>
-<td style="text-align:left">MD</td>
-</tr>
-<tr>
-<td style="text-align:left">date</td>
-<td style="text-align:left">data</td>
-</tr>
-<tr>
-<td style="text-align:left">Asymmetry_data</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li>JSON字典: 
-每种设备的JSON说明文件所在的位置</li>
-</ul>
-
-</div>
-</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_class_and_category_df</span><span class="p">(</span><span class="n">class_path</span><span class="p">,</span><span class="n">class_fname</span><span class="p">,</span><span class="n">category_path</span><span class="p">,</span><span class="n">category_fname</span><span class="p">,</span><span class="n">jpath</span><span class="p">):</span>
-    <span class="c1">#读取分类文件</span>
-<span class="c1">#     class_path=os.path.join(&#39;..&#39;,&#39;testdata&#39;)</span>
-<span class="c1">#     class_fname=&quot;class.csv&quot;</span>
-    <span class="n">classfilename</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">class_path</span><span class="p">,</span><span class="n">class_fname</span><span class="p">)</span>
-    <span class="n">class_df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">classfilename</span><span class="p">)</span>
-
-    <span class="c1"># 读取数据类别选取文件</span>
-<span class="c1">#     category_path=class_path</span>
-<span class="c1">#     category_fname=&quot;analysis_category.csv&quot;</span>
-    <span class="n">category_filename</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">category_path</span><span class="p">,</span><span class="n">category_fname</span><span class="p">)</span>
-    <span class="n">category_df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">category_filename</span><span class="p">)</span>
-
-    <span class="c1"># jsonfile_dict:</span>
-<span class="c1">#     jpath=os.path.join(&quot;..&quot;,&quot;medical_device_data&quot;)</span>
-    <span class="n">jname_dict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;HRT&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">jpath</span><span class="p">,</span><span class="s2">&quot;HRT.json&quot;</span><span class="p">),</span>
-                <span class="s2">&quot;humphrey&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">jpath</span><span class="p">,</span><span class="s2">&quot;humphrey.json&quot;</span><span class="p">),</span>
-                <span class="s2">&quot;GrandSeikoWAM5500&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">jpath</span><span class="p">,</span><span class="s2">&quot;GrandSeikoWAM5500.json&quot;</span><span class="p">),</span>
-                <span class="s2">&quot;pentacam&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">jpath</span><span class="p">,</span><span class="s2">&quot;pentacam.json&quot;</span><span class="p">),</span>
-                <span class="s2">&quot;sirius&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">jpath</span><span class="p">,</span><span class="s2">&quot;sirius.json&quot;</span><span class="p">)</span>
-               <span class="p">}</span>
-    <span class="k">return</span> <span class="n">class_df</span><span class="p">,</span><span class="n">category_df</span><span class="p">,</span><span class="n">jname_dict</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_vf_data</span><span class="p">(</span><span class="n">ori_df</span><span class="p">):</span>
+    <span class="n">eye</span><span class="o">=</span><span class="n">check_eye</span><span class="p">(</span><span class="n">ori_df</span><span class="p">)</span>
+    <span class="n">ver</span><span class="o">=</span><span class="n">get_version</span><span class="p">(</span><span class="n">ori_df</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ver</span><span class="o">==</span><span class="s2">&quot;en&quot;</span><span class="p">:</span>
+        <span class="n">data_pos</span><span class="o">=</span><span class="n">ori_df</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">ori_df</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span><span class="o">==</span><span class="s2">&quot;30°&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">index</span>
+        <span class="n">data</span><span class="o">=</span><span class="n">ori_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">data_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span><span class="n">data_pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+    <span class="k">elif</span> <span class="n">ver</span><span class="o">==</span><span class="s2">&quot;zh&quot;</span><span class="p">:</span>
+<span class="c1">#         data=pd.concat([ori_df[25:44],ori_df[58:145]])</span>
+        <span class="n">data</span><span class="o">=</span><span class="p">(</span><span class="n">ori_df</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">ori_df</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s2">&quot;(&lt;*\d+)$&quot;</span><span class="p">))</span> <span class="c1">#有&lt;0或者整数</span>
+                   <span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+<span class="c1">#                    .reset_index()</span>
+                   <span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">56</span><span class="p">,:])</span>
+        <span class="k">if</span> <span class="n">eye</span><span class="o">==</span><span class="s2">&quot;OD&quot;</span><span class="p">:</span> <span class="c1"># 右眼+中文的时候, 貌似把年龄数据混进来了</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">70</span><span class="p">,:]</span><span class="o">=</span><span class="s2">&quot;&quot;</span> <span class="c1"># 改法虽然难看, 但暂时可用</span>
+            
+    <span class="k">return</span> <span class="n">reformat_vf_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">eye</span><span class="p">)</span>
 </pre></div>
 
 </div>
 </div>
 </div>
 
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="&#23637;&#24320;&#25968;&#25454;">&#23637;&#24320;&#25968;&#25454;<a class="anchor-link" href="#&#23637;&#24320;&#25968;&#25454;">&#182;</a></h2><p>每个数据应当展开成一列</p>
-
-</div>
-</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">flatten_data</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
-    <span class="n">data_list</span><span class="o">=</span><span class="p">[]</span>
-    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-        <span class="n">data_list</span><span class="o">+=</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
-    <span class="k">return</span> <span class="n">data_list</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># if __name__==&quot;__main__&quot;:</span>
+<span class="c1">#     print(get_vf_data(ori_df))</span>
 </pre></div>
 
 </div>
@@ -12119,10 +12046,63 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="&#21462;&#24471;&#25968;&#25454;&#38598;">&#21462;&#24471;&#25968;&#25454;&#38598;<a class="anchor-link" href="#&#21462;&#24471;&#25968;&#25454;&#38598;">&#182;</a></h2><p>数据集包括两部分, X和Y.</p>
+<h1 id="&#35835;&#21462;&#30149;&#20154;&#20449;&#24687;">&#35835;&#21462;&#30149;&#20154;&#20449;&#24687;<a class="anchor-link" href="#&#35835;&#21462;&#30149;&#20154;&#20449;&#24687;">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_patient_info</span><span class="p">(</span><span class="n">ori_df</span><span class="p">):</span>
+    <span class="n">basic_info</span><span class="o">=</span><span class="p">[</span><span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;[：|:]&quot;</span><span class="p">,</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">ori_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="p">]</span>
+    <span class="n">basic_info</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s2">&quot;eye&quot;</span><span class="p">,</span> <span class="n">check_eye</span><span class="p">(</span><span class="n">ori_df</span><span class="p">)])</span>
+    <span class="n">basic_info</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+        <span class="p">[</span><span class="s1">&#39;exam date&#39;</span><span class="p">,</span>
+         <span class="p">(</span><span class="n">ori_df</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span>
+             <span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">ori_df</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;/[\s\S]*:&#39;</span><span class="p">))</span>
+             <span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+             <span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">&quot;\d+/\d+/\d+&quot;</span><span class="p">)</span>
+             <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+    <span class="p">)</span>
+
+    
+    <span class="n">df</span><span class="o">=</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">basic_info</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;item&quot;</span><span class="p">,</span><span class="s1">&#39;value&#39;</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">df</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># if __name__==&quot;__main__&quot;:</span>
+<span class="c1">#     print(get_patient_info(ori_df))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="&#35835;&#21462;&#32479;&#35745;&#20540;">&#35835;&#21462;&#32479;&#35745;&#20540;<a class="anchor-link" href="#&#35835;&#21462;&#32479;&#35745;&#20540;">&#182;</a></h1><p>包含</p>
 <ul>
-<li>Y是标签数据, 也就是class.csv中class的那一列数据. </li>
-<li>X是每个数据文件中蕴含的所有数据, 排成一列. </li>
+<li>假阳性率：</li>
+<li>假阴性率：</li>
+<li>VFI: </li>
+<li>MD</li>
+<li>PSD</li>
 </ul>
 
 </div>
@@ -12130,43 +12110,29 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">data_cleaner_WAM5500</span> <span class="k">import</span> <span class="n">clean_WAM5500_data</span>
-<span class="k">def</span> <span class="nf">identify</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">data</span>
-
-<span class="k">def</span> <span class="nf">get_data</span><span class="p">(</span><span class="n">class_path</span><span class="p">,</span><span class="n">class_fname</span><span class="p">,</span><span class="n">category_path</span><span class="p">,</span><span class="n">category_fname</span><span class="p">,</span><span class="n">jpath</span><span class="p">):</span>
-    <span class="n">class_df</span><span class="p">,</span><span class="n">category_df</span><span class="p">,</span><span class="n">jname_dict</span><span class="o">=</span> <span class="n">get_class_and_category_df</span><span class="p">(</span><span class="n">class_path</span><span class="p">,</span><span class="n">class_fname</span><span class="p">,</span><span class="n">category_path</span><span class="p">,</span><span class="n">category_fname</span><span class="p">,</span><span class="n">jpath</span><span class="p">)</span>
-    <span class="n">machine_list</span><span class="o">=</span><span class="n">class_df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
-    <span class="n">X_data</span><span class="o">=</span><span class="p">[]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_stat</span><span class="p">(</span><span class="n">ori_df</span><span class="p">):</span>
+    <span class="n">df1</span><span class="o">=</span><span class="p">(</span><span class="n">ori_df</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span>
+     <span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">ori_df</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;%&#39;</span><span class="p">))</span>
+     <span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+     <span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+     <span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">&quot;(\d+)%&quot;</span><span class="p">)</span>
+     <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="mi">100</span><span class="p">)</span>
+     <span class="p">)</span>
     
-    <span class="n">cleaner_dict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;GrandSeikoWAM5500&quot;</span><span class="p">:</span> <span class="n">clean_WAM5500_data</span><span class="p">,</span>
-                 <span class="s2">&quot;HRT&quot;</span><span class="p">:</span> <span class="n">identify</span><span class="p">,</span>
-                <span class="s2">&quot;humphrey&quot;</span><span class="p">:</span> <span class="n">identify</span><span class="p">,</span>
-                <span class="s2">&quot;GrandSeikoWAM5500&quot;</span><span class="p">:</span> <span class="n">identify</span><span class="p">,</span>
-                <span class="s2">&quot;pentacam&quot;</span><span class="p">:</span> <span class="n">identify</span><span class="p">,</span>
-                <span class="s2">&quot;sirius&quot;</span><span class="p">:</span> <span class="n">identify</span><span class="p">,}</span>
+<span class="c1">#     df.iloc[0:3]=df.iloc[0:3].str.findall(&quot;(\d+)%&quot;).apply(lambda x:float(x[0])/100)</span>
     
-    <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">class_df</span><span class="p">)):</span>
-<span class="c1">#         class_data=class_df.loc[idx,&quot;class&quot;]</span>
-        <span class="n">row_data</span><span class="o">=</span><span class="p">[]</span>
-        <span class="k">for</span> <span class="n">machine</span> <span class="ow">in</span> <span class="n">machine_list</span><span class="p">:</span>
-        <span class="c1"># machine=&quot;HRT&quot;</span>
-            <span class="n">dname</span><span class="o">=</span><span class="n">class_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span><span class="n">machine</span><span class="p">]</span>
-            <span class="n">datafilename</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dpath</span><span class="p">,</span><span class="n">dname</span><span class="p">)</span>
-            <span class="n">category</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">category_df</span><span class="p">[</span><span class="n">machine</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
-            <span class="n">jsonfilename</span><span class="o">=</span><span class="n">jname_dict</span><span class="p">[</span><span class="n">machine</span><span class="p">]</span>
-            <span class="n">mdata</span><span class="o">=</span><span class="n">read_medical_data</span><span class="p">(</span><span class="n">datafilename</span><span class="p">,</span><span class="n">category</span><span class="p">,</span><span class="n">jsonfilename</span><span class="p">)</span>
-            <span class="c1"># 此处应当分别调用各种类别数据的清洁器</span>
-            <span class="n">mdata</span><span class="o">=</span><span class="n">cleaner_dict</span><span class="p">[</span><span class="n">machine</span><span class="p">](</span><span class="n">mdata</span><span class="p">)</span>
-            
-            <span class="n">row_data</span><span class="o">+=</span><span class="n">flatten_data</span><span class="p">(</span><span class="n">mdata</span><span class="p">)</span>
-        <span class="n">X_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row_data</span><span class="p">)</span>
-    <span class="n">X</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">X_data</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
-    <span class="n">y</span><span class="o">=</span><span class="n">class_df</span><span class="p">[</span><span class="s2">&quot;class&quot;</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">X</span><span class="p">,</span><span class="n">y</span>
+    <span class="n">df2</span><span class="o">=</span><span class="p">(</span><span class="n">ori_df</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span>
+     <span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">ori_df</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;dB&#39;</span><span class="p">))</span>
+     <span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+     <span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">&quot;(\-*\d.*\d*)\sdB&quot;</span><span class="p">)</span>
+     <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+     <span class="p">)</span>
+    <span class="n">df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df1</span><span class="p">,</span><span class="n">df2</span><span class="p">])</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;False POS Errors %&quot;</span><span class="p">,</span><span class="s2">&quot;False NEG Errors %&quot;</span><span class="p">,</span><span class="s2">&quot;VFI %&quot;</span><span class="p">,</span><span class="s2">&quot;MD&quot;</span><span class="p">,</span><span class="s2">&quot;PSD&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">df</span>
 </pre></div>
 
 </div>
@@ -12176,13 +12142,77 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="n">data_path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span><span class="s1">&#39;testdata&#39;</span><span class="p">)</span>
-    <span class="n">jpath</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;..&quot;</span><span class="p">,</span><span class="s2">&quot;medical_device_data&quot;</span><span class="p">)</span>
-    <span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="n">get_data</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span><span class="s2">&quot;class.csv&quot;</span><span class="p">,</span><span class="n">data_path</span><span class="p">,</span><span class="s2">&quot;analysis_category.csv&quot;</span><span class="p">,</span><span class="n">jpath</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># if __name__==&quot;__main__&quot;:</span>
+<span class="c1">#     print(get_stat(ori_df))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="&#20445;&#23384;&#25968;&#25454;">&#20445;&#23384;&#25968;&#25454;<a class="anchor-link" href="#&#20445;&#23384;&#25968;&#25454;">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_out_name</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span><span class="n">fname</span><span class="p">,</span><span class="n">cat</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span><span class="s2">&quot;csv&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">_</span><span class="si">{}</span><span class="s2">.csv&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">fname</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span><span class="n">cat</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">save_to_csv</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span><span class="n">output_path</span><span class="p">,</span><span class="n">fname</span><span class="p">):</span>
+    <span class="n">ori_df</span><span class="o">=</span><span class="n">pdfparser</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span><span class="n">fname</span><span class="p">)</span>
+    
+    <span class="n">data</span><span class="o">=</span><span class="n">get_vf_data</span><span class="p">(</span><span class="n">ori_df</span><span class="p">)</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">get_out_name</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span><span class="n">fname</span><span class="p">,</span><span class="s2">&quot;data&quot;</span><span class="p">),</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    
+    <span class="n">patient_info</span><span class="o">=</span><span class="n">get_patient_info</span><span class="p">(</span><span class="n">ori_df</span><span class="p">)</span>
+    <span class="n">patient_info</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">get_out_name</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span><span class="n">fname</span><span class="p">,</span><span class="s2">&quot;info&quot;</span><span class="p">),</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    
+    <span class="n">stat</span><span class="o">=</span><span class="n">get_stat</span><span class="p">(</span><span class="n">ori_df</span><span class="p">)</span>
+    <span class="n">stat</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">get_out_name</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span><span class="n">fname</span><span class="p">,</span><span class="s2">&quot;statistics&quot;</span><span class="p">),</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    
+    <span class="n">together</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">patient_info</span><span class="p">,</span><span class="n">stat</span><span class="p">,</span><span class="n">data</span><span class="p">])</span>
+    <span class="n">together</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">get_out_name</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span><span class="n">fname</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">),</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="kc">True</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="&#22788;&#29702;&#30446;&#24405;">&#22788;&#29702;&#30446;&#24405;<a class="anchor-link" href="#&#22788;&#29702;&#30446;&#24405;">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">convert_folder</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span><span class="n">output_path</span><span class="p">):</span>
+    <span class="n">pdffiles</span> <span class="o">=</span> <span class="p">[</span><span class="n">name</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">input_path</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.pdf&#39;</span><span class="p">)]</span>
+    <span class="k">for</span> <span class="n">fname</span> <span class="ow">in</span> <span class="n">pdffiles</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Convert PDF file </span><span class="si">{}</span><span class="s2"> to CSV&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fname</span><span class="p">))</span>
+        <span class="n">save_to_csv</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span><span class="n">output_path</span><span class="p">,</span><span class="n">fname</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;done&quot;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -12192,10 +12222,11 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[28]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">y</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>    
+    <span class="n">convert_folder</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span><span class="n">output_path</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -12208,19 +12239,48 @@ div#notebook {
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[28]:</div>
+<div class="prompt"></div>
 
 
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>0    OS_glaucoma
-1    OD_glaucoma
-2      OS_normal
-3      OD_normal
-Name: class, dtype: object</pre>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Convert PDF file LZB_OS-sfa(2).pdf to CSV
+</pre>
+</div>
 </div>
 
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/Users/goldengrape/anaconda3/envs/blog/lib/python3.5/site-packages/pandas/core/indexes/api.py:87: RuntimeWarning: unorderable types: str() &lt; int(), sort order is undefined for incomparable objects
+  result = result.union(other)
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>done
+Convert PDF file humphrey2_zh.pdf to CSV
+done
+Convert PDF file HFA_zh.pdf to CSV
+done
+Convert PDF file LZB_OD-sfa(2).pdf to CSV
+done
+Convert PDF file 左眼-sfa_en.pdf to CSV
+done
+Convert PDF file 右眼-sfa_zh.pdf to CSV
+done
+Convert PDF file humphrey1_en.pdf to CSV
+done
+</pre>
+</div>
 </div>
 
 </div>
