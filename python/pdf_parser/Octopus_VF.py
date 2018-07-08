@@ -11,7 +11,7 @@
 if __name__=="__main__":
     input_path='../../testdata/Octopus'
     output_path="../../testdata/Octopus"
-    fname="20170316动态视野(Octopus) .pdf" # for test
+    fname="20170406动态视野(Octopus) .pdf" # for test
 
 
 # ## 导入依赖包
@@ -81,7 +81,7 @@ def pdf_parser(pdftool, page):
 
 
 pdftool, all_pages=pdf_prepare(input_path,fname)
-txt_data=pdf_parser(pdftool, all_pages[0])
+txt_data=pdf_parser(pdftool, all_pages[1])
 
 
 # 每个字符的位置
@@ -122,7 +122,7 @@ def char_in_box(box, df):
     return "".join(part["V"].tolist())
 
 
-# In[13]:
+# In[8]:
 
 
 location_dict={
@@ -138,9 +138,32 @@ location_dict={
 }
 
 
-# In[14]:
+# In[9]:
 
 
 for k,v in location_dict.items():
     print("{} : {}".format(k,char_in_box(v,char_df)))
+
+
+# In[10]:
+
+
+value_c_x=450-5
+value_c_y=295-5
+value_location=[
+#     (371,216,164,164), # 最大范围
+#     (value_c_x,value_c_y,10,10), # 中心
+#     (value_c_x-5,value_c_y-5,10,10), # 顺时针渐开螺线, 第一圈
+#     (value_c_x+5,value_c_y-5,10,10),
+#     (value_c_x+5,value_c_y+5,10,10), 
+#     (value_c_x-5,value_c_y+5,10,10), 
+    (value_c_x-10,value_c_y-10,10,10), #第2圈
+    (value_c_x+15,value_c_y-10,10,10),
+    (value_c_x+15,value_c_y+10,10,10),
+    (value_c_x-10,value_c_y+10,10,10),
+
+]
+
+for loc in value_location:
+    print(char_in_box(loc,char_df))
 

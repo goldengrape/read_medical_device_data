@@ -11795,7 +11795,7 @@ div#notebook {
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">input_path</span><span class="o">=</span><span class="s1">&#39;../../testdata/Octopus&#39;</span>
     <span class="n">output_path</span><span class="o">=</span><span class="s2">&quot;../../testdata/Octopus&quot;</span>
-    <span class="n">fname</span><span class="o">=</span><span class="s2">&quot;20170316动态视野(Octopus) .pdf&quot;</span> <span class="c1"># for test</span>
+    <span class="n">fname</span><span class="o">=</span><span class="s2">&quot;20170406动态视野(Octopus) .pdf&quot;</span> <span class="c1"># for test</span>
 </pre></div>
 
 </div>
@@ -11911,7 +11911,7 @@ div#notebook {
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">pdftool</span><span class="p">,</span> <span class="n">all_pages</span><span class="o">=</span><span class="n">pdf_prepare</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span><span class="n">fname</span><span class="p">)</span>
-<span class="n">txt_data</span><span class="o">=</span><span class="n">pdf_parser</span><span class="p">(</span><span class="n">pdftool</span><span class="p">,</span> <span class="n">all_pages</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">txt_data</span><span class="o">=</span><span class="n">pdf_parser</span><span class="p">(</span><span class="n">pdftool</span><span class="p">,</span> <span class="n">all_pages</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 </pre></div>
 
 </div>
@@ -11994,7 +11994,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">location_dict</span><span class="o">=</span><span class="p">{</span>
@@ -12017,7 +12017,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">location_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
@@ -12038,15 +12038,66 @@ div#notebook {
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Programs : LVC Standard   White/White / Low
-name and birthday : liu jin quan, 1949-6-4
-Pupil : 4.8
-MS : 
-Eye and exam date time in LVC Standard : Right eye (OD) / 2017-03-16 / 12:14:18
-Eye and exam date time in G Standard : 
-sLV : 
+<pre>sLV : 12.6
+Eye and exam date time in G Standard : Right eye (OD) / 2017-04-06 / 10:03:40
+name and birthday : Wu wan fen, 1938-8-27
+Pupil : 4.1
+Eye and exam date time in LVC Standard : Right eye (OD) / 2017-04-06 / 10:03:40Seven-in-OneGreyscale (CO)
+MD : 12.6
+Programs : G Standard   White/White / TOP
+MS : 14.2
 RF : 0.0
-MD : 
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">value_c_x</span><span class="o">=</span><span class="mi">450</span><span class="o">-</span><span class="mi">5</span>
+<span class="n">value_c_y</span><span class="o">=</span><span class="mi">295</span><span class="o">-</span><span class="mi">5</span>
+<span class="n">value_location</span><span class="o">=</span><span class="p">[</span>
+<span class="c1">#     (371,216,164,164), # 最大范围</span>
+<span class="c1">#     (value_c_x,value_c_y,10,10), # 中心</span>
+<span class="c1">#     (value_c_x-5,value_c_y-5,10,10), # 顺时针渐开螺线, 第一圈</span>
+<span class="c1">#     (value_c_x+5,value_c_y-5,10,10),</span>
+<span class="c1">#     (value_c_x+5,value_c_y+5,10,10), </span>
+<span class="c1">#     (value_c_x-5,value_c_y+5,10,10), </span>
+    <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="c1">#第2圈</span>
+    <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">15</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+    <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">15</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+    <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">loc</span> <span class="ow">in</span> <span class="n">value_location</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">char_in_box</span><span class="p">(</span><span class="n">loc</span><span class="p">,</span><span class="n">char_df</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>13
+13
+28
+25
 </pre>
 </div>
 </div>
