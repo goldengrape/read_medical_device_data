@@ -11,7 +11,8 @@
 if __name__=="__main__":
     input_path='../../testdata/Octopus'
     output_path="../../testdata/Octopus"
-    fname="20170406动态视野(Octopus) .pdf" # for test
+    fname="20171130动态视野(Octopus) .pdf"
+    pageno=0 # for test
 
 
 # ## 导入依赖包
@@ -81,7 +82,7 @@ def pdf_parser(pdftool, page):
 
 
 pdftool, all_pages=pdf_prepare(input_path,fname)
-txt_data=pdf_parser(pdftool, all_pages[1])
+txt_data=pdf_parser(pdftool, all_pages[pageno])
 
 
 # 每个字符的位置
@@ -145,25 +146,87 @@ for k,v in location_dict.items():
     print("{} : {}".format(k,char_in_box(v,char_df)))
 
 
-# In[10]:
+# In[21]:
 
 
-value_c_x=450-5
-value_c_y=295-5
+value_c_x=445
+value_c_y=290
 value_location=[
 #     (371,216,164,164), # 最大范围
-#     (value_c_x,value_c_y,10,10), # 中心
-#     (value_c_x-5,value_c_y-5,10,10), # 顺时针渐开螺线, 第一圈
-#     (value_c_x+5,value_c_y-5,10,10),
-#     (value_c_x+5,value_c_y+5,10,10), 
-#     (value_c_x-5,value_c_y+5,10,10), 
-    (value_c_x-10,value_c_y-10,10,10), #第2圈
-    (value_c_x+15,value_c_y-10,10,10),
+    (value_c_x,value_c_y,10,10), # 中心
+
+    (value_c_x+5,value_c_y+5,10,10), # 顺时针渐开螺线, 第1圈
+    (value_c_x-5,value_c_y+5,10,10), 
+    (value_c_x-5,value_c_y-5,10,10), 
+    (value_c_x+5,value_c_y-5,10,10),
+    ##第2圈
     (value_c_x+15,value_c_y+10,10,10),
     (value_c_x-10,value_c_y+10,10,10),
+    (value_c_x-10,value_c_y-10,10,10), 
+    (value_c_x+15,value_c_y-10,10,10),
+    
+    ##第3圈
+    (value_c_x+25,value_c_y+5,10,10),
+    (value_c_x+25,value_c_y+20,10,10), # 第3圈, 下横(从右到左)
+    (value_c_x+10,value_c_y+20,10,10),
+    (value_c_x-5,value_c_y+20,10,10),
+    (value_c_x-20,value_c_y+20,10,10), # 第3圈, 左竖,从下到上
+    (value_c_x-20,value_c_y+5,10,10),
+    (value_c_x-20,value_c_y-5,10,10),
+    (value_c_x-20,value_c_y-20,10,10), # 上横
+    (value_c_x-5,value_c_y-20,10,10),
+    (value_c_x+5,value_c_y-20,10,10),
+    (value_c_x+25,value_c_y-20,10,10), #第3圈, 右竖
+    (value_c_x+25,value_c_y-5,10,10),
+    
+    ## 第4圈,
+    (value_c_x+40,value_c_y+10,10,10),
+    (value_c_x+35,value_c_y+35,10,10),
+    (value_c_x+15,value_c_y+35,10,10),
+    (value_c_x-10,value_c_y+35,10,10), 
+    (value_c_x-30,value_c_y+35,10,10),  
+    (value_c_x-35,value_c_y+10,10,10),
+    (value_c_x-35,value_c_y-10,10,10),
+    (value_c_x-30,value_c_y-35,10,10),  
+    (value_c_x-10,value_c_y-35,10,10), 
+    (value_c_x+15,value_c_y-35,10,10),
+    (value_c_x+35,value_c_y-35,10,10),
+    (value_c_x+40,value_c_y-10,10,10),    
 
+    # 第5圈
+    (value_c_x+55,value_c_y+10,15,10),
+    (value_c_x+55,value_c_y+30,10,10),
+    (value_c_x+55,value_c_y+50,10,10),
+    (value_c_x+35,value_c_y+50,10,10),
+    (value_c_x+15,value_c_y+50,10,10),
+    (value_c_x-10,value_c_y+50,10,10),
+    (value_c_x-30,value_c_y+50,10,10),
+    (value_c_x-50,value_c_y+50,10,10),
+    (value_c_x-50,value_c_y+30,10,10),
+    (value_c_x-55,value_c_y+10,15,10), # 左右眼略有差别, 宽度加大一些,增加冗余
+    (value_c_x-55,value_c_y-10,15,10),
+    (value_c_x-50,value_c_y-30,10,10), # 这圈好大
+    (value_c_x-50,value_c_y-50,10,10), 
+    (value_c_x-30,value_c_y-50,10,10),
+    (value_c_x-10,value_c_y-50,10,10),
+    (value_c_x+10,value_c_y-50,15,10),
+    (value_c_x+30,value_c_y-50,15,10),
+    (value_c_x+55,value_c_y-50,10,10),
+    (value_c_x+55,value_c_y-30,10,10),
+    (value_c_x+55,value_c_y-10,15,10),
+
+    ## 最外8个
+    (value_c_x+70,value_c_y+10,20,20),
+    (value_c_x+20,value_c_y+70,20,20),
+    (value_c_x-20,value_c_y+70,20,20),
+    (value_c_x-80,value_c_y+15,20,20),
+    (value_c_x-80,value_c_y-20,20,20),
+    (value_c_x-20,value_c_y-70,10,10), 
+    (value_c_x+20,value_c_y-70,20,10),  
+    (value_c_x+70,value_c_y-20,20,20),
 ]
 
 for loc in value_location:
     print(char_in_box(loc,char_df))
+print("---")
 
