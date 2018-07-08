@@ -11789,13 +11789,13 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">input_path</span><span class="o">=</span><span class="s1">&#39;../../testdata/Octopus&#39;</span>
     <span class="n">output_path</span><span class="o">=</span><span class="s2">&quot;../../testdata/Octopus&quot;</span>
-    <span class="n">fname</span><span class="o">=</span><span class="s2">&quot;20130106动态视野(Octopus) .pdf&quot;</span> <span class="c1"># for test</span>
+    <span class="n">fname</span><span class="o">=</span><span class="s2">&quot;20170316动态视野(Octopus) .pdf&quot;</span> <span class="c1"># for test</span>
 </pre></div>
 
 </div>
@@ -11840,12 +11840,14 @@ div#notebook {
     <span class="kn">from</span> <span class="nn">pdfminer.pdfpage</span> <span class="k">import</span> <span class="n">PDFPage</span>
     <span class="kn">from</span> <span class="nn">pdfminer.converter</span> <span class="k">import</span> <span class="n">XMLConverter</span><span class="p">,</span> <span class="n">HTMLConverter</span><span class="p">,</span> <span class="n">TextConverter</span>
     <span class="kn">from</span> <span class="nn">pdfminer.layout</span> <span class="k">import</span> <span class="n">LAParams</span>
+    <span class="kn">from</span> <span class="nn">pdfminer.image</span> <span class="k">import</span> <span class="n">ImageWriter</span>
 <span class="k">except</span><span class="p">:</span>
     <span class="o">!</span>conda install pdfminer.six --yes
     <span class="kn">from</span> <span class="nn">pdfminer.pdfinterp</span> <span class="k">import</span> <span class="n">PDFResourceManager</span><span class="p">,</span> <span class="n">PDFPageInterpreter</span>
     <span class="kn">from</span> <span class="nn">pdfminer.pdfpage</span> <span class="k">import</span> <span class="n">PDFPage</span>
     <span class="kn">from</span> <span class="nn">pdfminer.converter</span> <span class="k">import</span> <span class="n">XMLConverter</span><span class="p">,</span> <span class="n">HTMLConverter</span><span class="p">,</span> <span class="n">TextConverter</span>
     <span class="kn">from</span> <span class="nn">pdfminer.layout</span> <span class="k">import</span> <span class="n">LAParams</span>
+    <span class="kn">from</span> <span class="nn">pdfminer.image</span> <span class="k">import</span> <span class="n">ImageWriter</span>
 </pre></div>
 
 </div>
@@ -11853,14 +11855,49 @@ div#notebook {
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="&#35835;&#21462;&#21407;&#22987;&#25968;&#25454;">&#35835;&#21462;&#21407;&#22987;&#25968;&#25454;<a class="anchor-link" href="#&#35835;&#21462;&#21407;&#22987;&#25968;&#25454;">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>使用导出成html文本的方式, 将PDF文件中的每一个字符定位后导出.
+由于对字符位置高度依赖, 所以文件必须以A4形式导出.</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[102]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">filename</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span><span class="s2">&quot;o1.html&quot;</span><span class="p">)</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;rt&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">pdf_prepare</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span><span class="n">fname</span><span class="p">):</span>
+    <span class="n">filename</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span><span class="n">fname</span><span class="p">)</span>
+    <span class="n">fp</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span>
+    <span class="n">rsrcmgr</span> <span class="o">=</span> <span class="n">PDFResourceManager</span><span class="p">()</span>
+    <span class="n">retstr</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">()</span>
+    <span class="n">codec</span> <span class="o">=</span> <span class="s1">&#39;utf-8&#39;</span>
+    <span class="n">laparams</span> <span class="o">=</span> <span class="n">LAParams</span><span class="p">()</span>
+    <span class="n">device</span> <span class="o">=</span> <span class="n">HTMLConverter</span><span class="p">(</span><span class="n">rsrcmgr</span><span class="p">,</span> <span class="n">retstr</span><span class="p">,</span> <span class="n">codec</span><span class="o">=</span><span class="n">codec</span><span class="p">,</span> <span class="n">layoutmode</span><span class="o">=</span><span class="s2">&quot;exact&quot;</span><span class="p">,</span> <span class="n">laparams</span><span class="o">=</span><span class="n">laparams</span><span class="p">)</span>
+    <span class="c1"># Create a PDF interpreter object.</span>
+    <span class="n">interpreter</span> <span class="o">=</span> <span class="n">PDFPageInterpreter</span><span class="p">(</span><span class="n">rsrcmgr</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+    <span class="c1"># Process each page contained in the document.</span>
+    <span class="n">all_pages</span><span class="o">=</span><span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">PDFPage</span><span class="o">.</span><span class="n">get_pages</span><span class="p">(</span><span class="n">fp</span><span class="p">)]</span>
+    <span class="n">pdftool</span><span class="o">=</span><span class="p">(</span><span class="n">interpreter</span><span class="p">,</span><span class="n">retstr</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pdftool</span><span class="p">,</span> <span class="n">all_pages</span>
+
+<span class="k">def</span> <span class="nf">pdf_parser</span><span class="p">(</span><span class="n">pdftool</span><span class="p">,</span> <span class="n">page</span><span class="p">):</span>
+    <span class="n">interpreter</span><span class="p">,</span><span class="n">retstr</span><span class="o">=</span><span class="n">pdftool</span>
+    <span class="n">interpreter</span><span class="o">.</span><span class="n">process_page</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>
+    <span class="n">txt_string</span> <span class="o">=</span>  <span class="n">retstr</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span>
+    <span class="k">return</span>  <span class="n">txt_string</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -11870,15 +11907,11 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[142]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">span_left</span><span class="o">=</span><span class="s1">&#39;&lt;span style=&quot;position:absolute; color:black; left:(\d+)px; top:(\d+)px; font-size:\d+px;&quot;&gt;&#39;</span>
-<span class="n">span_right</span><span class="o">=</span><span class="s2">&quot;&lt;/span&gt;&quot;</span>
-<span class="n">value</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">span_left</span><span class="o">+</span><span class="s2">&quot;([\s\S]+?)&quot;</span><span class="o">+</span><span class="n">span_right</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
-<span class="n">d1</span><span class="o">=</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;X&quot;</span><span class="p">,</span><span class="s2">&quot;Y&quot;</span><span class="p">,</span><span class="s2">&quot;V&quot;</span><span class="p">])</span>
-<span class="n">d1</span><span class="p">[</span><span class="s2">&quot;X&quot;</span><span class="p">]</span><span class="o">=</span><span class="n">d1</span><span class="p">[</span><span class="s2">&quot;X&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">);</span>
-<span class="n">d1</span><span class="p">[</span><span class="s2">&quot;Y&quot;</span><span class="p">]</span><span class="o">=</span><span class="n">d1</span><span class="p">[</span><span class="s2">&quot;Y&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">);</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pdftool</span><span class="p">,</span> <span class="n">all_pages</span><span class="o">=</span><span class="n">pdf_prepare</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span><span class="n">fname</span><span class="p">)</span>
+<span class="n">txt_data</span><span class="o">=</span><span class="n">pdf_parser</span><span class="p">(</span><span class="n">pdftool</span><span class="p">,</span> <span class="n">all_pages</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 </pre></div>
 
 </div>
@@ -11886,13 +11919,28 @@ div#notebook {
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>每个字符的位置</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[141]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">block_span</span><span class="o">=</span><span class="s1">&#39;&lt;span style=&quot;position:absolute; border: black 1px solid; left:(\d+)px; top:(\d+)px; width:(\d</span><span class="si">{3}</span><span class="s1">)px; height:(\d</span><span class="si">{3}</span><span class="s1">)px;&quot;&gt;&lt;/span&gt;&#39;</span>
-<span class="n">block</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">block_span</span><span class="p">,</span><span class="n">data</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_all_char</span><span class="p">(</span><span class="n">txtdata</span><span class="p">):</span>
+    <span class="n">span_left</span><span class="o">=</span><span class="s1">&#39;&lt;span style=&quot;position:absolute; color:black; left:(\d+)px; top:(\d+)px; font-size:\d+px;&quot;&gt;&#39;</span>
+    <span class="n">span_right</span><span class="o">=</span><span class="s2">&quot;&lt;/span&gt;&quot;</span>
+    <span class="n">value</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">span_left</span><span class="o">+</span><span class="s2">&quot;([\s\S]+?)&quot;</span><span class="o">+</span><span class="n">span_right</span><span class="p">,</span> <span class="n">txtdata</span><span class="p">)</span>
+    <span class="n">char_df</span><span class="o">=</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;X&quot;</span><span class="p">,</span><span class="s2">&quot;Y&quot;</span><span class="p">,</span><span class="s2">&quot;V&quot;</span><span class="p">])</span>
+    <span class="n">char_df</span><span class="p">[</span><span class="s2">&quot;X&quot;</span><span class="p">]</span><span class="o">=</span><span class="n">char_df</span><span class="p">[</span><span class="s2">&quot;X&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">);</span>
+    <span class="n">char_df</span><span class="p">[</span><span class="s2">&quot;Y&quot;</span><span class="p">]</span><span class="o">=</span><span class="n">char_df</span><span class="p">[</span><span class="s2">&quot;Y&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">char_df</span>
 </pre></div>
 
 </div>
@@ -11902,10 +11950,36 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[139]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">char_df</span><span class="o">=</span> <span class="n">get_all_char</span><span class="p">(</span><span class="n">txt_data</span><span class="p">)</span>
+<span class="c1"># char_df1= get_all_char(txt_data[1])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>从一个box内取出所包含的字符, 并拼接成字符串</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">char_in_box</span><span class="p">(</span><span class="n">box</span><span class="p">,</span> <span class="n">df</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    读取box范围内的字符, 并且拼接成字符串</span>
+<span class="sd">    &#39;&#39;&#39;</span>
     <span class="n">x0</span><span class="p">,</span><span class="n">y0</span><span class="p">,</span><span class="n">dx</span><span class="p">,</span><span class="n">dy</span><span class="o">=</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">box</span><span class="p">)</span>
     <span class="n">part</span><span class="o">=</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;X&quot;</span><span class="p">]</span><span class="o">&gt;</span><span class="n">x0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;X&quot;</span><span class="p">]</span><span class="o">&lt;</span><span class="n">x0</span><span class="o">+</span><span class="n">dx</span><span class="p">)</span> <span class="o">&amp;</span> 
                    <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Y&quot;</span><span class="p">]</span><span class="o">&gt;</span><span class="n">y0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Y&quot;</span><span class="p">]</span><span class="o">&lt;</span><span class="n">y0</span><span class="o">+</span><span class="n">dy</span><span class="p">)</span> <span class="p">)</span>
@@ -11920,10 +11994,34 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[140]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">char_in_box</span><span class="p">(</span><span class="n">block</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">d1</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">location_dict</span><span class="o">=</span><span class="p">{</span>
+    <span class="s2">&quot;name and birthday&quot;</span><span class="p">:(</span><span class="mi">50</span><span class="p">,</span><span class="mi">130</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">50</span><span class="p">),</span> <span class="c1"># 有不同的检查方式, 位置需要有一定的冗余</span>
+    <span class="s2">&quot;Eye and exam date time in G Standard&quot;</span><span class="p">:(</span><span class="mi">50</span><span class="p">,</span><span class="mi">175</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span> <span class="c1"># 有不同的检查方式, 后面再切换</span>
+    <span class="s2">&quot;Eye and exam date time in LVC Standard&quot;</span><span class="p">:(</span><span class="mi">50</span><span class="p">,</span><span class="mi">175</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">30</span><span class="p">),</span> <span class="c1"># 简单粗暴有效</span>
+    <span class="s2">&quot;Programs&quot;</span><span class="p">:(</span><span class="mi">120</span><span class="p">,</span><span class="mi">700</span><span class="p">,</span><span class="mi">130</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span>
+    <span class="s2">&quot;RF&quot;</span><span class="p">:(</span><span class="mi">300</span><span class="p">,</span><span class="mi">720</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+    <span class="s2">&quot;Pupil&quot;</span><span class="p">:(</span><span class="mi">100</span><span class="p">,</span><span class="mi">745</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>   
+    <span class="s2">&quot;MS&quot;</span><span class="p">:(</span><span class="mi">507</span><span class="p">,</span><span class="mi">710</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+    <span class="s2">&quot;MD&quot;</span><span class="p">:(</span><span class="mi">507</span><span class="p">,</span><span class="mi">720</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+    <span class="s2">&quot;sLV&quot;</span><span class="p">:(</span><span class="mi">507</span><span class="p">,</span><span class="mi">720</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+<span class="p">}</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">location_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> : </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="n">char_in_box</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="n">char_df</span><span class="p">)))</span>
 </pre></div>
 
 </div>
@@ -11936,15 +12034,21 @@ div#notebook {
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[140]:</div>
+<div class="prompt"></div>
 
 
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>&#39;201721201414226262615131216221817101017151225292620151316131214151211171616112012202315991920161014211423221811192218.312.615.819.5&#39;</pre>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Programs : LVC Standard   White/White / Low
+name and birthday : liu jin quan, 1949-6-4
+Pupil : 4.8
+MS : 
+Eye and exam date time in LVC Standard : Right eye (OD) / 2017-03-16 / 12:14:18
+Eye and exam date time in G Standard : 
+sLV : 
+RF : 0.0
+MD : 
+</pre>
 </div>
-
 </div>
 
 </div>

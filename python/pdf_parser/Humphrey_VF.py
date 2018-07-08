@@ -20,7 +20,7 @@ if __name__=="__main__":
 # 
 # 同时, 在使用notebook.azure.com在线运行时, 服务器端不会保存曾经安装过的包, 因此在1小时没有操作之后, 服务器会关闭, 再次打开时就已经丢失了之前安装的包, 相当于首次运行. 
 
-# In[2]:
+# In[1]:
 
 
 import sys
@@ -47,7 +47,7 @@ except:
 
 # # 读取原始数据
 
-# In[3]:
+# In[2]:
 
 
 def pdfparser(input_path,fname):
@@ -291,7 +291,6 @@ def convert_folder(input_path,output_path):
         print("Convert PDF file {} to CSV".format(fname))
         save_to_csv(input_path,output_path,fname)
         print("done")
-
 
 
 # In[15]:

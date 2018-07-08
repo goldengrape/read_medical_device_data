@@ -5,13 +5,13 @@
 
 # ## 设定文件路径参数
 
-# In[15]:
+# In[1]:
 
 
 if __name__=="__main__":
     input_path='../../testdata/Octopus'
     output_path="../../testdata/Octopus"
-    fname="20130106动态视野(Octopus) .pdf" # for test
+    fname="20170316动态视野(Octopus) .pdf" # for test
 
 
 # ## 导入依赖包
@@ -37,44 +37,84 @@ try:
     from pdfminer.pdfpage import PDFPage
     from pdfminer.converter import XMLConverter, HTMLConverter, TextConverter
     from pdfminer.layout import LAParams
+    from pdfminer.image import ImageWriter
 except:
     get_ipython().system('conda install pdfminer.six --yes')
     from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
     from pdfminer.pdfpage import PDFPage
     from pdfminer.converter import XMLConverter, HTMLConverter, TextConverter
     from pdfminer.layout import LAParams
+    from pdfminer.image import ImageWriter
 
 
-# In[102]:
+# # 读取原始数据
+
+# 使用导出成html文本的方式, 将PDF文件中的每一个字符定位后导出.
+# 由于对字符位置高度依赖, 所以文件必须以A4形式导出.
+
+# In[3]:
 
 
-filename=os.path.join(input_path,"o1.html")
-with open(filename, 'rt') as f:
-    data = f.read()
+def pdf_prepare(input_path,fname):
+    filename=os.path.join(input_path,fname)
+    fp = open(filename, 'rb')
+    rsrcmgr = PDFResourceManager()
+    retstr = io.BytesIO()
+    codec = 'utf-8'
+    laparams = LAParams()
+    device = HTMLConverter(rsrcmgr, retstr, codec=codec, layoutmode="exact", laparams=laparams)
+    # Create a PDF interpreter object.
+    interpreter = PDFPageInterpreter(rsrcmgr, device)
+    # Process each page contained in the document.
+    all_pages=[p for p in PDFPage.get_pages(fp)]
+    pdftool=(interpreter,retstr)
+    return pdftool, all_pages
+
+def pdf_parser(pdftool, page):
+    interpreter,retstr=pdftool
+    interpreter.process_page(page)
+    txt_string =  retstr.getvalue()
+    return  txt_string.decode("utf-8")
 
 
-# In[142]:
+# In[4]:
 
 
-span_left='<span style="position:absolute; color:black; left:(\d+)px; top:(\d+)px; font-size:\d+px;">'
-span_right="</span>"
-value=re.findall(span_left+"([\s\S]+?)"+span_right, data)
-d1=DataFrame(value, columns=["X","Y","V"])
-d1["X"]=d1["X"].astype(int);
-d1["Y"]=d1["Y"].astype(int);
+pdftool, all_pages=pdf_prepare(input_path,fname)
+txt_data=pdf_parser(pdftool, all_pages[0])
 
 
-# In[141]:
+# 每个字符的位置
+
+# In[5]:
 
 
-block_span='<span style="position:absolute; border: black 1px solid; left:(\d+)px; top:(\d+)px; width:(\d{3})px; height:(\d{3})px;"></span>'
-block=re.findall(block_span,data)
+def get_all_char(txtdata):
+    span_left='<span style="position:absolute; color:black; left:(\d+)px; top:(\d+)px; font-size:\d+px;">'
+    span_right="</span>"
+    value=re.findall(span_left+"([\s\S]+?)"+span_right, txtdata)
+    char_df=DataFrame(value, columns=["X","Y","V"])
+    char_df["X"]=char_df["X"].astype(int);
+    char_df["Y"]=char_df["Y"].astype(int);
+    return char_df
 
 
-# In[139]:
+# In[6]:
+
+
+char_df= get_all_char(txt_data)
+# char_df1= get_all_char(txt_data[1])
+
+
+# 从一个box内取出所包含的字符, 并拼接成字符串
+
+# In[7]:
 
 
 def char_in_box(box, df):
+    '''
+    读取box范围内的字符, 并且拼接成字符串
+    '''
     x0,y0,dx,dy=(int(u) for u in box)
     part=(df.where((df["X"]>x0) & (df["X"]<x0+dx) & 
                    (df["Y"]>y0) & (df["Y"]<y0+dy) )
@@ -82,8 +122,25 @@ def char_in_box(box, df):
     return "".join(part["V"].tolist())
 
 
-# In[140]:
+# In[13]:
 
 
-char_in_box(block[1], d1)
+location_dict={
+    "name and birthday":(50,130,200,50), # 有不同的检查方式, 位置需要有一定的冗余
+    "Eye and exam date time in G Standard":(50,175,200,20), # 有不同的检查方式, 后面再切换
+    "Eye and exam date time in LVC Standard":(50,175,200,30), # 简单粗暴有效
+    "Programs":(120,700,130,4),
+    "RF":(300,720,100,10),
+    "Pupil":(100,745,100,10),   
+    "MS":(507,710,50,10),
+    "MD":(507,720,50,10),
+    "sLV":(507,720,50,10),
+}
+
+
+# In[14]:
+
+
+for k,v in location_dict.items():
+    print("{} : {}".format(k,char_in_box(v,char_df)))
 
