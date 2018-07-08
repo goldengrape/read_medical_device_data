@@ -11795,8 +11795,8 @@ div#notebook {
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">input_path</span><span class="o">=</span><span class="s1">&#39;../../testdata/Octopus&#39;</span>
     <span class="n">output_path</span><span class="o">=</span><span class="s2">&quot;../../testdata/Octopus&quot;</span>
-    <span class="n">fname</span><span class="o">=</span><span class="s2">&quot;20171130动态视野(Octopus) .pdf&quot;</span>
-    <span class="n">pageno</span><span class="o">=</span><span class="mi">0</span> <span class="c1"># for test</span>
+    <span class="n">fname</span><span class="o">=</span><span class="s2">&quot;20170316动态视野(Octopus) .pdf&quot;</span>
+    <span class="c1">#pageno=0 # for test</span>
 </pre></div>
 
 </div>
@@ -11879,26 +11879,13 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">pdf_prepare</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span><span class="n">fname</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_pdf_page</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span><span class="n">fname</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    取得页面个数</span>
+<span class="sd">    &#39;&#39;&#39;</span>
     <span class="n">filename</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span><span class="n">fname</span><span class="p">)</span>
     <span class="n">fp</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span>
-    <span class="n">rsrcmgr</span> <span class="o">=</span> <span class="n">PDFResourceManager</span><span class="p">()</span>
-    <span class="n">retstr</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">()</span>
-    <span class="n">codec</span> <span class="o">=</span> <span class="s1">&#39;utf-8&#39;</span>
-    <span class="n">laparams</span> <span class="o">=</span> <span class="n">LAParams</span><span class="p">()</span>
-    <span class="n">device</span> <span class="o">=</span> <span class="n">HTMLConverter</span><span class="p">(</span><span class="n">rsrcmgr</span><span class="p">,</span> <span class="n">retstr</span><span class="p">,</span> <span class="n">codec</span><span class="o">=</span><span class="n">codec</span><span class="p">,</span> <span class="n">layoutmode</span><span class="o">=</span><span class="s2">&quot;exact&quot;</span><span class="p">,</span> <span class="n">laparams</span><span class="o">=</span><span class="n">laparams</span><span class="p">)</span>
-    <span class="c1"># Create a PDF interpreter object.</span>
-    <span class="n">interpreter</span> <span class="o">=</span> <span class="n">PDFPageInterpreter</span><span class="p">(</span><span class="n">rsrcmgr</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
-    <span class="c1"># Process each page contained in the document.</span>
-    <span class="n">all_pages</span><span class="o">=</span><span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">PDFPage</span><span class="o">.</span><span class="n">get_pages</span><span class="p">(</span><span class="n">fp</span><span class="p">)]</span>
-    <span class="n">pdftool</span><span class="o">=</span><span class="p">(</span><span class="n">interpreter</span><span class="p">,</span><span class="n">retstr</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">pdftool</span><span class="p">,</span> <span class="n">all_pages</span>
-
-<span class="k">def</span> <span class="nf">pdf_parser</span><span class="p">(</span><span class="n">pdftool</span><span class="p">,</span> <span class="n">page</span><span class="p">):</span>
-    <span class="n">interpreter</span><span class="p">,</span><span class="n">retstr</span><span class="o">=</span><span class="n">pdftool</span>
-    <span class="n">interpreter</span><span class="o">.</span><span class="n">process_page</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>
-    <span class="n">txt_string</span> <span class="o">=</span>  <span class="n">retstr</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span>
-    <span class="k">return</span>  <span class="n">txt_string</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">len</span><span class="p">([</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">PDFPage</span><span class="o">.</span><span class="n">get_pages</span><span class="p">(</span><span class="n">fp</span><span class="p">)])</span>
 </pre></div>
 
 </div>
@@ -11911,8 +11898,24 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pdftool</span><span class="p">,</span> <span class="n">all_pages</span><span class="o">=</span><span class="n">pdf_prepare</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span><span class="n">fname</span><span class="p">)</span>
-<span class="n">txt_data</span><span class="o">=</span><span class="n">pdf_parser</span><span class="p">(</span><span class="n">pdftool</span><span class="p">,</span> <span class="n">all_pages</span><span class="p">[</span><span class="n">pageno</span><span class="p">])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">pdf_parser</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span><span class="n">fname</span><span class="p">,</span><span class="n">page_number</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    取得转换为html的字符</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">filename</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span><span class="n">fname</span><span class="p">)</span>
+    <span class="n">fp</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span>
+    <span class="n">rsrcmgr</span> <span class="o">=</span> <span class="n">PDFResourceManager</span><span class="p">()</span>
+    <span class="n">retstr</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">()</span>
+    <span class="n">codec</span> <span class="o">=</span> <span class="s1">&#39;utf-8&#39;</span>
+    <span class="n">laparams</span> <span class="o">=</span> <span class="n">LAParams</span><span class="p">()</span>
+    <span class="n">device</span> <span class="o">=</span> <span class="n">HTMLConverter</span><span class="p">(</span><span class="n">rsrcmgr</span><span class="p">,</span> <span class="n">retstr</span><span class="p">,</span> 
+                           <span class="n">codec</span><span class="o">=</span><span class="n">codec</span><span class="p">,</span> <span class="n">layoutmode</span><span class="o">=</span><span class="s2">&quot;exact&quot;</span><span class="p">,</span> <span class="n">laparams</span><span class="o">=</span><span class="n">laparams</span><span class="p">)</span>
+    <span class="n">interpreter</span> <span class="o">=</span> <span class="n">PDFPageInterpreter</span><span class="p">(</span><span class="n">rsrcmgr</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+    <span class="n">all_pages</span><span class="o">=</span><span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">PDFPage</span><span class="o">.</span><span class="n">get_pages</span><span class="p">(</span><span class="n">fp</span><span class="p">)]</span>
+    <span class="n">interpreter</span><span class="o">.</span><span class="n">process_page</span><span class="p">(</span><span class="n">all_pages</span><span class="p">[</span><span class="n">page_number</span><span class="p">])</span> <span class="c1"># 无法分成多个函数处理, 目前只能重新读取并处理</span>
+    <span class="n">txt_string</span> <span class="o">=</span>  <span class="n">retstr</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span>
+    <span class="n">retstr</span><span class="o">.</span><span class="n">truncate</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span>  <span class="n">txt_string</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -11949,20 +11952,6 @@ div#notebook {
 </div>
 
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">char_df</span><span class="o">=</span> <span class="n">get_all_char</span><span class="p">(</span><span class="n">txt_data</span><span class="p">)</span>
-<span class="c1"># char_df1= get_all_char(txt_data[1])</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
@@ -11974,7 +11963,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">char_in_box</span><span class="p">(</span><span class="n">box</span><span class="p">,</span> <span class="n">df</span><span class="p">):</span>
@@ -11993,12 +11982,40 @@ div#notebook {
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="&#25552;&#21462;&#30456;&#20851;&#20449;&#24687;">&#25552;&#21462;&#30456;&#20851;&#20449;&#24687;<a class="anchor-link" href="#&#25552;&#21462;&#30456;&#20851;&#20449;&#24687;">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>各个信息是基于字符位置进行提取的, 因此只要指定每个信息所在的位置box即可, 位置box的定义为(left, top, width, height)</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="&#25552;&#21462;&#22522;&#26412;&#20449;&#24687;">&#25552;&#21462;&#22522;&#26412;&#20449;&#24687;<a class="anchor-link" href="#&#25552;&#21462;&#22522;&#26412;&#20449;&#24687;">&#182;</a></h2><p>包含:
+"name", "birthday","exam_date","eye", "Programs_type", "RF","Pupil","MS","MD","sLV"</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">location_dict</span><span class="o">=</span><span class="p">{</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_basic_info</span><span class="p">(</span><span class="n">char_df</span><span class="p">):</span>
+    <span class="n">location_dict</span><span class="o">=</span><span class="p">{</span>
     <span class="s2">&quot;name and birthday&quot;</span><span class="p">:(</span><span class="mi">50</span><span class="p">,</span><span class="mi">130</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">50</span><span class="p">),</span> <span class="c1"># 有不同的检查方式, 位置需要有一定的冗余</span>
     <span class="s2">&quot;Eye and exam date time in G Standard&quot;</span><span class="p">:(</span><span class="mi">50</span><span class="p">,</span><span class="mi">175</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span> <span class="c1"># 有不同的检查方式, 后面再切换</span>
     <span class="s2">&quot;Eye and exam date time in LVC Standard&quot;</span><span class="p">:(</span><span class="mi">50</span><span class="p">,</span><span class="mi">175</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">30</span><span class="p">),</span> <span class="c1"># 简单粗暴有效</span>
@@ -12008,139 +12025,220 @@ div#notebook {
     <span class="s2">&quot;MS&quot;</span><span class="p">:(</span><span class="mi">507</span><span class="p">,</span><span class="mi">710</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
     <span class="s2">&quot;MD&quot;</span><span class="p">:(</span><span class="mi">507</span><span class="p">,</span><span class="mi">720</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
     <span class="s2">&quot;sLV&quot;</span><span class="p">:(</span><span class="mi">507</span><span class="p">,</span><span class="mi">720</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-<span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">Programs_type</span><span class="o">=</span><span class="n">char_in_box</span><span class="p">(</span><span class="n">location_dict</span><span class="p">[</span><span class="s2">&quot;Programs&quot;</span><span class="p">],</span><span class="n">char_df</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s2">&quot;G Standard&quot;</span> <span class="ow">in</span> <span class="n">Programs_type</span><span class="p">:</span>
+        <span class="n">Eye_and_exam_date_time</span><span class="o">=</span> \
+         <span class="n">char_in_box</span><span class="p">(</span><span class="n">location_dict</span><span class="p">[</span><span class="s2">&quot;Eye and exam date time in G Standard&quot;</span><span class="p">],</span><span class="n">char_df</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="s2">&quot;LVC Standard&quot;</span> <span class="ow">in</span> <span class="n">Programs_type</span><span class="p">:</span>
+        <span class="n">Eye_and_exam_date_time</span><span class="o">=</span> \
+        <span class="n">char_in_box</span><span class="p">(</span><span class="n">location_dict</span><span class="p">[</span><span class="s2">&quot;Eye and exam date time in LVC Standard&quot;</span><span class="p">],</span><span class="n">char_df</span><span class="p">)</span>
+<span class="c1">#     print(Eye_and_exam_date_time.split(&quot;/&quot;))</span>
+    <span class="n">eye</span><span class="p">,</span> <span class="n">exam_date</span><span class="p">,</span> <span class="n">exam_time</span> <span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">Eye_and_exam_date_time</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">))</span>
+    
+    <span class="n">name_and_birthday</span><span class="o">=</span><span class="n">char_in_box</span><span class="p">(</span><span class="n">location_dict</span><span class="p">[</span><span class="s2">&quot;name and birthday&quot;</span><span class="p">],</span><span class="n">char_df</span><span class="p">)</span>
+    <span class="n">name</span><span class="p">,</span> <span class="n">birthday</span><span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">name_and_birthday</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">))</span>
+    
+    <span class="n">RF</span><span class="p">,</span> <span class="n">Pupil</span><span class="p">,</span> <span class="n">MS</span><span class="p">,</span> <span class="n">MD</span><span class="p">,</span> <span class="n">sLV</span><span class="o">=</span><span class="p">(</span><span class="n">char_in_box</span><span class="p">(</span><span class="n">location_dict</span><span class="p">[</span><span class="n">key</span><span class="p">],</span><span class="n">char_df</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;RF&quot;</span><span class="p">,</span><span class="s2">&quot;Pupil&quot;</span><span class="p">,</span><span class="s2">&quot;MS&quot;</span><span class="p">,</span><span class="s2">&quot;MD&quot;</span><span class="p">,</span><span class="s2">&quot;sLV&quot;</span><span class="p">])</span>
+    
+    <span class="n">s</span><span class="o">=</span><span class="n">Series</span><span class="p">([</span><span class="n">name</span><span class="p">,</span> <span class="n">birthday</span><span class="p">,</span><span class="n">exam_date</span><span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span><span class="n">exam_time</span><span class="p">,</span><span class="n">eye</span><span class="p">,</span> <span class="n">Programs_type</span><span class="p">,</span><span class="n">RF</span><span class="p">,</span><span class="n">Pupil</span><span class="p">,</span><span class="n">MS</span><span class="p">,</span><span class="n">MD</span><span class="p">,</span><span class="n">sLV</span> <span class="p">],</span>
+             <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;birthday&quot;</span><span class="p">,</span><span class="s2">&quot;exam_date&quot;</span><span class="p">,</span><span class="s2">&quot;eye&quot;</span><span class="p">,</span> <span class="s2">&quot;Programs_type&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;RF&quot;</span><span class="p">,</span><span class="s2">&quot;Pupil&quot;</span><span class="p">,</span><span class="s2">&quot;MS&quot;</span><span class="p">,</span><span class="s2">&quot;MD&quot;</span><span class="p">,</span><span class="s2">&quot;sLV&quot;</span><span class="p">]</span> <span class="p">)</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">birthday</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">birthday</span><span class="p">)</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">exam_date</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">exam_date</span><span class="p">)</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">5</span><span class="p">:]</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">5</span><span class="p">:])</span>
+    <span class="k">return</span> <span class="n">s</span>
 </pre></div>
 
 </div>
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="&#25552;&#21462;&#35270;&#37326;&#30340;&#21407;&#22987;&#25968;&#25454;">&#25552;&#21462;&#35270;&#37326;&#30340;&#21407;&#22987;&#25968;&#25454;<a class="anchor-link" href="#&#25552;&#21462;&#35270;&#37326;&#30340;&#21407;&#22987;&#25968;&#25454;">&#182;</a></h2><p>数据从中心按照顺时针渐开线的方式排列成一维数组:</p>
+<p><img src="https://i.loli.net/2018/07/08/5b421fb0a922a.png" alt=""></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_VF_value</span><span class="p">(</span><span class="n">char_df</span><span class="p">):</span>
+    <span class="n">value_c_x</span><span class="o">=</span><span class="mi">445</span>
+    <span class="n">value_c_y</span><span class="o">=</span><span class="mi">290</span>
+    <span class="n">value_location</span><span class="o">=</span><span class="p">[</span>
+    <span class="c1">#     (371,216,164,164), # 最大范围</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="p">,</span><span class="n">value_c_y</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="c1"># 中心</span>
+
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">5</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="c1"># 顺时针渐开螺线, 第1圈</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> 
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> 
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">5</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+        <span class="c1">##第2圈</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">15</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> 
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">15</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+
+        <span class="c1">##第3圈</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">25</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">25</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="c1"># 第3圈, 下横(从右到左)</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">10</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="c1"># 第3圈, 左竖,从下到上</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="c1"># 上横</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">5</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">25</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="c1">#第3圈, 右竖</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">25</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+
+        <span class="c1">## 第4圈,</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">40</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">35</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">35</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">15</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">35</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">35</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> 
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">30</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">35</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>  
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">35</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">35</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">30</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">35</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>  
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">35</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> 
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">15</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">35</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">35</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">35</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">40</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>    
+
+        <span class="c1"># 第5圈</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">55</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">10</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">55</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">30</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">55</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">50</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">35</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">50</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">15</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">50</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">50</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">30</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">50</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">50</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">30</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">55</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">10</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="c1"># 左右眼略有差别, 宽度加大一些,增加冗余</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">55</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">30</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="c1"># 这圈好大</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> 
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">30</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">10</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">30</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">55</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">55</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">30</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">55</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+
+        <span class="c1">## 最外8个</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">70</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">20</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">70</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">70</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">80</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">15</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">80</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">70</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> 
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">20</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">70</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>  
+        <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">70</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+    <span class="p">]</span>
+    <span class="n">VF_values</span><span class="o">=</span><span class="p">[(</span><span class="n">char_in_box</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="n">char_df</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">value_location</span><span class="p">]</span>
+    <span class="n">VF_s</span><span class="o">=</span><span class="n">Series</span><span class="p">(</span><span class="n">VF_values</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">VF_s</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="&#22788;&#29702;&#21333;&#20010;&#25991;&#20214;">&#22788;&#29702;&#21333;&#20010;&#25991;&#20214;<a class="anchor-link" href="#&#22788;&#29702;&#21333;&#20010;&#25991;&#20214;">&#182;</a></h1>
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">location_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> : </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="n">char_in_box</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="n">char_df</span><span class="p">)))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">deal_with_single_file</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span><span class="n">fname</span><span class="p">):</span>
+    <span class="n">total_page</span><span class="o">=</span><span class="n">get_pdf_page</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span><span class="n">fname</span><span class="p">)</span>
+    <span class="n">series_list</span><span class="o">=</span><span class="p">[]</span>
+    <span class="k">for</span> <span class="n">p_number</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">total_page</span><span class="p">):</span>
+        <span class="n">t_data</span><span class="o">=</span><span class="n">pdf_parser</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span><span class="n">fname</span><span class="p">,</span><span class="n">p_number</span><span class="p">)</span>
+        <span class="n">c_df</span><span class="o">=</span> <span class="n">get_all_char</span><span class="p">(</span><span class="n">t_data</span><span class="p">)</span>
+        <span class="n">s1</span><span class="o">=</span><span class="n">get_basic_info</span><span class="p">(</span><span class="n">c_df</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s2">&quot;G Standard&quot;</span> <span class="ow">in</span> <span class="n">s1</span><span class="o">.</span><span class="n">Programs_type</span><span class="p">:</span>
+            <span class="n">s2</span><span class="o">=</span><span class="n">get_VF_value</span><span class="p">(</span><span class="n">c_df</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">s2</span><span class="o">=</span><span class="n">Series</span><span class="p">()</span>
+        <span class="n">s</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">])</span>
+        <span class="n">series_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">series_list</span>
 </pre></div>
 
 </div>
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>name and birthday : Wu wan fen, 1938-8-27
-MS : 16.6
-RF : 0.0
-Eye and exam date time in G Standard : Right eye (OD) / 2017-11-30 / 08:14:27
-MD : 10.1
-Eye and exam date time in LVC Standard : Right eye (OD) / 2017-11-30 / 08:14:27Seven-in-OneGreyscale (CO)
-Pupil : 4.2
-Programs : G Standard   White/White / TOP
-sLV : 10.1
-</pre>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="&#22788;&#29702;&#30446;&#24405;">&#22788;&#29702;&#30446;&#24405;<a class="anchor-link" href="#&#22788;&#29702;&#30446;&#24405;">&#182;</a></h1>
 </div>
 </div>
-
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[21]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">value_c_x</span><span class="o">=</span><span class="mi">445</span>
-<span class="n">value_c_y</span><span class="o">=</span><span class="mi">290</span>
-<span class="n">value_location</span><span class="o">=</span><span class="p">[</span>
-<span class="c1">#     (371,216,164,164), # 最大范围</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="p">,</span><span class="n">value_c_y</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="c1"># 中心</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">deal_with_folder</span><span class="p">(</span><span class="n">input_path</span><span class="p">):</span>
+    <span class="n">pdffiles</span> <span class="o">=</span> <span class="p">[</span><span class="n">name</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">input_path</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.pdf&#39;</span><span class="p">)]</span>
+    <span class="n">series_list</span><span class="o">=</span><span class="p">[]</span>
+    <span class="k">for</span> <span class="n">fname</span> <span class="ow">in</span> <span class="n">pdffiles</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;deal with PDF file </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fname</span><span class="p">))</span>
+        <span class="n">s_list</span><span class="o">=</span><span class="n">deal_with_single_file</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span><span class="n">fname</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">s_list</span><span class="p">:</span>
+            <span class="n">series_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">DataFrame</span><span class="p">(</span><span class="n">series_list</span><span class="p">)</span>
+</pre></div>
 
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">5</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="c1"># 顺时针渐开螺线, 第1圈</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> 
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> 
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">5</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="c1">##第2圈</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">15</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> 
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">15</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    
-    <span class="c1">##第3圈</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">25</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">25</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="c1"># 第3圈, 下横(从右到左)</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">10</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="c1"># 第3圈, 左竖,从下到上</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="c1"># 上横</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">5</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">25</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="c1">#第3圈, 右竖</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">25</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    
-    <span class="c1">## 第4圈,</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">40</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">35</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">35</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">15</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">35</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">35</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> 
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">30</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">35</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>  
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">35</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">35</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">30</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">35</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>  
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">35</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> 
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">15</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">35</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">35</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">35</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">40</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>    
+</div>
+</div>
+</div>
 
-    <span class="c1"># 第5圈</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">55</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">10</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">55</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">30</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">55</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">50</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">35</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">50</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">15</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">50</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">50</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">30</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">50</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">50</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">30</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">55</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">10</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="c1"># 左右眼略有差别, 宽度加大一些,增加冗余</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">55</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">30</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="c1"># 这圈好大</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> 
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">30</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">10</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">30</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">55</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">55</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">30</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">55</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-
-    <span class="c1">## 最外8个</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">70</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">20</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">70</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">70</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">80</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">+</span><span class="mi">15</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">80</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">70</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> 
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">20</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">70</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>  
-    <span class="p">(</span><span class="n">value_c_x</span><span class="o">+</span><span class="mi">70</span><span class="p">,</span><span class="n">value_c_y</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
-<span class="p">]</span>
-
-<span class="k">for</span> <span class="n">loc</span> <span class="ow">in</span> <span class="n">value_location</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">char_in_box</span><span class="p">(</span><span class="n">loc</span><span class="p">,</span><span class="n">char_df</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;---&quot;</span><span class="p">)</span>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="&#20445;&#23384;&#25968;&#25454;">&#20445;&#23384;&#25968;&#25454;<a class="anchor-link" href="#&#20445;&#23384;&#25968;&#25454;">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>    
+    <span class="n">df</span><span class="o">=</span><span class="n">deal_with_folder</span><span class="p">(</span><span class="n">input_path</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="s2">&quot;octopus_data.csv&quot;</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;DONE&quot;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -12157,68 +12255,16 @@ sLV : 10.1
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>23
-26
-26
-6
-22
-29
-25
-12
-15
-22
-20
-22
-19
-21
-23
-14
-17
-11
-18
-20
-21
-
-14
-20
-11
-12
-20
-12
-13
-16
-16
-16
-
-18
-14
-17
-19
-16
-12
-9
-10
-10
-14
-14
-16
-10
-9
-13
-15
-15
-17
-20
-22
-20
-17
-11
-13
-15
-12
-15
-26
----
+<pre>deal with PDF file 20170914动态视野(Octopus) .pdf
+deal with PDF file 20170316动态视野(Octopus) .pdf
+deal with PDF file 20170720动态视野(Octopus) .pdf
+deal with PDF file 20170912动态视野(Octopus) .pdf
+deal with PDF file 20160804动态视野(Octopus) .pdf
+deal with PDF file 20170622动态视野(Octopus) 2.pdf
+deal with PDF file 20170622动态视野(Octopus) 1.pdf
+deal with PDF file 20171130动态视野(Octopus) .pdf
+deal with PDF file 20170406动态视野(Octopus) .pdf
+DONE
 </pre>
 </div>
 </div>
