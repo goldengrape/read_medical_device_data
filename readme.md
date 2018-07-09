@@ -11,6 +11,7 @@
 * [Grand Seiko WAM5500视调节力测量仪](http://www.wiskeymedical.com.cn/product/v1049)
 * [Humphrey视野(PDF需预先处理)](https://www.zeiss.com.cn/meditec/products/ophthalmology-optometry/glaucoma/diagnostics/perimetry/humphrey-field-analyzer-3.html)
 * [HRT(PDF需预先处理)](http://www.gvchina.com/product.aspx?t=1&c=12)
+* [Octopus 900动态视野(PDF需预先处理)](https://www.haag-streit.com/haag-streit-diagnostics/products/perimetry/octopus-900/)
 
 # 使用方法:
 
