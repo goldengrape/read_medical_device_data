@@ -11,7 +11,7 @@
 if __name__=="__main__":
     input_path='../../testdata/Octopus'
     output_path="../../testdata/Octopus"
-    fname="LVC20140903动态视野(Octopus).pdf"
+    fname="20170406动态视野(Octopus) .pdf"
     #pageno=0 # for test
 
 
@@ -178,83 +178,76 @@ def get_VF_value(char_df):
     value_c_x=445
     value_c_y=290
     value_location=[
-    #     (371,216,164,164), # 最大范围
-        (value_c_x,value_c_y,10,10), # 中心
-
-        (value_c_x+5,value_c_y+5,10,10), # 顺时针渐开螺线, 第1圈
-        (value_c_x-5,value_c_y+5,10,10), 
-        (value_c_x-5,value_c_y-5,10,10), 
-        (value_c_x+5,value_c_y-5,10,10),
-        ##第2圈
-        (value_c_x+15,value_c_y+10,10,10),
-        (value_c_x-10,value_c_y+10,10,10),
-        (value_c_x-10,value_c_y-10,10,10), 
-        (value_c_x+15,value_c_y-10,10,10),
-
-        ##第3圈
-        (value_c_x+25,value_c_y+5,10,10),
-        (value_c_x+25,value_c_y+20,10,10), # 第3圈, 下横(从右到左)
-        (value_c_x+10,value_c_y+20,10,10),
-        (value_c_x-5,value_c_y+20,10,10),
-        (value_c_x-20,value_c_y+20,10,10), # 第3圈, 左竖,从下到上
-        (value_c_x-20,value_c_y+5,10,10),
-        (value_c_x-20,value_c_y-5,10,10),
-        (value_c_x-20,value_c_y-20,10,10), # 上横
-        (value_c_x-5,value_c_y-20,10,10),
-        (value_c_x+5,value_c_y-20,10,10),
-        (value_c_x+25,value_c_y-20,10,10), #第3圈, 右竖
-        (value_c_x+25,value_c_y-5,10,10),
-
-        ## 第4圈,
-        (value_c_x+40,value_c_y+10,10,10),
-        (value_c_x+35,value_c_y+35,10,10),
-        (value_c_x+15,value_c_y+35,10,10),
-        (value_c_x-10,value_c_y+35,10,10), 
-        (value_c_x-30,value_c_y+35,10,10),  
-        (value_c_x-35,value_c_y+10,10,10),
-        (value_c_x-35,value_c_y-10,10,10),
-        (value_c_x-30,value_c_y-35,10,10),  
-        (value_c_x-10,value_c_y-35,10,10), 
-        (value_c_x+15,value_c_y-35,10,10),
-        (value_c_x+35,value_c_y-35,10,10),
-        (value_c_x+40,value_c_y-10,10,10),    
-
-        # 第5圈
-        (value_c_x+55,value_c_y+10,15,10),
-        (value_c_x+55,value_c_y+30,10,10),
-        (value_c_x+55,value_c_y+50,10,10),
-        (value_c_x+35,value_c_y+50,10,10),
-        (value_c_x+15,value_c_y+50,10,10),
-        (value_c_x-10,value_c_y+50,10,10),
-        (value_c_x-30,value_c_y+50,10,10),
-        (value_c_x-50,value_c_y+50,10,10),
-        (value_c_x-50,value_c_y+30,10,10),
-        (value_c_x-55,value_c_y+10,15,10), # 左右眼略有差别, 宽度加大一些,增加冗余
-        (value_c_x-55,value_c_y-10,15,10),
-        (value_c_x-50,value_c_y-30,10,10), # 这圈好大
-        (value_c_x-50,value_c_y-50,10,10), 
-        (value_c_x-30,value_c_y-50,10,10),
-        (value_c_x-10,value_c_y-50,10,10),
-        (value_c_x+10,value_c_y-50,15,10),
-        (value_c_x+30,value_c_y-50,15,10),
-        (value_c_x+55,value_c_y-50,10,10),
-        (value_c_x+55,value_c_y-30,10,10),
-        (value_c_x+55,value_c_y-10,15,10),
-
-        ## 最外8个
-        (value_c_x+70,value_c_y+10,20,20),
-        (value_c_x+20,value_c_y+70,20,20),
-        (value_c_x-20,value_c_y+70,20,20),
-        (value_c_x-80,value_c_y+15,20,20),
-        (value_c_x-80,value_c_y-20,20,20),
-        (value_c_x-20,value_c_y-70,10,10), 
-        (value_c_x+20,value_c_y-70,20,10),  
-        (value_c_x+70,value_c_y-20,20,20),
+        (445,290,10,10),
+        (450,295,10,10),
+        (440,295,10,10),
+        (440,285,10,10),
+        (450,285,10,10),
+        (460,305,10,10),
+        (435,305,10,10),
+        (435,280,10,10),
+        (460,280,10,10),
+        (470,295,10,10),
+        (470,315,10,10),
+        (455,315,10,10),
+        (440,315,10,10),
+        (425,315,10,10),
+        (425,295,10,10),
+        (425,285,10,10),
+        (425,270,10,10),
+        (440,270,10,10),
+        (450,270,10,10),
+        (470,270,10,10),
+        (470,285,10,10),
+        (485,305,10,10),
+        (480,325,10,10),
+        (460,330,10,10),
+        (435,330,10,10),
+        (415,325,10,10),
+        (410,305,10,10),
+        (410,280,10,10),
+        (415,260,10,10),
+        (435,255,10,10),
+        (460,255,10,10),
+        (480,260,10,10),
+        (485,280,10,10),
+        (505,305,10,10),
+        (500,325,10,10),
+        (500,345,10,10),
+        (480,345,10,10),
+        (460,345,10,10),
+        (435,345,10,10),
+        (415,345,10,10),
+        (395,345,10,10),
+        (395,325,10,10),
+        (390,305,10,10),
+        (390,280,10,10),
+        (395,260,10,10),
+        (395,240,10,10),
+        (415,240,10,10),
+        (435,240,10,10),
+        (460,240,10,10),
+        (480,240,10,10),
+        (500,240,10,10),
+        (500,260,10,10),
+        (505,280,10,10),
+        (515,315,10,10),
+        (470,360,10,10),
+        (425,360,10,10),
+        (375,305,10,10),
+        (375,280,10,10),
+        (425,220,10,10),
+        (470,220,10,10),
+        (515,270,10,10)
     ]
     VF_values=[(char_in_box(v,char_df).strip()) for v in value_location]
     VF_s=Series(VF_values)
     return pd.to_numeric(VF_s)
 
+
+# ## 提取LVC的原始数据
+# 
+# LVC的就先按照横向排列好了
 
 # In[9]:
 
@@ -371,7 +364,7 @@ def get_LVC_value(char_df):
 
 
 def process_single_file(input_path,fname, output_path, save=False):
-    print("process the file: ", os.path.join(input_path,fname))
+    print("process the file: \t{}".format(os.path.join(input_path,fname)))
     total_page=get_pdf_page(input_path,fname)
     series_list=[]
     for p_number in range(total_page):
@@ -402,9 +395,12 @@ def process_single_file(input_path,fname, output_path, save=False):
 def process_file_list(input_path, output_path, filename_list, save=False):
     series_list=[]
     for fname in filename_list:
-        s_list=process_single_file(input_path,fname, output_path, save=save)
-        for s in s_list:
-            series_list.append(s)
+        try:
+            s_list=process_single_file(input_path,fname, output_path, save=save)
+            for s in s_list:
+                series_list.append(s)
+        except:
+            print("failed in the file: \t{}".format(os.path.join(input_path,fname)))
     return DataFrame(series_list) 
 
 
@@ -427,5 +423,8 @@ def process_folder(input_path, output_path, save_together=True, save_individual=
 
 
 if __name__=="__main__":    
-    df=process_single_file(input_path,fname, output_path, save=True)
+    # 处理单个文件, 并且保存
+#     df=process_single_file(input_path,fname, output_path, save=True) 
+    #处理整个目录下面的所有PDF
+    df=process_folder(input_path, output_path, save_together=True, save_individual=False)
 
