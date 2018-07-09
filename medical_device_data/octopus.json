@@ -1,0 +1,15 @@
+{   "sep":",",
+    "category":{
+            "name":{"location":"B2..B2","dtype":"category"},
+            "birthday":{"location":"B3..B3","dtype":"datetime"},
+            "exam_date":{"location":"B4..B4","dtype":"datetime"},
+            "eye":{"location":"B5..B5","dtype":"category"},
+            "Programs_type":{"location":"B6..B6","dtype":"category"},
+            "RF":{"location":"B7..B7","dtype":"numeric"},
+            "Pupil":{"location":"B8..B8","dtype":"numeric"},
+            "MS":{"location":"B9..B9","dtype":"numeric"},
+            "MD":{"location":"B10..B10","dtype":"numeric"},
+            "sLV":{"location":"B11..B11","dtype":"numeric"},
+            "VF_values":{"location":"B12..B72","dtype":"numeric"}
+        }
+}
