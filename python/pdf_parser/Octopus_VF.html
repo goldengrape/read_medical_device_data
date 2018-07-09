@@ -12160,111 +12160,111 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_LVC_value</span><span class="p">(</span><span class="n">char_df</span><span class="p">):</span>
     <span class="n">LVC_value_location</span><span class="o">=</span><span class="p">[</span>
-    <span class="c1">#第1行</span>
-    <span class="p">(</span><span class="mi">230</span><span class="p">,</span><span class="mi">250</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> 
-    <span class="p">(</span><span class="mi">275</span><span class="p">,</span><span class="mi">250</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">320</span><span class="p">,</span><span class="mi">250</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">365</span><span class="p">,</span><span class="mi">250</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    
-    <span class="c1">#第2行</span>
-    <span class="p">(</span><span class="mi">185</span><span class="p">,</span><span class="mi">295</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">230</span><span class="p">,</span><span class="mi">295</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">275</span><span class="p">,</span><span class="mi">295</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">320</span><span class="p">,</span><span class="mi">295</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">365</span><span class="p">,</span><span class="mi">295</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">410</span><span class="p">,</span><span class="mi">295</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    
-    <span class="c1">#第3行        </span>
-    <span class="p">(</span><span class="mi">140</span><span class="p">,</span><span class="mi">340</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">185</span><span class="p">,</span><span class="mi">340</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">230</span><span class="p">,</span><span class="mi">340</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">275</span><span class="p">,</span><span class="mi">340</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">320</span><span class="p">,</span><span class="mi">340</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">365</span><span class="p">,</span><span class="mi">340</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">410</span><span class="p">,</span><span class="mi">340</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">455</span><span class="p">,</span><span class="mi">340</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    
-    <span class="c1">#第4行</span>
-    <span class="p">(</span><span class="mi">95</span><span class="p">,</span><span class="mi">385</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">140</span><span class="p">,</span><span class="mi">385</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">185</span><span class="p">,</span><span class="mi">385</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">230</span><span class="p">,</span><span class="mi">385</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">275</span><span class="p">,</span><span class="mi">385</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">320</span><span class="p">,</span><span class="mi">385</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">365</span><span class="p">,</span><span class="mi">385</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">410</span><span class="p">,</span><span class="mi">385</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">455</span><span class="p">,</span><span class="mi">385</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">500</span><span class="p">,</span><span class="mi">385</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    
-    <span class="c1">#第5行</span>
-    <span class="p">(</span><span class="mi">95</span><span class="p">,</span><span class="mi">430</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">140</span><span class="p">,</span><span class="mi">430</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">185</span><span class="p">,</span><span class="mi">430</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">230</span><span class="p">,</span><span class="mi">430</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">275</span><span class="p">,</span><span class="mi">430</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">320</span><span class="p">,</span><span class="mi">430</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">365</span><span class="p">,</span><span class="mi">430</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">410</span><span class="p">,</span><span class="mi">430</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">455</span><span class="p">,</span><span class="mi">430</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">500</span><span class="p">,</span><span class="mi">430</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    
-    <span class="c1">#中心点</span>
-    <span class="p">(</span><span class="mi">295</span><span class="p">,</span><span class="mi">450</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
-    
-    <span class="c1">#第6行</span>
-    <span class="p">(</span><span class="mi">95</span><span class="p">,</span><span class="mi">475</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">140</span><span class="p">,</span><span class="mi">475</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">185</span><span class="p">,</span><span class="mi">475</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">230</span><span class="p">,</span><span class="mi">475</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">275</span><span class="p">,</span><span class="mi">475</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">320</span><span class="p">,</span><span class="mi">475</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">365</span><span class="p">,</span><span class="mi">475</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">410</span><span class="p">,</span><span class="mi">475</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">455</span><span class="p">,</span><span class="mi">475</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">500</span><span class="p">,</span><span class="mi">475</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    
-    <span class="c1">#第7行</span>
-    <span class="p">(</span><span class="mi">95</span><span class="p">,</span><span class="mi">520</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">140</span><span class="p">,</span><span class="mi">520</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">185</span><span class="p">,</span><span class="mi">520</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">230</span><span class="p">,</span><span class="mi">520</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">275</span><span class="p">,</span><span class="mi">520</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">320</span><span class="p">,</span><span class="mi">520</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">365</span><span class="p">,</span><span class="mi">520</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">410</span><span class="p">,</span><span class="mi">520</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">455</span><span class="p">,</span><span class="mi">520</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">500</span><span class="p">,</span><span class="mi">520</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    
-    <span class="c1">#第8行        </span>
-    <span class="p">(</span><span class="mi">140</span><span class="p">,</span><span class="mi">565</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">185</span><span class="p">,</span><span class="mi">565</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">230</span><span class="p">,</span><span class="mi">565</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">275</span><span class="p">,</span><span class="mi">565</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">320</span><span class="p">,</span><span class="mi">565</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">365</span><span class="p">,</span><span class="mi">565</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">410</span><span class="p">,</span><span class="mi">565</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">455</span><span class="p">,</span><span class="mi">565</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    
-    <span class="c1">#第9行</span>
-    <span class="p">(</span><span class="mi">185</span><span class="p">,</span><span class="mi">610</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">230</span><span class="p">,</span><span class="mi">610</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">275</span><span class="p">,</span><span class="mi">610</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">320</span><span class="p">,</span><span class="mi">610</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">365</span><span class="p">,</span><span class="mi">610</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">410</span><span class="p">,</span><span class="mi">610</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    
-    <span class="c1">#第10行</span>
-    <span class="p">(</span><span class="mi">230</span><span class="p">,</span><span class="mi">655</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> 
-    <span class="p">(</span><span class="mi">275</span><span class="p">,</span><span class="mi">655</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">320</span><span class="p">,</span><span class="mi">655</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">365</span><span class="p">,</span><span class="mi">655</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+   <span class="c1">#第1行</span>
+   <span class="p">(</span><span class="mi">230</span><span class="p">,</span><span class="mi">250</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span> 
+   <span class="p">(</span><span class="mi">275</span><span class="p">,</span><span class="mi">250</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">320</span><span class="p">,</span><span class="mi">250</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">365</span><span class="p">,</span><span class="mi">250</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   
+   <span class="c1">#第2行</span>
+   <span class="p">(</span><span class="mi">185</span><span class="p">,</span><span class="mi">295</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">230</span><span class="p">,</span><span class="mi">295</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">275</span><span class="p">,</span><span class="mi">295</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">320</span><span class="p">,</span><span class="mi">295</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">365</span><span class="p">,</span><span class="mi">295</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">410</span><span class="p">,</span><span class="mi">295</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   
+   <span class="c1">#第3行        </span>
+   <span class="p">(</span><span class="mi">140</span><span class="p">,</span><span class="mi">340</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">185</span><span class="p">,</span><span class="mi">340</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">230</span><span class="p">,</span><span class="mi">340</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">275</span><span class="p">,</span><span class="mi">340</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">320</span><span class="p">,</span><span class="mi">340</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">365</span><span class="p">,</span><span class="mi">340</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">410</span><span class="p">,</span><span class="mi">340</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">455</span><span class="p">,</span><span class="mi">340</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   
+   <span class="c1">#第4行</span>
+   <span class="p">(</span><span class="mi">95</span><span class="p">,</span><span class="mi">385</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">140</span><span class="p">,</span><span class="mi">385</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">185</span><span class="p">,</span><span class="mi">385</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">230</span><span class="p">,</span><span class="mi">385</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">275</span><span class="p">,</span><span class="mi">385</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">320</span><span class="p">,</span><span class="mi">385</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">365</span><span class="p">,</span><span class="mi">385</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">410</span><span class="p">,</span><span class="mi">385</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">455</span><span class="p">,</span><span class="mi">385</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">500</span><span class="p">,</span><span class="mi">385</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   
+   <span class="c1">#第5行</span>
+   <span class="p">(</span><span class="mi">95</span><span class="p">,</span><span class="mi">430</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">140</span><span class="p">,</span><span class="mi">430</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">185</span><span class="p">,</span><span class="mi">430</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">230</span><span class="p">,</span><span class="mi">430</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">275</span><span class="p">,</span><span class="mi">430</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">320</span><span class="p">,</span><span class="mi">430</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">365</span><span class="p">,</span><span class="mi">430</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">410</span><span class="p">,</span><span class="mi">430</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">455</span><span class="p">,</span><span class="mi">430</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">500</span><span class="p">,</span><span class="mi">430</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   
+   <span class="c1">#中心点</span>
+   <span class="p">(</span><span class="mi">295</span><span class="p">,</span><span class="mi">450</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   
+   <span class="c1">#第6行</span>
+   <span class="p">(</span><span class="mi">95</span><span class="p">,</span><span class="mi">475</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">140</span><span class="p">,</span><span class="mi">475</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">185</span><span class="p">,</span><span class="mi">475</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">230</span><span class="p">,</span><span class="mi">475</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">275</span><span class="p">,</span><span class="mi">475</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">320</span><span class="p">,</span><span class="mi">475</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">365</span><span class="p">,</span><span class="mi">475</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">410</span><span class="p">,</span><span class="mi">475</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">455</span><span class="p">,</span><span class="mi">475</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">500</span><span class="p">,</span><span class="mi">475</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   
+   <span class="c1">#第7行</span>
+   <span class="p">(</span><span class="mi">95</span><span class="p">,</span><span class="mi">520</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">140</span><span class="p">,</span><span class="mi">520</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">185</span><span class="p">,</span><span class="mi">520</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">230</span><span class="p">,</span><span class="mi">520</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">275</span><span class="p">,</span><span class="mi">520</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">320</span><span class="p">,</span><span class="mi">520</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">365</span><span class="p">,</span><span class="mi">520</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">410</span><span class="p">,</span><span class="mi">520</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">455</span><span class="p">,</span><span class="mi">520</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">500</span><span class="p">,</span><span class="mi">520</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   
+   <span class="c1">#第8行        </span>
+   <span class="p">(</span><span class="mi">140</span><span class="p">,</span><span class="mi">565</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">185</span><span class="p">,</span><span class="mi">565</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">230</span><span class="p">,</span><span class="mi">565</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">275</span><span class="p">,</span><span class="mi">565</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">320</span><span class="p">,</span><span class="mi">565</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">365</span><span class="p">,</span><span class="mi">565</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">410</span><span class="p">,</span><span class="mi">565</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">455</span><span class="p">,</span><span class="mi">565</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   
+   <span class="c1">#第9行</span>
+   <span class="p">(</span><span class="mi">185</span><span class="p">,</span><span class="mi">610</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">230</span><span class="p">,</span><span class="mi">610</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">275</span><span class="p">,</span><span class="mi">610</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">320</span><span class="p">,</span><span class="mi">610</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">365</span><span class="p">,</span><span class="mi">610</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">410</span><span class="p">,</span><span class="mi">610</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   
+   <span class="c1">#第10行</span>
+   <span class="p">(</span><span class="mi">230</span><span class="p">,</span><span class="mi">655</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span> 
+   <span class="p">(</span><span class="mi">275</span><span class="p">,</span><span class="mi">655</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">320</span><span class="p">,</span><span class="mi">655</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
+   <span class="p">(</span><span class="mi">365</span><span class="p">,</span><span class="mi">655</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span>
     <span class="p">]</span>
-    <span class="n">VF_values</span><span class="o">=</span><span class="p">[(</span><span class="n">char_in_box</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="n">char_df</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">value_location</span><span class="p">]</span>
+    <span class="n">VF_values</span><span class="o">=</span><span class="p">[(</span><span class="n">char_in_box</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="n">char_df</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">LVC_value_location</span><span class="p">]</span>
     <span class="n">VF_s</span><span class="o">=</span><span class="n">Series</span><span class="p">(</span><span class="n">VF_values</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">VF_s</span><span class="p">)</span>
 </pre></div>
@@ -12284,7 +12284,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">process_single_file</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span><span class="n">fname</span><span class="p">,</span> <span class="n">output_path</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
@@ -12297,8 +12297,8 @@ div#notebook {
         <span class="n">s1</span><span class="o">=</span><span class="n">get_basic_info</span><span class="p">(</span><span class="n">c_df</span><span class="p">)</span>
         <span class="k">if</span> <span class="s2">&quot;G Standard&quot;</span> <span class="ow">in</span> <span class="n">s1</span><span class="o">.</span><span class="n">Programs_type</span><span class="p">:</span>
             <span class="n">s2</span><span class="o">=</span><span class="n">get_VF_value</span><span class="p">(</span><span class="n">c_df</span><span class="p">)</span>
-        <span class="k">elif</span><span class="p">:</span> <span class="s2">&quot;LVC&quot;</span> <span class="ow">in</span> <span class="n">s1</span><span class="o">.</span><span class="n">Programs_type</span><span class="p">:</span>
-            <span class="n">s2</span><span class="o">=</span><span class="n">get_LVC_value</span><span class="p">(</span><span class="n">char_df</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="s2">&quot;LVC&quot;</span> <span class="ow">in</span> <span class="n">s1</span><span class="o">.</span><span class="n">Programs_type</span><span class="p">:</span>
+            <span class="n">s2</span><span class="o">=</span><span class="n">get_LVC_value</span><span class="p">(</span><span class="n">c_df</span><span class="p">)</span>
         <span class="n">s</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">])</span>
         <span class="n">series_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">save</span><span class="p">:</span>
@@ -12326,7 +12326,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">process_file_list</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span> <span class="n">output_path</span><span class="p">,</span> <span class="n">filename_list</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
@@ -12345,7 +12345,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">process_folder</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span> <span class="n">output_path</span><span class="p">,</span> <span class="n">save_together</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">save_individual</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
@@ -12373,14 +12373,34 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>    
-    <span class="n">df</span><span class="o">=</span><span class="n">process_folder</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span> <span class="n">output_path</span><span class="p">,</span> <span class="n">save_together</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">save_individual</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">=</span><span class="n">process_single_file</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span><span class="n">fname</span><span class="p">,</span> <span class="n">output_path</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>process the file:  ../../testdata/Octopus/LVC20140903动态视野(Octopus).pdf
+save to ../../testdata/Octopus/LVC20140903动态视野(Octopus)_p1.csv
+save to ../../testdata/Octopus/LVC20140903动态视野(Octopus)_p2.csv
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
