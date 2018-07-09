@@ -11,7 +11,7 @@
 if __name__=="__main__":
     input_path='../../testdata/Octopus'
     output_path="../../testdata/Octopus"
-    fname="20170316动态视野(Octopus) .pdf"
+    fname="LVC20140903动态视野(Octopus).pdf"
     #pageno=0 # for test
 
 
@@ -256,6 +256,115 @@ def get_VF_value(char_df):
     return pd.to_numeric(VF_s)
 
 
+# In[ ]:
+
+
+def get_LVC_value(char_df):
+    LVC_value_location=[
+    #第1行
+    (230,250,10,10), 
+    (275,250,10,10),
+    (320,250,10,10),
+    (365,250,10,10),
+    
+    #第2行
+    (185,295,10,10),
+    (230,295,10,10),
+    (275,295,10,10),
+    (320,295,10,10),
+    (365,295,10,10),
+    (410,295,10,10),
+    
+    #第3行        
+    (140,340,10,10),
+    (185,340,10,10),
+    (230,340,10,10),
+    (275,340,10,10),
+    (320,340,10,10),
+    (365,340,10,10),
+    (410,340,10,10),
+    (455,340,10,10),
+    
+    #第4行
+    (95,385,10,10),
+    (140,385,10,10),
+    (185,385,10,10),
+    (230,385,10,10),
+    (275,385,10,10),
+    (320,385,10,10),
+    (365,385,10,10),
+    (410,385,10,10),
+    (455,385,10,10),
+    (500,385,10,10),
+    
+    #第5行
+    (95,430,10,10),
+    (140,430,10,10),
+    (185,430,10,10),
+    (230,430,10,10),
+    (275,430,10,10),
+    (320,430,10,10),
+    (365,430,10,10),
+    (410,430,10,10),
+    (455,430,10,10),
+    (500,430,10,10),
+    
+    #中心点
+    (295,450,10,10)
+    
+    #第6行
+    (95,475,10,10),
+    (140,475,10,10),
+    (185,475,10,10),
+    (230,475,10,10),
+    (275,475,10,10),
+    (320,475,10,10),
+    (365,475,10,10),
+    (410,475,10,10),
+    (455,475,10,10),
+    (500,475,10,10),
+    
+    #第7行
+    (95,520,10,10),
+    (140,520,10,10),
+    (185,520,10,10),
+    (230,520,10,10),
+    (275,520,10,10),
+    (320,520,10,10),
+    (365,520,10,10),
+    (410,520,10,10),
+    (455,520,10,10),
+    (500,520,10,10),
+    
+    #第8行        
+    (140,565,10,10),
+    (185,565,10,10),
+    (230,565,10,10),
+    (275,565,10,10),
+    (320,565,10,10),
+    (365,565,10,10),
+    (410,565,10,10),
+    (455,565,10,10),
+    
+    #第9行
+    (185,610,10,10),
+    (230,610,10,10),
+    (275,610,10,10),
+    (320,610,10,10),
+    (365,610,10,10),
+    (410,610,10,10),
+    
+    #第10行
+    (230,655,10,10), 
+    (275,655,10,10),
+    (320,655,10,10),
+    (365,655,10,10),
+    ]
+    VF_values=[(char_in_box(v,char_df).strip()) for v in value_location]
+    VF_s=Series(VF_values)
+    return pd.to_numeric(VF_s)
+
+
 # # 处理单个文件
 
 # In[9]:
@@ -271,8 +380,8 @@ def process_single_file(input_path,fname, output_path, save=False):
         s1=get_basic_info(c_df)
         if "G Standard" in s1.Programs_type:
             s2=get_VF_value(c_df)
-        else:
-            s2=Series()
+        elif: "LVC" in s1.Programs_type:
+            s2=get_LVC_value(char_df)
         s=pd.concat([s1, s2])
         series_list.append(s)
         if save:
@@ -285,15 +394,9 @@ def process_single_file(input_path,fname, output_path, save=False):
     return series_list
 
 
-# In[10]:
-
-
-process_single_file(input_path,fname, output_path, save=True);
-
-
 # # 处理目录
 
-# In[11]:
+# In[10]:
 
 
 def process_file_list(input_path, output_path, filename_list, save=False):
@@ -305,7 +408,7 @@ def process_file_list(input_path, output_path, filename_list, save=False):
     return DataFrame(series_list) 
 
 
-# In[12]:
+# In[11]:
 
 
 def process_folder(input_path, output_path, save_together=True, save_individual=False):
@@ -320,7 +423,7 @@ def process_folder(input_path, output_path, save_together=True, save_individual=
 
 # # 保存数据
 
-# In[13]:
+# In[12]:
 
 
 if __name__=="__main__":    
