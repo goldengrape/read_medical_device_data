@@ -261,7 +261,8 @@ def get_VF_value(char_df):
 # In[9]:
 
 
-def deal_with_single_file(input_path,fname):
+def process_single_file(input_path,fname, output_path, save=False):
+    print("process the file: ", os.path.join(input_path,fname))
     total_page=get_pdf_page(input_path,fname)
     series_list=[]
     for p_number in range(total_page):
@@ -274,33 +275,54 @@ def deal_with_single_file(input_path,fname):
             s2=Series()
         s=pd.concat([s1, s2])
         series_list.append(s)
+        if save:
+            df=DataFrame(s)
+            output_fname=os.path.join(output_path, 
+                                      "{}_p{}.csv".format(os.path.splitext(fname)[0],p_number+1))
+            df.to_csv(output_fname)
+            print("save to "+output_fname)
+    
     return series_list
 
-
-# # 处理目录
 
 # In[10]:
 
 
-def deal_with_folder(input_path):
-    pdffiles = [name for name in os.listdir(input_path)
-            if name.endswith('.pdf')]
-    series_list=[]
-    for fname in pdffiles:
-        print("deal with PDF file {}".format(fname))
-        s_list=deal_with_single_file(input_path,fname)
-        for s in s_list:
-            series_list.append(s)
-    return DataFrame(series_list)
+process_single_file(input_path,fname, output_path, save=True);
 
 
-# # 保存数据
+# # 处理目录
 
 # In[11]:
 
 
-if __name__=="__main__":    
-    df=deal_with_folder(input_path)
-    df.to_csv(os.path.join(output_path, "octopus_data.csv"))
+def process_file_list(input_path, output_path, filename_list, save=False):
+    series_list=[]
+    for fname in filename_list:
+        s_list=process_single_file(input_path,fname, output_path, save=save)
+        for s in s_list:
+            series_list.append(s)
+    return DataFrame(series_list) 
+
+
+# In[12]:
+
+
+def process_folder(input_path, output_path, save_together=True, save_individual=False):
+    pdffiles = [name for name in os.listdir(input_path)
+            if name.endswith('.pdf')]
+    df= process_file_list(input_path, output_path, pdffiles, save=save_individual)
+    if save_together:
+        df.to_csv(os.path.join(output_path, "octopus_data.csv"))
     print("DONE")
+    return df
+
+
+# # 保存数据
+
+# In[13]:
+
+
+if __name__=="__main__":    
+    df=process_folder(input_path, output_path, save_together=True, save_individual=True)
 
