@@ -37,6 +37,7 @@ import re
 import pandas as pd
 from pandas import Series,DataFrame
 import numpy as np
+from collections import OrderedDict
 
 try:
     from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
@@ -126,22 +127,22 @@ def char_in_box(box, df):
 
 # # 读取位置信息文件
 
-# In[10]:
+# In[7]:
 
 
 def read_data_from_location(input_path, fname, info_location_path, info_fname, page_number):
     txt_data=pdf_parser(input_path,fname,page_number)
     c_df=get_all_char(txt_data)
     info_loc_df=pd.read_csv(os.path.join(info_location_path, info_fname))
-    df_dict={}
+    df_dict=OrderedDict()
     for index, row in info_loc_df.iterrows():
         df_dict[row[0]]=(char_in_box((row.left, row.top, row.width, row.height),c_df ))
-    df=Series(df_dict)
-#     df.columns=["item_name","string_value"]
+    df=DataFrame(df_dict, index=[0]).T.reset_index()
+    df.columns=["item_name","string_value"]
     return df
 
 
-# In[14]:
+# In[8]:
 
 
 if __name__=="__main__":

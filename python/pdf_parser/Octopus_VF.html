@@ -12381,7 +12381,7 @@ div#notebook {
     <span class="c1"># 处理单个文件, 并且保存</span>
 <span class="c1">#     df=process_single_file(input_path,fname, output_path, save=True) </span>
     <span class="c1">#处理整个目录下面的所有PDF</span>
-    <span class="n">df</span><span class="o">=</span><span class="n">process_folder</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span> <span class="n">output_path</span><span class="p">,</span> <span class="n">save_together</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">save_individual</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="c1">#     df=process_folder(input_path, output_path, save_together=True, save_individual=False)</span>
 </pre></div>
 
 </div>
@@ -12414,6 +12414,148 @@ process the file: 	../../testdata/Octopus/20170406动态视野(Octopus) .pdf
 DONE
 </pre>
 </div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="&#20934;&#22791;&#37325;&#26500;">&#20934;&#22791;&#37325;&#26500;<a class="anchor-link" href="#&#20934;&#22791;&#37325;&#26500;">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">PDF_parser_by_location</span> <span class="k">import</span> <span class="n">read_data_from_location</span><span class="p">,</span> <span class="n">get_pdf_page</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">input_path</span><span class="o">=</span><span class="s1">&#39;../../testdata/Octopus&#39;</span>
+    <span class="n">output_path</span><span class="o">=</span><span class="s2">&quot;../../testdata/Octopus&quot;</span>
+    <span class="n">fname</span><span class="o">=</span><span class="s2">&quot;20170406动态视野(Octopus) .pdf&quot;</span>
+    <span class="n">info_location_path</span><span class="o">=</span><span class="s1">&#39;../../medical_device_data/&#39;</span>
+    <span class="n">info_fname</span><span class="o">=</span><span class="s2">&quot;octopus_location.csv&quot;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[67]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">clean_by_type</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+    <span class="k">if</span> <span class="s2">&quot;G Standard&quot;</span> <span class="ow">in</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">item_name</span><span class="o">==</span><span class="s2">&quot;Programs&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">string_value</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+        <span class="n">newdf</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="o">~</span><span class="n">df</span><span class="o">.</span><span class="n">item_name</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;LVC&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="s2">&quot;LVC Standard&quot;</span> <span class="ow">in</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">item_name</span><span class="o">==</span><span class="s2">&quot;Programs&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">string_value</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+        <span class="n">newdf</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="o">~</span><span class="n">df</span><span class="o">.</span><span class="n">item_name</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;G standard&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>    
+    <span class="k">return</span> <span class="n">newdf</span>
+<span class="k">def</span> <span class="nf">clean_basic_info</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">df</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[68]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">total_pages</span> <span class="o">=</span> <span class="n">get_pdf_page</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span><span class="n">fname</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">page_number</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">total_pages</span><span class="p">):</span>
+    <span class="n">df</span><span class="o">=</span><span class="n">read_data_from_location</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">info_location_path</span><span class="p">,</span> <span class="n">info_fname</span><span class="p">,</span> <span class="n">page_number</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">=</span><span class="n">clean_by_type</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">=</span><span class="n">clean_basic_info</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[55]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">item_name</span><span class="o">==</span><span class="s2">&quot;Programs&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">string_value</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;G standard&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[55]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>False</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[64]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="s2">&quot;G Standard&quot;</span> <span class="ow">in</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">item_name</span><span class="o">==</span><span class="s2">&quot;Programs&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">string_value</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[64]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>True</pre>
+</div>
+
 </div>
 
 </div>
