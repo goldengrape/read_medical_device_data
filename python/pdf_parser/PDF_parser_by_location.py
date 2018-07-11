@@ -5,14 +5,15 @@
 
 # ## 设定文件路径参数
 
-# In[18]:
+# In[1]:
 
 
 if __name__=="__main__":
     input_path='../../testdata/Octopus'
     output_path="../../testdata/Octopus"
     fname="20170406动态视野(Octopus) .pdf"
-    info_fname="info_location.csv"
+    info_location_path='../../medical_device_data/'
+    info_fname="octopus_location.csv"
     #pageno=0 # for test
 
 
@@ -125,13 +126,13 @@ def char_in_box(box, df):
 
 # # 读取位置信息文件
 
-# In[47]:
+# In[10]:
 
 
-def read_data_from_location(input_path, fname, info_fname, page_number):
+def read_data_from_location(input_path, fname, info_location_path, info_fname, page_number):
     txt_data=pdf_parser(input_path,fname,page_number)
     c_df=get_all_char(txt_data)
-    info_loc_df=pd.read_csv(os.path.join(input_path, info_fname))
+    info_loc_df=pd.read_csv(os.path.join(info_location_path, info_fname))
     df_dict={}
     for index, row in info_loc_df.iterrows():
         df_dict[row[0]]=(char_in_box((row.left, row.top, row.width, row.height),c_df ))
@@ -140,9 +141,11 @@ def read_data_from_location(input_path, fname, info_fname, page_number):
     return df
 
 
-# In[48]:
+# In[14]:
 
 
 if __name__=="__main__":
-    df=read_data_from_location(input_path, fname, info_fname, page_number)
+    df=read_data_from_location(input_path, fname, info_location_path, info_fname, 1)
+    print(df.head())
+    print(df.tail())
 
