@@ -30,3 +30,9 @@ data=read_medical_data('patient01.csv','CornealThickness','sirius.json')
 data以pandas DataFrame的类型存储, 该类型可以方便的索引/过滤/比较/计算, 也可以转换成numpy array进行运算.
 
 ## PDF预处理
+
+PDF的预处理过程, 请参考教程[《octopus视野报告数据提取》](https://goldengrape.github.io/posts/python/octopus-data/)
+
+# 随机森林
+
+csv数据可以直接送进随机森林分类器进行机器学习训练, 请参考教程[《眼科数据随机森林》](https://goldengrape.github.io/posts/python/random-forest-for-ophthalmology-data/)
