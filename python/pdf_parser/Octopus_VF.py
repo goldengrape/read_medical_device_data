@@ -33,6 +33,8 @@ import pandas as pd
 from pandas import Series,DataFrame
 import numpy as np
 
+from PDF_parser_by_location import read_data_from_location, get_pdf_page
+
 try:
     from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
     from pdfminer.pdfpage import PDFPage
@@ -426,59 +428,76 @@ if __name__=="__main__":
     # 处理单个文件, 并且保存
 #     df=process_single_file(input_path,fname, output_path, save=True) 
     #处理整个目录下面的所有PDF
-#     df=process_folder(input_path, output_path, save_together=True, save_individual=False)
+    df=process_folder(input_path, output_path, save_together=True, save_individual=False)
+    pass
 
 
 # # 准备重构
 
-# In[14]:
-
-
-from PDF_parser_by_location import read_data_from_location, get_pdf_page
-
-
 # In[15]:
 
 
+# if __name__=="__main__":
+#     input_path='../../testdata/Octopus'
+#     output_path="../../testdata/Octopus"
+#     fname="20170406动态视野(Octopus) .pdf"
+#     info_location_path='../../medical_device_data/'
+#     info_fname="octopus_location.csv"
+
+
+# In[19]:
+
+
+# def clean_by_type(df):
+#     if "G Standard" in df[df.item_name=="Programs"].string_value.values[0]:
+#         newdf=df.where(~df.item_name.str.contains("LVC")).dropna()
+#         newdf.item_name[newdf.item_name=="Eye and exam date time in G Standard"]="Eye and exam date time"
+#     elif "LVC Standard" in df[df.item_name=="Programs"].string_value.values[0]:
+#         newdf=df.where(~df.item_name.str.contains("G standard")).dropna()  
+#         newdf.item_name[newdf.item_name=="Eye and exam date time in LVC Standard"]="Eye and exam date time"
+#     return newdf
+
+# def clean_basic_info(df):
+#     temp_df_dict={k:v for (k,v) in zip(["eye","exam_date","exam_time"],
+#                       (df.string_value
+#                       .where(df.item_name=="Eye and exam date time")
+#                       .dropna()
+#                       .str.split("/").values[0])
+#                                       )}
+#     temp_df_dict["exam_date"]=pd.to_datetime(temp_df_dict["exam_date"]+"/"+temp_df_dict["exam_time"])
+
+# #     name_and_birthday=char_in_box(location_dict["name and birthday"],char_df)
+# #     name, birthday=(x.strip() for x in name_and_birthday.split(","))
+#     temp_df_dict.update({k:v for (k,v) in zip(["name", "birthday"],
+#                       (df.string_value
+#                       .where(df.item_name=="name and birthday")
+#                       .dropna()
+#                       .str.split(",").values[0])
+#                                       )})
+    
+    
+#     temp_df=DataFrame(temp_df_dict,index=[0]).T
+#     temp_df=temp_df.reset_index()
+#     temp_df.columns=["item_name","string_value"]
+#     df=df.append(temp_df)
+#     newdf=(df.where(~df.item_name.str.contains("name and birthday"))
+#              .where(~df.item_name.str.contains("Eye and exam date time"))
+#              .where(~df.item_name.str.contains("exam_time"))
+#             .dropna()
+# #             .sort_values(by="item_name")
+# #             .reset_index()
+# #             .drop("index",axis=1)
+#           )
+#     return newdf
+
+
+# In[20]:
+
+
 if __name__=="__main__":
-    input_path='../../testdata/Octopus'
-    output_path="../../testdata/Octopus"
-    fname="20170406动态视野(Octopus) .pdf"
-    info_location_path='../../medical_device_data/'
-    info_fname="octopus_location.csv"
-
-
-# In[67]:
-
-
-def clean_by_type(df):
-    if "G Standard" in df[df.item_name=="Programs"].string_value.values[0]:
-        newdf=df.where(~df.item_name.str.contains("LVC")).dropna()
-    elif "LVC Standard" in df[df.item_name=="Programs"].string_value.values[0]:
-        newdf=df.where(~df.item_name.str.contains("G standard")).dropna()    
-    return newdf
-def clean_basic_info(df):
-    return df
-
-
-# In[68]:
-
-
-total_pages = get_pdf_page(input_path,fname)
-for page_number in range(total_pages):
-    df=read_data_from_location(input_path, fname, info_location_path, info_fname, page_number)
-    df=clean_by_type(df)
-    df=clean_basic_info(df)
-
-
-# In[55]:
-
-
-df[df.item_name=="Programs"].string_value.str.contains("G standard").values[0]
-
-
-# In[64]:
-
-
-"G Standard" in df[df.item_name=="Programs"].string_value.values[0]
+    total_pages = get_pdf_page(input_path,fname)
+    for page_number in range(total_pages):
+        df=read_data_from_location(input_path, fname, info_location_path, info_fname, page_number)
+        df=clean_by_type(df)
+        df=clean_basic_info(df)
 
