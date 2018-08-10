@@ -11793,9 +11793,9 @@ div#notebook {
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="n">input_path</span><span class="o">=</span><span class="s1">&#39;../../testdata/Octopus&#39;</span>
-    <span class="n">output_path</span><span class="o">=</span><span class="s2">&quot;../../testdata/Octopus&quot;</span>
-    <span class="n">fname</span><span class="o">=</span><span class="s2">&quot;20170406动态视野(Octopus) .pdf&quot;</span>
+    <span class="n">input_path</span><span class="o">=</span><span class="s1">&#39;../../testdata/o2&#39;</span>
+    <span class="n">output_path</span><span class="o">=</span><span class="s2">&quot;../../testdata/o2&quot;</span>
+    <span class="n">fname</span><span class="o">=</span><span class="s2">&quot;dec_83</span><span class="se">\303\317\225</span><span class="s2">F20131106</span><span class="se">\266\257\314\254\312\323\322\260</span><span class="s2">(Octopus) .pdf&quot;</span>
     <span class="c1">#pageno=0 # for test</span>
 </pre></div>
 
@@ -12018,7 +12018,7 @@ div#notebook {
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_basic_info</span><span class="p">(</span><span class="n">char_df</span><span class="p">):</span>
     <span class="n">location_dict</span><span class="o">=</span><span class="p">{</span>
-    <span class="s2">&quot;name and birthday&quot;</span><span class="p">:(</span><span class="mi">50</span><span class="p">,</span><span class="mi">130</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">50</span><span class="p">),</span> <span class="c1"># 有不同的检查方式, 位置需要有一定的冗余</span>
+    <span class="s2">&quot;name and birthday&quot;</span><span class="p">:(</span><span class="mi">50</span><span class="p">,</span><span class="mi">130</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">30</span><span class="p">),</span> <span class="c1"># 有不同的检查方式, 位置需要有一定的冗余</span>
     <span class="s2">&quot;Eye and exam date time in G Standard&quot;</span><span class="p">:(</span><span class="mi">50</span><span class="p">,</span><span class="mi">175</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span> <span class="c1"># 有不同的检查方式, 后面再切换</span>
     <span class="s2">&quot;Eye and exam date time in LVC Standard&quot;</span><span class="p">:(</span><span class="mi">50</span><span class="p">,</span><span class="mi">175</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">30</span><span class="p">),</span> <span class="c1"># 简单粗暴有效</span>
     <span class="s2">&quot;Programs&quot;</span><span class="p">:(</span><span class="mi">120</span><span class="p">,</span><span class="mi">700</span><span class="p">,</span><span class="mi">130</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span>
@@ -12026,7 +12026,7 @@ div#notebook {
     <span class="s2">&quot;Pupil&quot;</span><span class="p">:(</span><span class="mi">100</span><span class="p">,</span><span class="mi">745</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>   
     <span class="s2">&quot;MS&quot;</span><span class="p">:(</span><span class="mi">507</span><span class="p">,</span><span class="mi">710</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
     <span class="s2">&quot;MD&quot;</span><span class="p">:(</span><span class="mi">507</span><span class="p">,</span><span class="mi">720</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
-    <span class="s2">&quot;sLV&quot;</span><span class="p">:(</span><span class="mi">507</span><span class="p">,</span><span class="mi">720</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+    <span class="s2">&quot;sLV&quot;</span><span class="p">:(</span><span class="mi">507</span><span class="p">,</span><span class="mi">730</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
     <span class="p">}</span>
     <span class="n">Programs_type</span><span class="o">=</span><span class="n">char_in_box</span><span class="p">(</span><span class="n">location_dict</span><span class="p">[</span><span class="s2">&quot;Programs&quot;</span><span class="p">],</span><span class="n">char_df</span><span class="p">)</span>
     <span class="k">if</span> <span class="s2">&quot;G Standard&quot;</span> <span class="ow">in</span> <span class="n">Programs_type</span><span class="p">:</span>
@@ -12039,14 +12039,19 @@ div#notebook {
     <span class="n">eye</span><span class="p">,</span> <span class="n">exam_date</span><span class="p">,</span> <span class="n">exam_time</span> <span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">Eye_and_exam_date_time</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">))</span>
     
     <span class="n">name_and_birthday</span><span class="o">=</span><span class="n">char_in_box</span><span class="p">(</span><span class="n">location_dict</span><span class="p">[</span><span class="s2">&quot;name and birthday&quot;</span><span class="p">],</span><span class="n">char_df</span><span class="p">)</span>
+<span class="c1">#     print(name_and_birthday)</span>
     <span class="n">name</span><span class="p">,</span> <span class="n">birthday</span><span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">name_and_birthday</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">))</span>
-    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">birthday</span><span class="p">,</span><span class="n">_</span><span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">birthday</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;ID&quot;</span><span class="p">))</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">pass</span>
     <span class="n">RF</span><span class="p">,</span> <span class="n">Pupil</span><span class="p">,</span> <span class="n">MS</span><span class="p">,</span> <span class="n">MD</span><span class="p">,</span> <span class="n">sLV</span><span class="o">=</span><span class="p">(</span><span class="n">char_in_box</span><span class="p">(</span><span class="n">location_dict</span><span class="p">[</span><span class="n">key</span><span class="p">],</span><span class="n">char_df</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;RF&quot;</span><span class="p">,</span><span class="s2">&quot;Pupil&quot;</span><span class="p">,</span><span class="s2">&quot;MS&quot;</span><span class="p">,</span><span class="s2">&quot;MD&quot;</span><span class="p">,</span><span class="s2">&quot;sLV&quot;</span><span class="p">])</span>
     
     <span class="n">s</span><span class="o">=</span><span class="n">Series</span><span class="p">([</span><span class="n">name</span><span class="p">,</span> <span class="n">birthday</span><span class="p">,</span><span class="n">exam_date</span><span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span><span class="n">exam_time</span><span class="p">,</span><span class="n">eye</span><span class="p">,</span> <span class="n">Programs_type</span><span class="p">,</span><span class="n">RF</span><span class="p">,</span><span class="n">Pupil</span><span class="p">,</span><span class="n">MS</span><span class="p">,</span><span class="n">MD</span><span class="p">,</span><span class="n">sLV</span> <span class="p">],</span>
              <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;birthday&quot;</span><span class="p">,</span><span class="s2">&quot;exam_date&quot;</span><span class="p">,</span><span class="s2">&quot;eye&quot;</span><span class="p">,</span> <span class="s2">&quot;Programs_type&quot;</span><span class="p">,</span>
                     <span class="s2">&quot;RF&quot;</span><span class="p">,</span><span class="s2">&quot;Pupil&quot;</span><span class="p">,</span><span class="s2">&quot;MS&quot;</span><span class="p">,</span><span class="s2">&quot;MD&quot;</span><span class="p">,</span><span class="s2">&quot;sLV&quot;</span><span class="p">]</span> <span class="p">)</span>
+<span class="c1">#     print(s.birthday)</span>
     <span class="n">s</span><span class="o">.</span><span class="n">birthday</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">birthday</span><span class="p">)</span>
     <span class="n">s</span><span class="o">.</span><span class="n">exam_date</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">exam_date</span><span class="p">)</span>
     <span class="n">s</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">5</span><span class="p">:]</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">5</span><span class="p">:])</span>
@@ -12391,6 +12396,34 @@ div#notebook {
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>process the file: 	../../testdata/o2/dec_272\313\325\277\241\215H20180306\266\257\314\254\312\323\322\260(Octopus) .pdf
+failed in the file: 	../../testdata/o2/dec_272\313\325\277\241\215H20180306\266\257\314\254\312\323\322\260(Octopus) .pdf
+process the file: 	../../testdata/o2/dec_272\313\325\277\241\215H20171030\266\257\314\254\312\323\322\260(Octopus) .pdf
+process the file: 	../../testdata/o2/dec_272\313\325\277\241\215H20170619\266\257\314\254\312\323\322\260(Octopus) .pdf
+process the file: 	../../testdata/o2/dec_272\313\325\277\241\215H20161013\266\257\314\254\312\323\322\260(Octopus) .pdf
+process the file: 	../../testdata/o2/dec_83\303\317\225F20131106\266\257\314\254\312\323\322\260(Octopus) .pdf
+failed in the file: 	../../testdata/o2/dec_83\303\317\225F20131106\266\257\314\254\312\323\322\260(Octopus) .pdf
+process the file: 	../../testdata/o2/dec_272\313\325\277\241\215H20170315\266\257\314\254\312\323\322\260(Octopus) .pdf
+process the file: 	../../testdata/o2/dec_272\313\325\277\241\215H20180117\266\257\314\254\312\323\322\260(Octopus) .pdf
+process the file: 	../../testdata/o2/dec_272\313\325\277\241\215H20161226\266\257\314\254\312\323\322\260(Octopus) .pdf
+DONE
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
@@ -12402,7 +12435,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># if __name__==&quot;__main__&quot;:</span>
@@ -12420,7 +12453,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># def clean_by_type(df):</span>
@@ -12473,15 +12506,15 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="n">total_pages</span> <span class="o">=</span> <span class="n">get_pdf_page</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span><span class="n">fname</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">page_number</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">total_pages</span><span class="p">):</span>
-        <span class="n">df</span><span class="o">=</span><span class="n">read_data_from_location</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">info_location_path</span><span class="p">,</span> <span class="n">info_fname</span><span class="p">,</span> <span class="n">page_number</span><span class="p">)</span>
-        <span class="n">df</span><span class="o">=</span><span class="n">clean_by_type</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
-        <span class="n">df</span><span class="o">=</span><span class="n">clean_basic_info</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># if __name__==&quot;__main__&quot;:</span>
+<span class="c1">#     total_pages = get_pdf_page(input_path,fname)</span>
+<span class="c1">#     for page_number in range(total_pages):</span>
+<span class="c1">#         df=read_data_from_location(input_path, fname, info_location_path, info_fname, page_number)</span>
+<span class="c1">#         df=clean_by_type(df)</span>
+<span class="c1">#         df=clean_basic_info(df)</span>
 </pre></div>
 
 </div>

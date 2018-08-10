@@ -9,9 +9,9 @@
 
 
 if __name__=="__main__":
-    input_path='../../testdata/Octopus'
-    output_path="../../testdata/Octopus"
-    fname="20170406动态视野(Octopus) .pdf"
+    input_path='../../testdata/o2'
+    output_path="../../testdata/o2"
+    fname="dec_83\303\317\225F20131106\266\257\314\254\312\323\322\260(Octopus) .pdf"
     #pageno=0 # for test
 
 
@@ -134,7 +134,7 @@ def char_in_box(box, df):
 
 def get_basic_info(char_df):
     location_dict={
-    "name and birthday":(50,130,200,50), # 有不同的检查方式, 位置需要有一定的冗余
+    "name and birthday":(50,130,200,30), # 有不同的检查方式, 位置需要有一定的冗余
     "Eye and exam date time in G Standard":(50,175,200,20), # 有不同的检查方式, 后面再切换
     "Eye and exam date time in LVC Standard":(50,175,200,30), # 简单粗暴有效
     "Programs":(120,700,130,4),
@@ -142,7 +142,7 @@ def get_basic_info(char_df):
     "Pupil":(100,745,100,10),   
     "MS":(507,710,50,10),
     "MD":(507,720,50,10),
-    "sLV":(507,720,50,10),
+    "sLV":(507,730,50,10),
     }
     Programs_type=char_in_box(location_dict["Programs"],char_df)
     if "G Standard" in Programs_type:
@@ -153,14 +153,19 @@ def get_basic_info(char_df):
     eye, exam_date, exam_time =(x.strip() for x in Eye_and_exam_date_time.split("/"))
     
     name_and_birthday=char_in_box(location_dict["name and birthday"],char_df)
+#     print(name_and_birthday)
     name, birthday=(x.strip() for x in name_and_birthday.split(","))
-    
+    try:
+        birthday,_=(x.strip() for x in birthday.split("ID"))
+    except:
+        pass
     RF, Pupil, MS, MD, sLV=(char_in_box(location_dict[key],char_df)
         for key in ["RF","Pupil","MS","MD","sLV"])
     
     s=Series([name, birthday,exam_date+"/"+exam_time,eye, Programs_type,RF,Pupil,MS,MD,sLV ],
              index=["name", "birthday","exam_date","eye", "Programs_type",
                     "RF","Pupil","MS","MD","sLV"] )
+#     print(s.birthday)
     s.birthday=pd.to_datetime(s.birthday)
     s.exam_date=pd.to_datetime(s.exam_date)
     s.iloc[5:]=pd.to_numeric(s.iloc[5:])
@@ -434,7 +439,7 @@ if __name__=="__main__":
 
 # # 准备重构
 
-# In[15]:
+# In[14]:
 
 
 # if __name__=="__main__":
@@ -445,7 +450,7 @@ if __name__=="__main__":
 #     info_fname="octopus_location.csv"
 
 
-# In[19]:
+# In[15]:
 
 
 # def clean_by_type(df):
@@ -491,13 +496,13 @@ if __name__=="__main__":
 #     return newdf
 
 
-# In[20]:
+# In[16]:
 
 
-if __name__=="__main__":
-    total_pages = get_pdf_page(input_path,fname)
-    for page_number in range(total_pages):
-        df=read_data_from_location(input_path, fname, info_location_path, info_fname, page_number)
-        df=clean_by_type(df)
-        df=clean_basic_info(df)
+# if __name__=="__main__":
+#     total_pages = get_pdf_page(input_path,fname)
+#     for page_number in range(total_pages):
+#         df=read_data_from_location(input_path, fname, info_location_path, info_fname, page_number)
+#         df=clean_by_type(df)
+#         df=clean_basic_info(df)
 
