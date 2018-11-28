@@ -13,7 +13,7 @@
 if __name__=="__main__":
     input_path='../../testdata/Humphrey'
     output_path="../../testdata/Humphrey"
-    fname="huangzeyuan13.pdf"
+    fname="chenhao1.pdf"
     info_location_path='../../medical_device_data/'
     info_basic_fname="humphrey_basic_location.csv"
     info_30_2_fname="humphrey_30-2_location.csv"
@@ -94,16 +94,30 @@ def get_full_humphrey_data(input_path, fname, info_location_path, info_fname_dic
     return df
 
 
+# ## 清洗数据
+
 # In[7]:
 
 
-# if __name__=="__main__":
-#     df=get_full_humphrey_data(input_path, fname, info_location_path, info_fname_dict)
+def clean_data(df):
+    df["patient"]=df["patient"].str.replace(",","")
+    df["date of birth"]=pd.to_datetime(df["date of birth"])
+    df["gender"]=(df["gender"]
+                  .str.replace("其他","Other")
+                  .str.replace("女性","Female")
+                  .str.replace("男性","Male")
+                 )
+    df["date"]=pd.to_datetime(df["date"])
+    # 将字符串转换为数字
+    # 带有最多一个负号, 跟至少一个数字, 带有最多一个小数点, 小数点后有或者没有数字
+    for col in df.iloc[:,7:]:
+        df[col]=df[col].str.extract('(\-{,1}\d+\.{,1}\d*)').astype("float") 
+    return df
 
 
-# ## 处理目录
+# # 处理目录
 
-# In[32]:
+# In[8]:
 
 
 if __name__=="__main__":
@@ -113,13 +127,7 @@ if __name__=="__main__":
     df=DataFrame()
     for fname in pdffiles:
         newdf=get_full_humphrey_data(input_path, fname, info_location_path, info_fname_dict)
+        newdf=clean_data(newdf)
         df=df.append(newdf, sort=False)
-        
-
-
-# In[37]:
-
-
-# df.iloc[:,24:34]
-df
+    df.to_csv(os.path.join(output_path,"Humphrey_data.csv"))
 

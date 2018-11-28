@@ -11796,7 +11796,7 @@ div#notebook {
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">input_path</span><span class="o">=</span><span class="s1">&#39;../../testdata/Humphrey&#39;</span>
     <span class="n">output_path</span><span class="o">=</span><span class="s2">&quot;../../testdata/Humphrey&quot;</span>
-    <span class="n">fname</span><span class="o">=</span><span class="s2">&quot;huangzeyuan13.pdf&quot;</span>
+    <span class="n">fname</span><span class="o">=</span><span class="s2">&quot;chenhao1.pdf&quot;</span>
     <span class="n">info_location_path</span><span class="o">=</span><span class="s1">&#39;../../medical_device_data/&#39;</span>
     <span class="n">info_basic_fname</span><span class="o">=</span><span class="s2">&quot;humphrey_basic_location.csv&quot;</span>
     <span class="n">info_30_2_fname</span><span class="o">=</span><span class="s2">&quot;humphrey_30-2_location.csv&quot;</span>
@@ -11941,13 +11941,33 @@ div#notebook {
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="&#28165;&#27927;&#25968;&#25454;">&#28165;&#27927;&#25968;&#25454;<a class="anchor-link" href="#&#28165;&#27927;&#25968;&#25454;">&#182;</a></h2>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># if __name__==&quot;__main__&quot;:</span>
-<span class="c1">#     df=get_full_humphrey_data(input_path, fname, info_location_path, info_fname_dict)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">clean_data</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;patient&quot;</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;patient&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;date of birth&quot;</span><span class="p">]</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;date of birth&quot;</span><span class="p">])</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;gender&quot;</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;gender&quot;</span><span class="p">]</span>
+                  <span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;其他&quot;</span><span class="p">,</span><span class="s2">&quot;Other&quot;</span><span class="p">)</span>
+                  <span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;女性&quot;</span><span class="p">,</span><span class="s2">&quot;Female&quot;</span><span class="p">)</span>
+                  <span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;男性&quot;</span><span class="p">,</span><span class="s2">&quot;Male&quot;</span><span class="p">)</span>
+                 <span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">])</span>
+    <span class="c1"># 将字符串转换为数字</span>
+    <span class="c1"># 带有最多一个负号, 跟至少一个数字, 带有最多一个小数点, 小数点后有或者没有数字</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">7</span><span class="p">:]:</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="s1">&#39;(\-{,1}\d+\.{,1}\d*)&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float&quot;</span><span class="p">)</span> 
+    <span class="k">return</span> <span class="n">df</span>
 </pre></div>
 
 </div>
@@ -11959,13 +11979,13 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="&#22788;&#29702;&#30446;&#24405;">&#22788;&#29702;&#30446;&#24405;<a class="anchor-link" href="#&#22788;&#29702;&#30446;&#24405;">&#182;</a></h2>
+<h1 id="&#22788;&#29702;&#30446;&#24405;">&#22788;&#29702;&#30446;&#24405;<a class="anchor-link" href="#&#22788;&#29702;&#30446;&#24405;">&#182;</a></h1>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[32]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
@@ -11975,329 +11995,12 @@ div#notebook {
     <span class="n">df</span><span class="o">=</span><span class="n">DataFrame</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">fname</span> <span class="ow">in</span> <span class="n">pdffiles</span><span class="p">:</span>
         <span class="n">newdf</span><span class="o">=</span><span class="n">get_full_humphrey_data</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">info_location_path</span><span class="p">,</span> <span class="n">info_fname_dict</span><span class="p">)</span>
+        <span class="n">newdf</span><span class="o">=</span><span class="n">clean_data</span><span class="p">(</span><span class="n">newdf</span><span class="p">)</span>
         <span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">newdf</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-        
+    <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span><span class="s2">&quot;Humphrey_data.csv&quot;</span><span class="p">))</span>
 </pre></div>
 
 </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[37]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># df.iloc[:,24:34]</span>
-<span class="n">df</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt output_prompt">Out[37]:</div>
-
-
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>patient</th>
-      <th>date of birth</th>
-      <th>gender</th>
-      <th>patient ID</th>
-      <th>eye</th>
-      <th>date</th>
-      <th>Test</th>
-      <th>False POS Errors</th>
-      <th>False NEG Errors</th>
-      <th>VFI%</th>
-      <th>...</th>
-      <th>O7_1</th>
-      <th>O7_2</th>
-      <th>O7_3</th>
-      <th>O7_4</th>
-      <th>O7_5</th>
-      <th>O7_6</th>
-      <th>O8_1</th>
-      <th>O8_2</th>
-      <th>O8_3</th>
-      <th>O8_4</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>string_value</th>
-      <td>CHEN HAO,</td>
-      <td>Oct 19, 1975</td>
-      <td>Other</td>
-      <td>12082202</td>
-      <td>OD</td>
-      <td>Aug 22, 2012</td>
-      <td>Central 30-2 Threshold Test</td>
-      <td>6%</td>
-      <td>0%</td>
-      <td>99%</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>string_value</th>
-      <td>CHEN HAO,</td>
-      <td>Oct 19, 1975</td>
-      <td>Other</td>
-      <td>12082202</td>
-      <td>OD</td>
-      <td>Sep 13, 2016</td>
-      <td>Central 30-2 Threshold Test</td>
-      <td>11%</td>
-      <td>4%</td>
-      <td>92%</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>string_value</th>
-      <td>CHEN HAO,</td>
-      <td>Oct 19, 1975</td>
-      <td>Other</td>
-      <td>12082202</td>
-      <td>OD</td>
-      <td>Dec 12, 2016</td>
-      <td>Central 30-2 Threshold Test</td>
-      <td>12%</td>
-      <td>0%</td>
-      <td>90%</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>string_value</th>
-      <td>dong jia,</td>
-      <td>1995/2/28</td>
-      <td>其他</td>
-      <td>1995.0228.5268.6</td>
-      <td>OD</td>
-      <td>2016/6/14</td>
-      <td>中央 24-2 阙值测定</td>
-      <td>0%</td>
-      <td>0%</td>
-      <td>99%</td>
-      <td>...</td>
-      <td>31</td>
-      <td>33</td>
-      <td>34</td>
-      <td>33</td>
-      <td>33</td>
-      <td>29</td>
-      <td>31</td>
-      <td>33</td>
-      <td>32</td>
-      <td>30</td>
-    </tr>
-    <tr>
-      <th>string_value</th>
-      <td>rong zheng-zheng,</td>
-      <td>Oct 10, 1978</td>
-      <td>Other</td>
-      <td>1978.1010.97FF</td>
-      <td>OD</td>
-      <td>Jun 26, 2017</td>
-      <td>Central 24-2 Threshold Test</td>
-      <td>15% X</td>
-      <td>5%</td>
-      <td>76%</td>
-      <td>...</td>
-      <td>31</td>
-      <td>32</td>
-      <td>33</td>
-      <td>33</td>
-      <td>32</td>
-      <td>27</td>
-      <td>32</td>
-      <td>32</td>
-      <td>30</td>
-      <td>30</td>
-    </tr>
-    <tr>
-      <th>string_value</th>
-      <td>rong zheng-zheng,</td>
-      <td>1978/10/10</td>
-      <td>其他</td>
-      <td>1978.1010.97FF.</td>
-      <td>OS</td>
-      <td>2017/6/26</td>
-      <td>中央 24-2 阙值测定</td>
-      <td>11%</td>
-      <td>1%</td>
-      <td>85%</td>
-      <td>...</td>
-      <td>30</td>
-      <td>32</td>
-      <td>33</td>
-      <td>33</td>
-      <td>33</td>
-      <td>33</td>
-      <td>30</td>
-      <td>30</td>
-      <td>32</td>
-      <td>30</td>
-    </tr>
-    <tr>
-      <th>string_value</th>
-      <td>liu zhi-bo,</td>
-      <td>1983/7/1</td>
-      <td>其他</td>
-      <td>1983.0701.162E.</td>
-      <td>OD</td>
-      <td>2017/7/24</td>
-      <td>中央 24-2 阙值测定</td>
-      <td>22% X</td>
-      <td>9%</td>
-      <td>87%</td>
-      <td>...</td>
-      <td>28</td>
-      <td>35</td>
-      <td>34</td>
-      <td>35</td>
-      <td>33</td>
-      <td>31</td>
-      <td>30</td>
-      <td>32</td>
-      <td>33</td>
-      <td>33</td>
-    </tr>
-    <tr>
-      <th>string_value</th>
-      <td>liu zhi-bo,</td>
-      <td>1983/7/1</td>
-      <td>其他</td>
-      <td>1983.0701.162E.</td>
-      <td>OS</td>
-      <td>2017/7/24</td>
-      <td>中央 24-2 阙值测定</td>
-      <td>11%</td>
-      <td>0%</td>
-      <td>100%</td>
-      <td>...</td>
-      <td>33</td>
-      <td>32</td>
-      <td>33</td>
-      <td>33</td>
-      <td>32</td>
-      <td>33</td>
-      <td>30</td>
-      <td>32</td>
-      <td>32</td>
-      <td>31</td>
-    </tr>
-    <tr>
-      <th>string_value</th>
-      <td>liu qing,</td>
-      <td>1969/6/12</td>
-      <td>女性</td>
-      <td>1969.0612.F9CD</td>
-      <td>OD</td>
-      <td>2017/4/7</td>
-      <td>中央 24-2 阙值测定</td>
-      <td>1%</td>
-      <td>0%</td>
-      <td>84%</td>
-      <td>...</td>
-      <td>32</td>
-      <td>32</td>
-      <td>33</td>
-      <td>31</td>
-      <td>32</td>
-      <td>32</td>
-      <td>31</td>
-      <td>32</td>
-      <td>31</td>
-      <td>32</td>
-    </tr>
-    <tr>
-      <th>string_value</th>
-      <td>liu qing,</td>
-      <td>Jun 12, 1969</td>
-      <td>Female</td>
-      <td>1969.0612.F9CD</td>
-      <td>OS</td>
-      <td>Apr 07, 2017</td>
-      <td>Central 24-2 Threshold Test</td>
-      <td>0%</td>
-      <td>4%</td>
-      <td>77%</td>
-      <td>...</td>
-      <td>27</td>
-      <td>30</td>
-      <td>29</td>
-      <td>28</td>
-      <td>28</td>
-      <td>27</td>
-      <td>30</td>
-      <td>29</td>
-      <td>26</td>
-      <td>26</td>
-    </tr>
-  </tbody>
-</table>
-<p>10 rows × 72 columns</p>
-</div>
-</div>
-
-</div>
-
 </div>
 </div>
 
