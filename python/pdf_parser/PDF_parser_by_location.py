@@ -9,12 +9,19 @@
 
 
 if __name__=="__main__":
-    input_path='../../testdata/Octopus'
-    output_path="../../testdata/Octopus"
-    fname="20170406动态视野(Octopus) .pdf"
+#     input_path='../../testdata/Octopus'
+#     output_path="../../testdata/Octopus"
+#     fname="20170406动态视野(Octopus) .pdf"
+#     info_location_path='../../medical_device_data/'
+#     info_fname="octopus_location.csv"
+#     #pageno=0 # for test
+    
+    input_path='../../testdata/Humphrey_error'
+    output_path="../../testdata/Humphrey_error"
+    fname="huangzeyuan13.pdf"
     info_location_path='../../medical_device_data/'
-    info_fname="octopus_location.csv"
-    #pageno=0 # for test
+    info_fname="humphrey_location.csv"
+    page_number=0
 
 
 # ## 导入依赖包
@@ -142,11 +149,13 @@ def read_data_from_location(input_path, fname, info_location_path, info_fname, p
     return df
 
 
-# In[8]:
+# In[11]:
 
 
 if __name__=="__main__":
-    df=read_data_from_location(input_path, fname, info_location_path, info_fname, 1)
-    print(df.head())
-    print(df.tail())
+    pdffiles = [name for name in os.listdir(input_path)
+            if name.endswith('.pdf')]
+    for fname in pdffiles:
+        df=read_data_from_location(input_path, fname, info_location_path, info_fname, 0)
+        print(df.head())
 
