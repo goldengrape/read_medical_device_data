@@ -7,12 +7,12 @@
 
 # # 设定文件路径参数
 
-# In[1]:
+# In[ ]:
 
 
 if __name__=="__main__":
-    input_path='../../testdata/Humphrey'
-    output_path="../../testdata/Humphrey"
+    input_path='../../testdata/Humphrey_error'
+    output_path="../../testdata/Humphrey_error"
     fname="chenhao1.pdf"
     info_location_path='../../medical_device_data/'
     info_basic_fname="humphrey_basic_location.csv"
@@ -28,7 +28,7 @@ if __name__=="__main__":
 # 
 # 同时, 在使用notebook.azure.com在线运行时, 服务器端不会保存曾经安装过的包, 因此在1小时没有操作之后, 服务器会关闭, 再次打开时就已经丢失了之前安装的包, 相当于首次运行. 
 
-# In[2]:
+# In[ ]:
 
 
 import sys
@@ -39,6 +39,7 @@ import re
 import pandas as pd
 from pandas import Series,DataFrame
 import numpy as np
+import timeit
 
 try:
     from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
@@ -56,7 +57,7 @@ except:
 # ## 导入 PDF_parser_by_location 
 # PDF_parser_by_location 中将所有PDF转换成带有html, 其中每个字符均有定位, 通过选取一个方框来对一个数据或者单词进行选择. 各个数据的定位数据放置在相应的csv文件中, 由info_lation_path和info_fname保存
 
-# In[3]:
+# In[ ]:
 
 
 from PDF_parser_by_location import read_data_from_location, pdf_parser
@@ -64,7 +65,7 @@ from PDF_parser_by_location import read_data_from_location, pdf_parser
 
 # # 读取
 
-# In[4]:
+# In[ ]:
 
 
 def read_one_Humphrey_data(input_path, fname, info_location_path, info_fname):
@@ -74,7 +75,7 @@ def read_one_Humphrey_data(input_path, fname, info_location_path, info_fname):
     return df.T
 
 
-# In[5]:
+# In[ ]:
 
 
 def get_humphrey_test_method(input_path, fname, info_location_path, info_fname_dict):
@@ -82,7 +83,7 @@ def get_humphrey_test_method(input_path, fname, info_location_path, info_fname_d
     return df.Test.values[0]
 
 
-# In[6]:
+# In[ ]:
 
 
 def get_full_humphrey_data(input_path, fname, info_location_path, info_fname_dict):
@@ -96,7 +97,7 @@ def get_full_humphrey_data(input_path, fname, info_location_path, info_fname_dic
 
 # ## 清洗数据
 
-# In[7]:
+# In[ ]:
 
 
 def clean_data(df):
@@ -117,17 +118,33 @@ def clean_data(df):
 
 # # 处理目录
 
-# In[8]:
+# In[ ]:
 
 
-if __name__=="__main__":
-
+def deal_with_folder(input_path, fname, info_location_path, info_fname_dict):
     pdffiles = [name for name in os.listdir(input_path)
             if name.endswith('.pdf')]
     df=DataFrame()
+    N=len(pdffiles)
+    i=0
+    start_time = timeit.default_timer()
     for fname in pdffiles:
         newdf=get_full_humphrey_data(input_path, fname, info_location_path, info_fname_dict)
         newdf=clean_data(newdf)
         df=df.append(newdf, sort=False)
+        print(os.path.join(input_path,fname)+" Done!")
+        elapsed = timeit.default_timer() - start_time
+        i+=1
+        print(str(int(i/N*100))+"%")
+        print("each file time ~={}sec".format(int(elapsed/i)))
+        print("total time ~={}sec".format(int(elapsed/i*N)))
+    return df
+
+
+# In[ ]:
+
+
+if __name__=="__main__":
+    df=deal_with_folder(input_path, fname, info_location_path, info_fname_dict)
     df.to_csv(os.path.join(output_path,"Humphrey_data.csv"))
 

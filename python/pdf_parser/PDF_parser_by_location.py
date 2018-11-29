@@ -16,11 +16,11 @@ if __name__=="__main__":
 #     info_fname="octopus_location.csv"
 #     #pageno=0 # for test
     
-    input_path='../../testdata/Humphrey_error'
-    output_path="../../testdata/Humphrey_error"
+    input_path='../../testdata/Humphrey'
+    output_path="../../testdata/Humphrey"
     fname="huangzeyuan13.pdf"
     info_location_path='../../medical_device_data/'
-    info_fname="humphrey_location.csv"
+    info_fname="humphrey_basic_location.csv"
     page_number=0
 
 
@@ -52,6 +52,8 @@ try:
     from pdfminer.converter import XMLConverter, HTMLConverter, TextConverter
     from pdfminer.layout import LAParams
     from pdfminer.image import ImageWriter
+    import numba
+
 except:
     get_ipython().system('conda install pdfminer.six --yes')
     from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
@@ -59,6 +61,7 @@ except:
     from pdfminer.converter import XMLConverter, HTMLConverter, TextConverter
     from pdfminer.layout import LAParams
     from pdfminer.image import ImageWriter
+    get_ipython().system('conda install numba --yes')
 
 
 # # 读取原始数据
@@ -149,13 +152,30 @@ def read_data_from_location(input_path, fname, info_location_path, info_fname, p
     return df
 
 
-# In[11]:
+# ## 处理目录
+
+# In[8]:
+
+
+def treat_folder(input_path, fname, info_location_path, info_fname):
+    pdffiles = [name for name in os.listdir(input_path)
+            if name.endswith('.pdf')]
+    df=DataFrame()
+
+    for fname in pdffiles:
+        newdf=read_data_from_location(input_path, fname, info_location_path, info_fname, 0)
+        df=df.append(newdf, sort=False)
+        print(os.path.join(input_path,fname)+" Done!")
+    return df
+
+
+# In[9]:
 
 
 if __name__=="__main__":
-    pdffiles = [name for name in os.listdir(input_path)
-            if name.endswith('.pdf')]
-    for fname in pdffiles:
-        df=read_data_from_location(input_path, fname, info_location_path, info_fname, 0)
-        print(df.head())
+    import timeit
+    start_time = timeit.default_timer()
+    treat_folder(input_path, fname, info_location_path, info_fname)
+    elapsed = timeit.default_timer() - start_time
+    print(elapsed)
 
