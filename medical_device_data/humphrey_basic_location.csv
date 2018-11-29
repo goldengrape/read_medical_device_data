@@ -1,0 +1,13 @@
+,left,top,width,height
+patient,72,80,150,15
+date of birth,86,95,65,15
+gender,73,105,65,15
+patient ID,80,110,60,15
+eye,70,160,25,20
+date,495,185,75,15
+Test,410,160,160,20
+False POS Errors,145,220,30,15
+False NEG Errors,145,230,30,15
+VFI%,450,540,30,15
+MD,450,555,40,15
+PSD,450,570,35,15
