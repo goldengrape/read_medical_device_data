@@ -7,12 +7,12 @@
 
 # # 设定文件路径参数
 
-# In[ ]:
+# In[1]:
 
 
 if __name__=="__main__":
-    input_path='../../testdata/Humphrey_error'
-    output_path="../../testdata/Humphrey_error"
+    input_path='../../testdata/Humphrey'
+    output_path="../../testdata/Humphrey"
     fname="chenhao1.pdf"
     info_location_path='../../medical_device_data/'
     info_basic_fname="humphrey_basic_location.csv"
@@ -28,7 +28,7 @@ if __name__=="__main__":
 # 
 # 同时, 在使用notebook.azure.com在线运行时, 服务器端不会保存曾经安装过的包, 因此在1小时没有操作之后, 服务器会关闭, 再次打开时就已经丢失了之前安装的包, 相当于首次运行. 
 
-# In[ ]:
+# In[2]:
 
 
 import sys
@@ -57,7 +57,7 @@ except:
 # ## 导入 PDF_parser_by_location 
 # PDF_parser_by_location 中将所有PDF转换成带有html, 其中每个字符均有定位, 通过选取一个方框来对一个数据或者单词进行选择. 各个数据的定位数据放置在相应的csv文件中, 由info_lation_path和info_fname保存
 
-# In[ ]:
+# In[3]:
 
 
 from PDF_parser_by_location import read_data_from_location, pdf_parser
@@ -65,7 +65,7 @@ from PDF_parser_by_location import read_data_from_location, pdf_parser
 
 # # 读取
 
-# In[ ]:
+# In[4]:
 
 
 def read_one_Humphrey_data(input_path, fname, info_location_path, info_fname):
@@ -75,7 +75,7 @@ def read_one_Humphrey_data(input_path, fname, info_location_path, info_fname):
     return df.T
 
 
-# In[ ]:
+# In[5]:
 
 
 def get_humphrey_test_method(input_path, fname, info_location_path, info_fname_dict):
@@ -83,7 +83,7 @@ def get_humphrey_test_method(input_path, fname, info_location_path, info_fname_d
     return df.Test.values[0]
 
 
-# In[ ]:
+# In[6]:
 
 
 def get_full_humphrey_data(input_path, fname, info_location_path, info_fname_dict):
@@ -97,7 +97,7 @@ def get_full_humphrey_data(input_path, fname, info_location_path, info_fname_dic
 
 # ## 清洗数据
 
-# In[ ]:
+# In[7]:
 
 
 def clean_data(df):
@@ -108,17 +108,24 @@ def clean_data(df):
                   .str.replace("女性","Female")
                   .str.replace("男性","Male")
                  )
-    df["date"]=pd.to_datetime(df["date"])
+    df["Date"]=pd.to_datetime(df["Date"])
+    # Fixation Losses不知为何有可能在excel里被解析成日期, 但csv以纯文本打开不会
+    df["Fixation Losses"]=df["Fixation Losses"].str.extract('(\d+\/\d+)').astype("str")
+    df["False POS Errors"]=df["False POS Errors"].str.extract('(\d+\%)').astype("str") 
+    df["False NEG Errors"]=df["False NEG Errors"].str.extract('(\d+\%)').astype("str")
+    df["Background"]=df["Background"].str.extract('(\-{,1}\d+\.{,1}\d*)').astype("float")
+    df["Pupil Diameter"]=df["Pupil Diameter"].str.extract('(\-{,1}\d+\.{,1}\d*)').astype("float")
+    
     # 将字符串转换为数字
     # 带有最多一个负号, 跟至少一个数字, 带有最多一个小数点, 小数点后有或者没有数字
-    for col in df.iloc[:,7:]:
+    for col in df.iloc[:,24:]:
         df[col]=df[col].str.extract('(\-{,1}\d+\.{,1}\d*)').astype("float") 
     return df
 
 
 # # 处理目录
 
-# In[ ]:
+# In[8]:
 
 
 def deal_with_folder(input_path, fname, info_location_path, info_fname_dict):
@@ -141,7 +148,7 @@ def deal_with_folder(input_path, fname, info_location_path, info_fname_dict):
     return df
 
 
-# In[ ]:
+# In[9]:
 
 
 if __name__=="__main__":

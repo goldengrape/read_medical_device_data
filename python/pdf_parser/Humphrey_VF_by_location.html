@@ -11790,12 +11790,12 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="n">input_path</span><span class="o">=</span><span class="s1">&#39;../../testdata/Humphrey_error&#39;</span>
-    <span class="n">output_path</span><span class="o">=</span><span class="s2">&quot;../../testdata/Humphrey_error&quot;</span>
+    <span class="n">input_path</span><span class="o">=</span><span class="s1">&#39;../../testdata/Humphrey&#39;</span>
+    <span class="n">output_path</span><span class="o">=</span><span class="s2">&quot;../../testdata/Humphrey&quot;</span>
     <span class="n">fname</span><span class="o">=</span><span class="s2">&quot;chenhao1.pdf&quot;</span>
     <span class="n">info_location_path</span><span class="o">=</span><span class="s1">&#39;../../medical_device_data/&#39;</span>
     <span class="n">info_basic_fname</span><span class="o">=</span><span class="s2">&quot;humphrey_basic_location.csv&quot;</span>
@@ -11830,7 +11830,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
@@ -11872,7 +11872,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">PDF_parser_by_location</span> <span class="k">import</span> <span class="n">read_data_from_location</span><span class="p">,</span> <span class="n">pdf_parser</span>
@@ -11893,7 +11893,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">read_one_Humphrey_data</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">info_location_path</span><span class="p">,</span> <span class="n">info_fname</span><span class="p">):</span>
@@ -11910,7 +11910,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_humphrey_test_method</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">info_location_path</span><span class="p">,</span> <span class="n">info_fname_dict</span><span class="p">):</span>
@@ -11925,7 +11925,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_full_humphrey_data</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">info_location_path</span><span class="p">,</span> <span class="n">info_fname_dict</span><span class="p">):</span>
@@ -11952,7 +11952,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">clean_data</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
@@ -11963,10 +11963,17 @@ div#notebook {
                   <span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;女性&quot;</span><span class="p">,</span><span class="s2">&quot;Female&quot;</span><span class="p">)</span>
                   <span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;男性&quot;</span><span class="p">,</span><span class="s2">&quot;Male&quot;</span><span class="p">)</span>
                  <span class="p">)</span>
-    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">])</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Date&quot;</span><span class="p">]</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Date&quot;</span><span class="p">])</span>
+    <span class="c1"># Fixation Losses不知为何有可能在excel里被解析成日期, 但csv以纯文本打开不会</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Fixation Losses&quot;</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Fixation Losses&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="s1">&#39;(\d+\/\d+)&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;str&quot;</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;False POS Errors&quot;</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;False POS Errors&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="s1">&#39;(\d+\%)&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;str&quot;</span><span class="p">)</span> 
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;False NEG Errors&quot;</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;False NEG Errors&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="s1">&#39;(\d+\%)&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;str&quot;</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Background&quot;</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Background&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="s1">&#39;(\-{,1}\d+\.{,1}\d*)&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float&quot;</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Pupil Diameter&quot;</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Pupil Diameter&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="s1">&#39;(\-{,1}\d+\.{,1}\d*)&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float&quot;</span><span class="p">)</span>
+    
     <span class="c1"># 将字符串转换为数字</span>
     <span class="c1"># 带有最多一个负号, 跟至少一个数字, 带有最多一个小数点, 小数点后有或者没有数字</span>
-    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">7</span><span class="p">:]:</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">24</span><span class="p">:]:</span>
         <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="s1">&#39;(\-{,1}\d+\.{,1}\d*)&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float&quot;</span><span class="p">)</span> 
     <span class="k">return</span> <span class="n">df</span>
 </pre></div>
@@ -11986,7 +11993,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">deal_with_folder</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">info_location_path</span><span class="p">,</span> <span class="n">info_fname_dict</span><span class="p">):</span>
@@ -12016,7 +12023,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
@@ -12025,6 +12032,63 @@ div#notebook {
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>../../testdata/Humphrey/chenhao1.pdf Done!
+10%
+each file time ~=6sec
+total time ~=66sec
+../../testdata/Humphrey/chenhao3.pdf Done!
+20%
+each file time ~=6sec
+total time ~=68sec
+../../testdata/Humphrey/chenhao5.pdf Done!
+30%
+each file time ~=6sec
+total time ~=69sec
+../../testdata/Humphrey/HFA_zh.pdf Done!
+40%
+each file time ~=6sec
+total time ~=64sec
+../../testdata/Humphrey/humphrey1_en.pdf Done!
+50%
+each file time ~=6sec
+total time ~=63sec
+../../testdata/Humphrey/humphrey2_zh.pdf Done!
+60%
+each file time ~=6sec
+total time ~=61sec
+../../testdata/Humphrey/LZB_OD-sfa(2).pdf Done!
+70%
+each file time ~=6sec
+total time ~=60sec
+../../testdata/Humphrey/LZB_OS-sfa(2).pdf Done!
+80%
+each file time ~=6sec
+total time ~=60sec
+../../testdata/Humphrey/右眼-sfa_zh.pdf Done!
+90%
+each file time ~=6sec
+total time ~=60sec
+../../testdata/Humphrey/左眼-sfa_en.pdf Done!
+100%
+each file time ~=6sec
+total time ~=60sec
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
