@@ -11988,7 +11988,9 @@ div#notebook {
     <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Refraction&quot;</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Refraction&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;str&quot;</span><span class="p">)</span>
     
     <span class="c1"># re-order</span>
-    <span class="n">cols</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="n">cols</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span>
+    <span class="n">t</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="s2">&quot;_value_&quot;</span> <span class="ow">in</span> <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">])</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">cols</span><span class="p">[</span><span class="o">~</span><span class="n">t</span><span class="p">],</span><span class="n">cols</span><span class="p">[</span><span class="n">t</span><span class="p">]])</span>
     
     
 <span class="c1">#     df[&quot;patient&quot;]=df[&quot;patient&quot;].str.replace(&quot;,&quot;,&quot;&quot;)</span>
@@ -12107,18 +12109,22 @@ div#notebook {
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>../../testdata/o2/dec_272\313\325\277\241\215H20161013\266\257\314\254\312\323\322\260(Octopus) .pdf Done!
-33%
-each file time ~=5sec
-total time ~=15sec
-../../testdata/o2/dec_272\313\325\277\241\215H20161226\266\257\314\254\312\323\322\260(Octopus) .pdf Done!
-66%
-each file time ~=5sec
+<pre>../../testdata/o2/dec_17刘金泉20170622动态视野(Octopus).pdf Done!
+25%
+each file time ~=4sec
 total time ~=16sec
+../../testdata/o2/dec_272\313\325\277\241\215H20161013\266\257\314\254\312\323\322\260(Octopus) .pdf Done!
+50%
+each file time ~=5sec
+total time ~=20sec
+../../testdata/o2/dec_272\313\325\277\241\215H20161226\266\257\314\254\312\323\322\260(Octopus) .pdf Done!
+75%
+each file time ~=5sec
+total time ~=20sec
 ../../testdata/o2/dec_272\313\325\277\241\215H20171030\266\257\314\254\312\323\322\260(Octopus) .pdf Done!
 100%
 each file time ~=5sec
-total time ~=16sec
+total time ~=20sec
 </pre>
 </div>
 </div>

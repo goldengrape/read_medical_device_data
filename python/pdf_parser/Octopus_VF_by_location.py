@@ -126,7 +126,9 @@ def clean_data(df):
     df["Refraction"]=df["Refraction"].astype("str")
     
     # re-order
-    cols = df.columns.tolist()
+    cols = df.columns
+    t=np.asarray(["_value_" in x for x in cols])
+    df.columns=np.concatenate([cols[~t],cols[t]])
     
     
 #     df["patient"]=df["patient"].str.replace(",","")

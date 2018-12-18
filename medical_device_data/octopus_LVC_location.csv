@@ -2,24 +2,19 @@
 name and birthday,50,130,200,50
 Eye and exam date time,50,175,200,30
 Programs,120,700,130,4
-,,,,
 Parameters,120,710,130,10
 Catch trials,120,722,130,10
 Refraction,120,733,130,10
-,,,,
 Pupil,100,745,100,10
-,,,,
-Questions repetitions,342,700,100,10
-Duration,342,712,100,10
-RF,342,722,100,10
-VA,342,733,100,10
-IOP,342,745,100,10
-Diffuse defect,467,510,50,10
-,,,,
-RF,300,720,100,10
-MS,507,710,50,10
-MD,507,720,50,10
-sLV,507,720,50,10
+Questions repetitions,376,700,80,10
+Duration,376,712,80,10
+RF,376,722,80,10
+VA,376,733,80,10
+IOP,376,745,80,10
+Diffuse defect,467,510,0,0
+MS,507,710,0,0
+MD,507,720,0,0
+sLV,507,730,0,0
 LVC_value_0,230,250,20,20
 LVC_value_1,275,250,20,20
 LVC_value_2,320,250,20,20
