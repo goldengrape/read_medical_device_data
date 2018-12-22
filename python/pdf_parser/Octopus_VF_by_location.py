@@ -11,8 +11,8 @@
 
 
 if __name__=="__main__":
-    input_path='../../testdata/o2'
-    output_path="../../testdata/o2"
+    input_path='../../testdata/PDF解密版'
+    output_path="../../testdata/PDF解密版"
     fname="dec_83\303\317\225F20131106\266\257\314\254\312\323\322\260(Octopus) .pdf"
 
     info_location_path='../../medical_device_data/'
@@ -126,9 +126,9 @@ def clean_data(df):
     df["Refraction"]=df["Refraction"].astype("str")
     
     # re-order
-    cols = df.columns
-    t=np.asarray(["_value_" in x for x in cols])
-    df.columns=np.concatenate([cols[~t],cols[t]])
+#     cols = df.columns
+#     t=np.asarray(["_value_" in x for x in cols])
+#     df.columns=np.concatenate([cols[~t],cols[t]])
     
     
 #     df["patient"]=df["patient"].str.replace(",","")
@@ -162,9 +162,12 @@ def deal_with_one_file(input_path, fname, info_location_path, info_fname_dict):
     pages=get_pdf_page(input_path,fname)
     df=DataFrame()
     for page_number in range(pages):
-        newdf=get_full_data(input_path, fname, info_location_path, info_fname_dict,page_number)
-        newdf=clean_data(newdf)
-        df=df.append(newdf, sort=False)
+        try:
+            newdf=get_full_data(input_path, fname, info_location_path, info_fname_dict,page_number)
+            newdf=clean_data(newdf)
+            df=df.append(newdf, sort=False)
+        except:
+            pass
     return df
 
 
@@ -181,14 +184,18 @@ def deal_with_folder(input_path, fname, info_location_path, info_fname_dict):
     i=0
     start_time = timeit.default_timer()
     for fname in pdffiles:
-        newdf=deal_with_one_file(input_path, fname, info_location_path, info_fname_dict)
-        df=df.append(newdf, sort=False)
-        print(os.path.join(input_path,fname)+" Done!")
-        elapsed = timeit.default_timer() - start_time
-        i+=1
-        print(str(int(i/N*100))+"%")
-        print("each file time ~={}sec".format(int(elapsed/i)))
-        print("total time ~={}sec".format(int(elapsed/i*N)))
+        try:
+            newdf=deal_with_one_file(input_path, fname, info_location_path, info_fname_dict)
+            df=df.append(newdf, sort=False)
+            print(os.path.join(input_path,fname)+" Done!")
+            elapsed = timeit.default_timer() - start_time
+            i+=1
+            print(str(int(i/N*100))+"%")
+            print("each file time ~={}sec".format(int(elapsed/i)))
+            print("total time ~={}sec".format(int(elapsed/i*N)))
+        except:
+            print(os.path.join(input_path,fname)+" Failed!")
+
     return df
 
 

@@ -11794,8 +11794,8 @@ div#notebook {
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="n">input_path</span><span class="o">=</span><span class="s1">&#39;../../testdata/o2&#39;</span>
-    <span class="n">output_path</span><span class="o">=</span><span class="s2">&quot;../../testdata/o2&quot;</span>
+    <span class="n">input_path</span><span class="o">=</span><span class="s1">&#39;../../testdata/PDF解密版&#39;</span>
+    <span class="n">output_path</span><span class="o">=</span><span class="s2">&quot;../../testdata/PDF解密版&quot;</span>
     <span class="n">fname</span><span class="o">=</span><span class="s2">&quot;dec_83</span><span class="se">\303\317\225</span><span class="s2">F20131106</span><span class="se">\266\257\314\254\312\323\322\260</span><span class="s2">(Octopus) .pdf&quot;</span>
 
     <span class="n">info_location_path</span><span class="o">=</span><span class="s1">&#39;../../medical_device_data/&#39;</span>
@@ -11988,9 +11988,9 @@ div#notebook {
     <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Refraction&quot;</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Refraction&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;str&quot;</span><span class="p">)</span>
     
     <span class="c1"># re-order</span>
-    <span class="n">cols</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span>
-    <span class="n">t</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="s2">&quot;_value_&quot;</span> <span class="ow">in</span> <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">])</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">cols</span><span class="p">[</span><span class="o">~</span><span class="n">t</span><span class="p">],</span><span class="n">cols</span><span class="p">[</span><span class="n">t</span><span class="p">]])</span>
+<span class="c1">#     cols = df.columns</span>
+<span class="c1">#     t=np.asarray([&quot;_value_&quot; in x for x in cols])</span>
+<span class="c1">#     df.columns=np.concatenate([cols[~t],cols[t]])</span>
     
     
 <span class="c1">#     df[&quot;patient&quot;]=df[&quot;patient&quot;].str.replace(&quot;,&quot;,&quot;&quot;)</span>
@@ -12037,9 +12037,12 @@ div#notebook {
     <span class="n">pages</span><span class="o">=</span><span class="n">get_pdf_page</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span><span class="n">fname</span><span class="p">)</span>
     <span class="n">df</span><span class="o">=</span><span class="n">DataFrame</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">page_number</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">pages</span><span class="p">):</span>
-        <span class="n">newdf</span><span class="o">=</span><span class="n">get_full_data</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">info_location_path</span><span class="p">,</span> <span class="n">info_fname_dict</span><span class="p">,</span><span class="n">page_number</span><span class="p">)</span>
-        <span class="n">newdf</span><span class="o">=</span><span class="n">clean_data</span><span class="p">(</span><span class="n">newdf</span><span class="p">)</span>
-        <span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">newdf</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">newdf</span><span class="o">=</span><span class="n">get_full_data</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">info_location_path</span><span class="p">,</span> <span class="n">info_fname_dict</span><span class="p">,</span><span class="n">page_number</span><span class="p">)</span>
+            <span class="n">newdf</span><span class="o">=</span><span class="n">clean_data</span><span class="p">(</span><span class="n">newdf</span><span class="p">)</span>
+            <span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">newdf</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
     <span class="k">return</span> <span class="n">df</span>
 </pre></div>
 
@@ -12069,14 +12072,18 @@ div#notebook {
     <span class="n">i</span><span class="o">=</span><span class="mi">0</span>
     <span class="n">start_time</span> <span class="o">=</span> <span class="n">timeit</span><span class="o">.</span><span class="n">default_timer</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">fname</span> <span class="ow">in</span> <span class="n">pdffiles</span><span class="p">:</span>
-        <span class="n">newdf</span><span class="o">=</span><span class="n">deal_with_one_file</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">info_location_path</span><span class="p">,</span> <span class="n">info_fname_dict</span><span class="p">)</span>
-        <span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">newdf</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span><span class="n">fname</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot; Done!&quot;</span><span class="p">)</span>
-        <span class="n">elapsed</span> <span class="o">=</span> <span class="n">timeit</span><span class="o">.</span><span class="n">default_timer</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
-        <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
-        <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="o">/</span><span class="n">N</span><span class="o">*</span><span class="mi">100</span><span class="p">))</span><span class="o">+</span><span class="s2">&quot;%&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;each file time ~=</span><span class="si">{}</span><span class="s2">sec&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">elapsed</span><span class="o">/</span><span class="n">i</span><span class="p">)))</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;total time ~=</span><span class="si">{}</span><span class="s2">sec&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">elapsed</span><span class="o">/</span><span class="n">i</span><span class="o">*</span><span class="n">N</span><span class="p">)))</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">newdf</span><span class="o">=</span><span class="n">deal_with_one_file</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">info_location_path</span><span class="p">,</span> <span class="n">info_fname_dict</span><span class="p">)</span>
+            <span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">newdf</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span><span class="n">fname</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot; Done!&quot;</span><span class="p">)</span>
+            <span class="n">elapsed</span> <span class="o">=</span> <span class="n">timeit</span><span class="o">.</span><span class="n">default_timer</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
+            <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
+            <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="o">/</span><span class="n">N</span><span class="o">*</span><span class="mi">100</span><span class="p">))</span><span class="o">+</span><span class="s2">&quot;%&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;each file time ~=</span><span class="si">{}</span><span class="s2">sec&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">elapsed</span><span class="o">/</span><span class="n">i</span><span class="p">)))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;total time ~=</span><span class="si">{}</span><span class="s2">sec&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">elapsed</span><span class="o">/</span><span class="n">i</span><span class="o">*</span><span class="n">N</span><span class="p">)))</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span><span class="n">fname</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot; Failed!&quot;</span><span class="p">)</span>
+
     <span class="k">return</span> <span class="n">df</span>
 </pre></div>
 
@@ -12109,22 +12116,2790 @@ div#notebook {
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>../../testdata/o2/dec_17刘金泉20170622动态视野(Octopus).pdf Done!
+<pre>../../testdata/PDF解密版/10杨奎芝20140821动态视野(Octopus)_NoRestriction.pdf Done!
+0%
+each file time ~=5sec
+total time ~=4138sec
+../../testdata/PDF解密版/10杨奎芝20141211动态视野(Octopus)_NoRestriction.pdf Done!
+0%
+each file time ~=5sec
+total time ~=3993sec
+../../testdata/PDF解密版/10杨奎芝20150305动态视野(Octopus)_NoRestriction.pdf Done!
+0%
+each file time ~=5sec
+total time ~=3900sec
+../../testdata/PDF解密版/10杨奎芝20150618动态视野(Octopus)_NoRestriction.pdf Done!
+0%
+each file time ~=5sec
+total time ~=3898sec
+../../testdata/PDF解密版/10杨奎芝20160505动态视野(Octopus)_NoRestriction.pdf Done!
+0%
+each file time ~=5sec
+total time ~=3919sec
+../../testdata/PDF解密版/10杨奎芝20160825动态视野(Octopus)_NoRestriction.pdf Done!
+0%
+each file time ~=5sec
+total time ~=3965sec
+../../testdata/PDF解密版/10杨奎芝20171106动态视野(Octopus)_NoRestriction.pdf Done!
+1%
+each file time ~=5sec
+total time ~=3966sec
+../../testdata/PDF解密版/10杨奎芝20180222动态视野(Octopus)_NoRestriction.pdf Done!
+1%
+each file time ~=7sec
+total time ~=5226sec
+../../testdata/PDF解密版/10黄波20171107 动态视野(Octopus)_NoRestriction.pdf Done!
+1%
+each file time ~=8sec
+total time ~=6186sec
+../../testdata/PDF解密版/119姚光庆20170328动态视野(Octopus)_NoRestriction.pdf Done!
+1%
+each file time ~=8sec
+total time ~=5973sec
+../../testdata/PDF解密版/11李彬20170217动态视野(Octopus)_NoRestriction.pdf Done!
+1%
+each file time ~=8sec
+total time ~=5781sec
+../../testdata/PDF解密版/11李彬20170519动态视野(Octopus)_NoRestriction.pdf Done!
+1%
+each file time ~=9sec
+total time ~=6439sec
+../../testdata/PDF解密版/11李彬20170901动态视野(Octopus)_NoRestriction.pdf Done!
+1%
+each file time ~=9sec
+total time ~=6928sec
+../../testdata/PDF解密版/11李彬20171201动态视野(Octopus)_NoRestriction.pdf Done!
+2%
+each file time ~=10sec
+total time ~=7173sec
+../../testdata/PDF解密版/11李彬20180302动态视野(Octopus)_NoRestriction.pdf Done!
+2%
+each file time ~=9sec
+total time ~=6809sec
+../../testdata/PDF解密版/120于飞20170602动态视野(Octopus)_NoRestriction.pdf Done!
+2%
+each file time ~=9sec
+total time ~=6625sec
+../../testdata/PDF解密版/124袁宁20140506动态视野(Octopus)_NoRestriction.pdf Done!
+2%
+each file time ~=9sec
+total time ~=6452sec
+../../testdata/PDF解密版/124袁宁20140729动态视野(Octopus)_NoRestriction.pdf Done!
+2%
+each file time ~=9sec
+total time ~=6302sec
+../../testdata/PDF解密版/124袁宁20171214 动态视野(Octopus)_NoRestriction.pdf Done!
+2%
+each file time ~=8sec
+total time ~=6171sec
+../../testdata/PDF解密版/125袁执盛20150928动态视野(Octopus)_NoRestriction.pdf Done!
+2%
+each file time ~=8sec
+total time ~=6164sec
+../../testdata/PDF解密版/12李想20171215动态视野(Octopus)_NoRestriction.pdf Done!
+3%
+each file time ~=8sec
+total time ~=6045sec
+../../testdata/PDF解密版/12李想20180316动态视野(Octopus)_NoRestriction.pdf Done!
+3%
+each file time ~=8sec
+total time ~=5842sec
+../../testdata/PDF解密版/130张美君20141011 动态视野(Octopus)_NoRestriction.pdf Done!
+3%
+each file time ~=8sec
+total time ~=5749sec
+../../testdata/PDF解密版/130张美君20161102动态视野(Octopus)_NoRestriction.pdf Done!
+3%
+each file time ~=8sec
+total time ~=5834sec
+../../testdata/PDF解密版/132张求慧20140219动态视野(Octopus)_NoRestriction.pdf Done!
+3%
+each file time ~=8sec
+total time ~=5750sec
+../../testdata/PDF解密版/132张求慧20150213 动态视野(Octopus)_NoRestriction.pdf Done!
+3%
+each file time ~=8sec
+total time ~=5668sec
+../../testdata/PDF解密版/132张求慧20150908动态视野(Octopus)_NoRestriction.pdf Done!
+3%
+each file time ~=8sec
+total time ~=5594sec
+../../testdata/PDF解密版/132张求慧20160908 动态视野(Octopus)_NoRestriction.pdf Done!
+4%
+each file time ~=7sec
+total time ~=5528sec
+../../testdata/PDF解密版/136张长山20150310动态视野(Octopus)_NoRestriction.pdf Done!
+4%
+each file time ~=7sec
+total time ~=5402sec
+../../testdata/PDF解密版/137章正和20160406动态视野(Octopus)_NoRestriction.pdf Done!
+4%
+each file time ~=7sec
+total time ~=5283sec
+../../testdata/PDF解密版/137章正和20160523 动态视野(Octopus)_NoRestriction.pdf Done!
+4%
+each file time ~=7sec
+total time ~=5259sec
+../../testdata/PDF解密版/13吕淑银20140722动态视野(Octopus)_NoRestriction.pdf Done!
+4%
+each file time ~=7sec
+total time ~=5209sec
+../../testdata/PDF解密版/13吕淑银20140917动态视野(Octopus)_NoRestriction.pdf Done!
+4%
+each file time ~=7sec
+total time ~=5161sec
+../../testdata/PDF解密版/13吕淑银20161201动态视野(Octopus)_NoRestriction.pdf Done!
+4%
+each file time ~=7sec
+total time ~=5113sec
+../../testdata/PDF解密版/13吕淑银20161222动态视野(Octopus)_NoRestriction.pdf Done!
+5%
+each file time ~=7sec
+total time ~=5074sec
+../../testdata/PDF解密版/13吕淑银20170323动态视野(Octopus)_NoRestriction.pdf Done!
+5%
+each file time ~=7sec
+total time ~=5206sec
+../../testdata/PDF解密版/13吕淑银20170607动态视野(Octopus)_NoRestriction.pdf Done!
+5%
+each file time ~=7sec
+total time ~=5163sec
+../../testdata/PDF解密版/13吕淑银20171109动态视野(Octopus)_NoRestriction.pdf Done!
+5%
+each file time ~=7sec
+total time ~=5121sec
+../../testdata/PDF解密版/142宗淑媛20160728动态视野(Octopus)_NoRestriction.pdf Done!
+5%
+each file time ~=7sec
+total time ~=5087sec
+../../testdata/PDF解密版/143张森20150525 动态视野(Octopus)_NoRestriction.pdf Done!
+5%
+each file time ~=7sec
+total time ~=5055sec
+../../testdata/PDF解密版/143张森20150611动态视野(Octopus)_NoRestriction.pdf Done!
+5%
+each file time ~=7sec
+total time ~=5023sec
+../../testdata/PDF解密版/143张森20151029 动态视野(Octopus)_NoRestriction.pdf Done!
+6%
+each file time ~=7sec
+total time ~=4989sec
+../../testdata/PDF解密版/143张森20170323 动态视野(Octopus)_NoRestriction.pdf Done!
+6%
+each file time ~=7sec
+total time ~=4958sec
+../../testdata/PDF解密版/143张森20170817动态视野(Octopus)_NoRestriction.pdf Done!
+6%
+each file time ~=7sec
+total time ~=4928sec
+../../testdata/PDF解密版/143张森20171109 动态视野(Octopus)_NoRestriction.pdf Done!
+6%
+each file time ~=7sec
+total time ~=4907sec
+../../testdata/PDF解密版/143张森20180206 动态视野(Octopus)_NoRestriction.pdf Done!
+6%
+each file time ~=7sec
+total time ~=4879sec
+../../testdata/PDF解密版/144周振新20170720动态视野(Octopus)_NoRestriction.pdf Done!
+6%
+each file time ~=6sec
+total time ~=4852sec
+../../testdata/PDF解密版/144周振新20171106动态视野(Octopus)_NoRestriction.pdf Done!
+6%
+each file time ~=6sec
+total time ~=4826sec
+../../testdata/PDF解密版/147于桂芳20150717 动态视野(Octopus)_NoRestriction.pdf Done!
+7%
+each file time ~=6sec
+total time ~=4804sec
+../../testdata/PDF解密版/147于桂芳20151110 动态视野(Octopus)_NoRestriction.pdf Done!
+7%
+each file time ~=6sec
+total time ~=4782sec
+../../testdata/PDF解密版/147于桂芳20161115 动态视野(Octopus)_NoRestriction.pdf Done!
+7%
+each file time ~=6sec
+total time ~=4764sec
+../../testdata/PDF解密版/147于桂芳20170223 动态视野(Octopus)_NoRestriction.pdf Done!
+7%
+each file time ~=6sec
+total time ~=4743sec
+../../testdata/PDF解密版/147于桂芳20170608 动态视野(Octopus)_NoRestriction.pdf Done!
+7%
+each file time ~=6sec
+total time ~=4724sec
+../../testdata/PDF解密版/147于桂芳20171109 动态视野(Octopus)_NoRestriction.pdf Done!
+7%
+each file time ~=6sec
+total time ~=4705sec
+../../testdata/PDF解密版/152刘传兰20171103动态视野(Octopus)_NoRestriction.pdf Done!
+7%
+each file time ~=6sec
+total time ~=4687sec
+../../testdata/PDF解密版/152刘传兰20171219动态视野(Octopus)_NoRestriction.pdf Done!
+8%
+each file time ~=6sec
+total time ~=4687sec
+../../testdata/PDF解密版/152刘传兰20180104动态视野(Octopus)_NoRestriction.pdf Done!
+8%
+each file time ~=6sec
+total time ~=4672sec
+../../testdata/PDF解密版/153白亚顺20141021动态视野(Octopus)_NoRestriction.pdf Done!
+8%
+each file time ~=6sec
+total time ~=4655sec
+../../testdata/PDF解密版/153白亚顺20180301动态视野(Octopus)_NoRestriction.pdf Done!
+8%
+each file time ~=6sec
+total time ~=4601sec
+../../testdata/PDF解密版/157张志军20170809动态视野(Octopus)_NoRestriction.pdf Done!
+8%
+each file time ~=6sec
+total time ~=4584sec
+../../testdata/PDF解密版/15姜佩玉20140306 动态视野(Octopus)_NoRestriction.pdf Done!
+8%
+each file time ~=6sec
+total time ~=4574sec
+../../testdata/PDF解密版/15姜佩玉20140911 动态视野(Octopus)_NoRestriction.pdf Done!
+8%
+each file time ~=6sec
+total time ~=4587sec
+../../testdata/PDF解密版/15姜佩玉20150611 动态视野(Octopus)_NoRestriction.pdf Done!
+9%
+each file time ~=6sec
+total time ~=4580sec
+../../testdata/PDF解密版/15姜佩玉20160831 动态视野(Octopus)_NoRestriction.pdf Done!
+9%
+each file time ~=6sec
+total time ~=4569sec
+../../testdata/PDF解密版/15姜佩玉20161228 动态视野(Octopus)_NoRestriction.pdf Done!
+9%
+each file time ~=6sec
+total time ~=4564sec
+../../testdata/PDF解密版/15姜佩玉20170607 动态视野(Octopus)_NoRestriction.pdf Done!
+9%
+each file time ~=6sec
+total time ~=4559sec
+../../testdata/PDF解密版/15姜佩玉20170912 动态视野(Octopus)_NoRestriction.pdf Done!
+9%
+each file time ~=6sec
+total time ~=4561sec
+../../testdata/PDF解密版/15姜佩玉20171213 动态视野(Octopus)_NoRestriction.pdf Done!
+9%
+each file time ~=6sec
+total time ~=4554sec
+../../testdata/PDF解密版/15姜佩玉20180227 动态视野(Octopus)_NoRestriction.pdf Done!
+9%
+each file time ~=6sec
+total time ~=4519sec
+../../testdata/PDF解密版/160石显璞20140603 动态视野(Octopus)_NoRestriction.pdf Done!
+10%
+each file time ~=6sec
+total time ~=4517sec
+../../testdata/PDF解密版/160石显璞20150416 动态视野(Octopus)_NoRestriction.pdf Done!
+10%
+each file time ~=6sec
+total time ~=4520sec
+../../testdata/PDF解密版/160石显璞20160309 动态视野(Octopus)_NoRestriction.pdf Done!
+10%
+each file time ~=6sec
+total time ~=4551sec
+../../testdata/PDF解密版/160石显璞20161025 动态视野(Octopus)_NoRestriction.pdf Done!
+10%
+each file time ~=6sec
+total time ~=4548sec
+../../testdata/PDF解密版/160石显璞20170316 动态视野(Octopus)_NoRestriction.pdf Done!
+10%
+each file time ~=6sec
+total time ~=4538sec
+../../testdata/PDF解密版/160石显璞20170706 动态视野(Octopus)_NoRestriction.pdf Done!
+10%
+each file time ~=6sec
+total time ~=4527sec
+../../testdata/PDF解密版/160石显璞20171109 动态视野(Octopus)_NoRestriction.pdf Done!
+10%
+each file time ~=6sec
+total time ~=4520sec
+../../testdata/PDF解密版/160石显璞20180322 动态视野(Octopus)_NoRestriction.pdf Done!
+11%
+each file time ~=6sec
+total time ~=4484sec
+../../testdata/PDF解密版/161冯大林20151216动态视野(Octopus)_NoRestriction.pdf Done!
+11%
+each file time ~=6sec
+total time ~=4485sec
+../../testdata/PDF解密版/161冯大林20170606动态视野(Octopus)_NoRestriction.pdf Done!
+11%
+each file time ~=6sec
+total time ~=4490sec
+../../testdata/PDF解密版/161冯大林20170830动态视野(Octopus)_NoRestriction.pdf Done!
+11%
+each file time ~=6sec
+total time ~=4493sec
+../../testdata/PDF解密版/161冯大林20171107动态视野(Octopus)_NoRestriction.pdf Done!
+11%
+each file time ~=6sec
+total time ~=4490sec
+../../testdata/PDF解密版/161冯大林20180410动态视野(Octopus)_NoRestriction.pdf Done!
+11%
+each file time ~=6sec
+total time ~=4469sec
+../../testdata/PDF解密版/163王利海20140618动态视野(Octopus)_NoRestriction.pdf Done!
+11%
+each file time ~=6sec
+total time ~=4468sec
+../../testdata/PDF解密版/163王利海20141014动态视野(Octopus)_NoRestriction.pdf Done!
+12%
+each file time ~=6sec
+total time ~=4461sec
+../../testdata/PDF解密版/163王利海20141230动态视野(Octopus)_NoRestriction.pdf Done!
+12%
+each file time ~=6sec
+total time ~=4462sec
+../../testdata/PDF解密版/163王利海20150414动态视野(Octopus)_NoRestriction.pdf Done!
+12%
+each file time ~=6sec
+total time ~=4464sec
+../../testdata/PDF解密版/163王利海20150721动态视野(Octopus)_NoRestriction.pdf Done!
+12%
+each file time ~=6sec
+total time ~=4471sec
+../../testdata/PDF解密版/163王利海20161101动态视野(Octopus)_NoRestriction.pdf Done!
+12%
+each file time ~=6sec
+total time ~=4481sec
+../../testdata/PDF解密版/163王利海20170801动态视野(Octopus)_NoRestriction.pdf Done!
+12%
+each file time ~=6sec
+total time ~=4492sec
+../../testdata/PDF解密版/163王利海20171026动态视野(Octopus)_NoRestriction.pdf Done!
+12%
+each file time ~=6sec
+total time ~=4500sec
+../../testdata/PDF解密版/163王利海20180123动态视野(Octopus)_NoRestriction.pdf Done!
+13%
+each file time ~=6sec
+total time ~=4494sec
+../../testdata/PDF解密版/165卢素华20160401动态视野(Octopus)_NoRestriction.pdf Done!
+13%
+each file time ~=6sec
+total time ~=4491sec
+../../testdata/PDF解密版/165卢素华20161228动态视野(Octopus)_NoRestriction.pdf Done!
+13%
+each file time ~=6sec
+total time ~=4489sec
+../../testdata/PDF解密版/165卢素华20170420动态视野(Octopus)_NoRestriction.pdf Done!
+13%
+each file time ~=6sec
+total time ~=4483sec
+../../testdata/PDF解密版/165卢素华20170710动态视野(Octopus)_NoRestriction.pdf Done!
+13%
+each file time ~=6sec
+total time ~=4478sec
+../../testdata/PDF解密版/165卢素华20171020动态视野(Octopus)_NoRestriction.pdf Done!
+13%
+each file time ~=6sec
+total time ~=4475sec
+../../testdata/PDF解密版/165卢素华20180326动态视野(Octopus)_NoRestriction.pdf Done!
+13%
+each file time ~=6sec
+total time ~=4445sec
+../../testdata/PDF解密版/166李清沂20141209动态视野(Octopus)_NoRestriction.pdf Done!
+14%
+each file time ~=6sec
+total time ~=4533sec
+../../testdata/PDF解密版/166李清沂20170301动态视野(Octopus)_NoRestriction.pdf Done!
+14%
+each file time ~=6sec
+total time ~=4539sec
+../../testdata/PDF解密版/166李清沂20171025动态视野(Octopus)_NoRestriction.pdf Done!
+14%
+each file time ~=6sec
+total time ~=4542sec
+../../testdata/PDF解密版/167辛芝明20150114动态视野(Octopus)_NoRestriction.pdf Done!
+14%
+each file time ~=6sec
+total time ~=4540sec
+../../testdata/PDF解密版/168叶树林20150430动态视野(Octopus)_NoRestriction.pdf Done!
+14%
+each file time ~=6sec
+total time ~=4538sec
+../../testdata/PDF解密版/168叶树林20151124动态视野(Octopus)_NoRestriction.pdf Done!
+14%
+each file time ~=6sec
+total time ~=4540sec
+../../testdata/PDF解密版/168叶树林20160311动态视野(Octopus)_NoRestriction.pdf Done!
+14%
+each file time ~=6sec
+total time ~=4540sec
+../../testdata/PDF解密版/168叶树林20160930动态视野(Octopus)_NoRestriction.pdf Done!
+15%
+each file time ~=6sec
+total time ~=4534sec
+../../testdata/PDF解密版/168叶树林20170317动态视野(Octopus)_NoRestriction.pdf Done!
+15%
+each file time ~=6sec
+total time ~=4528sec
+../../testdata/PDF解密版/168叶树林20171013动态视野(Octopus)_NoRestriction.pdf Done!
+15%
+each file time ~=6sec
+total time ~=4521sec
+../../testdata/PDF解密版/168叶树林20180413动态视野(Octopus)_NoRestriction.pdf Done!
+15%
+each file time ~=6sec
+total time ~=4496sec
+../../testdata/PDF解密版/16杨宇20161208动态视野(Octopus)_NoRestriction.pdf Done!
+15%
+each file time ~=6sec
+total time ~=4490sec
+../../testdata/PDF解密版/16杨宇20170316动态视野(Octopus)_NoRestriction.pdf Done!
+15%
+each file time ~=6sec
+total time ~=4488sec
+../../testdata/PDF解密版/16杨宇20170620动态视野(Octopus)_NoRestriction.pdf Done!
+15%
+each file time ~=6sec
+total time ~=4482sec
+../../testdata/PDF解密版/16杨宇20170921动态视野(Octopus)_NoRestriction.pdf Done!
+16%
+each file time ~=6sec
+total time ~=4483sec
+../../testdata/PDF解密版/16杨宇20171214动态视野(Octopus)_NoRestriction.pdf Done!
+16%
+each file time ~=6sec
+total time ~=4483sec
+../../testdata/PDF解密版/16杨宇20180314动态视野(Octopus)_NoRestriction.pdf Done!
+16%
+each file time ~=6sec
+total time ~=4458sec
+../../testdata/PDF解密版/173张珉20171019动态视野(Octopus)_NoRestriction.pdf Done!
+16%
+each file time ~=6sec
+total time ~=4435sec
+../../testdata/PDF解密版/175邓桂芝20150423动态视野(Octopus)_NoRestriction.pdf Done!
+16%
+each file time ~=6sec
+total time ~=4432sec
+../../testdata/PDF解密版/175邓桂芝20160112动态视野(Octopus)_NoRestriction.pdf Done!
+16%
+each file time ~=6sec
+total time ~=4426sec
+../../testdata/PDF解密版/175邓桂芝20161020动态视野(Octopus)_NoRestriction.pdf Done!
+16%
+each file time ~=6sec
+total time ~=4426sec
+../../testdata/PDF解密版/175邓桂芝20170525动态视野(Octopus)_NoRestriction.pdf Done!
+17%
+each file time ~=6sec
+total time ~=4444sec
+../../testdata/PDF解密版/175邓桂芝20171019动态视野(Octopus)_NoRestriction.pdf Done!
+17%
+each file time ~=6sec
+total time ~=4437sec
+../../testdata/PDF解密版/175邓桂芝20180329动态视野(Octopus)_NoRestriction.pdf Done!
+17%
+each file time ~=6sec
+total time ~=4414sec
+../../testdata/PDF解密版/17刘金泉20140724 动态视野(Octopus)_NoRestriction.pdf Done!
+17%
+each file time ~=6sec
+total time ~=4423sec
+../../testdata/PDF解密版/17刘金泉20160226动态视野(Octopus)_NoRestriction.pdf Done!
+17%
+each file time ~=6sec
+total time ~=4419sec
+../../testdata/PDF解密版/17刘金泉20160804动态视野(Octopus)_NoRestriction.pdf Done!
+17%
+each file time ~=6sec
+total time ~=4429sec
+../../testdata/PDF解密版/17刘金泉20170316动态视野(Octopus)_NoRestriction.pdf Done!
+17%
+each file time ~=6sec
+total time ~=4419sec
+../../testdata/PDF解密版/17刘金泉20170622动态视野(Octopus)_NoRestriction.pdf Done!
+18%
+each file time ~=6sec
+total time ~=4410sec
+../../testdata/PDF解密版/17刘金泉20170914动态视野(Octopus)_NoRestriction.pdf Done!
+18%
+each file time ~=6sec
+total time ~=4399sec
+../../testdata/PDF解密版/17刘金泉20171214动态视野(Octopus)_NoRestriction.pdf Done!
+18%
+each file time ~=6sec
+total time ~=4386sec
+../../testdata/PDF解密版/17刘金泉20180301动态视野(Octopus)_NoRestriction.pdf Done!
+18%
+each file time ~=6sec
+total time ~=4360sec
+../../testdata/PDF解密版/182钱逢春20141216动态视野(Octopus)_NoRestriction.pdf Done!
+18%
+each file time ~=6sec
+total time ~=4355sec
+../../testdata/PDF解密版/182钱逢春20150602动态视野(Octopus)_NoRestriction.pdf Done!
+18%
+each file time ~=6sec
+total time ~=4351sec
+../../testdata/PDF解密版/182钱逢春20151224动态视野(Octopus)_NoRestriction.pdf Done!
+18%
+each file time ~=6sec
+total time ~=4349sec
+../../testdata/PDF解密版/182钱逢春20161103动态视野(Octopus)_NoRestriction.pdf Done!
+19%
+each file time ~=6sec
+total time ~=4347sec
+../../testdata/PDF解密版/182钱逢春20170216动态视野(Octopus)_NoRestriction.pdf Done!
+19%
+each file time ~=6sec
+total time ~=4346sec
+../../testdata/PDF解密版/182钱逢春20170817动态视野(Octopus)_NoRestriction.pdf Done!
+19%
+each file time ~=6sec
+total time ~=4343sec
+../../testdata/PDF解密版/182钱逢春20172202动态视野(Octopus)_NoRestriction.pdf Done!
+19%
+each file time ~=6sec
+total time ~=4341sec
+../../testdata/PDF解密版/184王艳征20150413动态视野(Octopus)_NoRestriction.pdf Done!
+19%
+each file time ~=6sec
+total time ~=4337sec
+../../testdata/PDF解密版/184王艳征20150428动态视野(Octopus)_NoRestriction.pdf Done!
+19%
+each file time ~=6sec
+total time ~=4334sec
+../../testdata/PDF解密版/184王艳征20151111动态视野(Octopus)_NoRestriction.pdf Done!
+19%
+each file time ~=6sec
+total time ~=4329sec
+../../testdata/PDF解密版/184王艳征20160922动态视野(Octopus)_NoRestriction.pdf Done!
+20%
+each file time ~=6sec
+total time ~=4325sec
+../../testdata/PDF解密版/184王艳征20170303动态视野(Octopus)_NoRestriction.pdf Done!
+20%
+each file time ~=6sec
+total time ~=4324sec
+../../testdata/PDF解密版/184王艳征20170817动态视野(Octopus)_NoRestriction.pdf Done!
+20%
+each file time ~=6sec
+total time ~=4324sec
+../../testdata/PDF解密版/184王艳征20180306动态视野(Octopus)_NoRestriction.pdf Done!
+20%
+each file time ~=6sec
+total time ~=4305sec
+../../testdata/PDF解密版/187谢作黎20140318动态视野(Octopus)_NoRestriction.pdf Done!
+20%
+each file time ~=6sec
+total time ~=4307sec
+../../testdata/PDF解密版/187谢作黎20140703动态视野(Octopus)_NoRestriction.pdf Done!
+20%
+each file time ~=6sec
+total time ~=4308sec
+../../testdata/PDF解密版/187谢作黎20151027动态视野(Octopus)_NoRestriction.pdf Done!
+20%
+each file time ~=6sec
+total time ~=4308sec
+../../testdata/PDF解密版/187谢作黎20170321动态视野(Octopus)_NoRestriction.pdf Done!
+21%
+each file time ~=6sec
+total time ~=4307sec
+../../testdata/PDF解密版/187谢作黎20170504动态视野(Octopus)_NoRestriction.pdf Done!
+21%
+each file time ~=6sec
+total time ~=4303sec
+../../testdata/PDF解密版/187谢作黎20170919动态视野(Octopus)_NoRestriction.pdf Done!
+21%
+each file time ~=6sec
+total time ~=4305sec
+../../testdata/PDF解密版/187谢作黎20171214动态视野(Octopus)_NoRestriction.pdf Done!
+21%
+each file time ~=6sec
+total time ~=4302sec
+../../testdata/PDF解密版/188梁文书20140725动态视野(Octopus)_NoRestriction.pdf Done!
+21%
+each file time ~=6sec
+total time ~=4308sec
+../../testdata/PDF解密版/18宋宗文20150512 动态视野(Octopus)_NoRestriction.pdf Done!
+21%
+each file time ~=6sec
+total time ~=4306sec
+../../testdata/PDF解密版/18宋宗文20170105动态视野(Octopus)_NoRestriction.pdf Done!
+21%
+each file time ~=6sec
+total time ~=4302sec
+../../testdata/PDF解密版/18宋宗文20170912动态视野(Octopus)_NoRestriction.pdf Done!
+22%
+each file time ~=6sec
+total time ~=4299sec
+../../testdata/PDF解密版/18宋宗文20171213动态视野(Octopus)_NoRestriction.pdf Done!
+22%
+each file time ~=6sec
+total time ~=4295sec
+../../testdata/PDF解密版/18宋宗文20180228 动态视野(Octopus)_NoRestriction.pdf Done!
+22%
+each file time ~=6sec
+total time ~=4281sec
+../../testdata/PDF解密版/18宋宗文20180403动态视野(Octopus)_NoRestriction.pdf Done!
+22%
+each file time ~=6sec
+total time ~=4267sec
+../../testdata/PDF解密版/191杨素云20151027动态视野(Octopus)_NoRestriction.pdf Done!
+22%
+each file time ~=6sec
+total time ~=4267sec
+../../testdata/PDF解密版/191杨素云20160927动态视野(Octopus)_NoRestriction.pdf Done!
+22%
+each file time ~=6sec
+total time ~=4269sec
+../../testdata/PDF解密版/191杨素云20170623动态视野(Octopus)_NoRestriction.pdf Done!
+22%
+each file time ~=6sec
+total time ~=4274sec
+../../testdata/PDF解密版/191杨素云20170926动态视野(Octopus)1_NoRestriction.pdf Done!
+23%
+each file time ~=6sec
+total time ~=4251sec
+../../testdata/PDF解密版/191杨素云20170926动态视野(Octopus)_NoRestriction.pdf Done!
+23%
+each file time ~=6sec
+total time ~=4248sec
+../../testdata/PDF解密版/191杨素云20180327动态视野(Octopus)_NoRestriction.pdf Done!
+23%
+each file time ~=6sec
+total time ~=4232sec
+../../testdata/PDF解密版/192霍春燕20141102动态视野(Octopus)_NoRestriction.pdf Done!
+23%
+each file time ~=6sec
+total time ~=4231sec
+../../testdata/PDF解密版/192霍春燕20150209动态视野(Octopus)_NoRestriction.pdf Done!
+23%
+each file time ~=6sec
+total time ~=4230sec
+../../testdata/PDF解密版/192霍春燕20170922动态视野(Octopus)_NoRestriction.pdf Done!
+23%
+each file time ~=6sec
+total time ~=4228sec
+../../testdata/PDF解密版/192霍春燕20171229动态视野(Octopus)_NoRestriction.pdf Done!
+23%
+each file time ~=6sec
+total time ~=4228sec
+../../testdata/PDF解密版/192霍春燕20180403动态视野(Octopus)_NoRestriction.pdf Done!
+24%
+each file time ~=6sec
+total time ~=4214sec
+../../testdata/PDF解密版/194梅秀英20150709动态视野(Octopus)_NoRestriction.pdf Done!
+24%
+each file time ~=6sec
+total time ~=4213sec
+../../testdata/PDF解密版/194梅秀英20170627动态视野(Octopus)_NoRestriction.pdf Done!
+24%
+each file time ~=6sec
+total time ~=4210sec
+../../testdata/PDF解密版/194梅秀英20171225动态视野(Octopus)_NoRestriction.pdf Done!
+24%
+each file time ~=6sec
+total time ~=4208sec
+../../testdata/PDF解密版/195陈玉珍20170627动态视野(Octopus)_NoRestriction.pdf Done!
+24%
+each file time ~=6sec
+total time ~=4221sec
+../../testdata/PDF解密版/195陈玉珍20170930动态视野(Octopus)_NoRestriction.pdf Done!
+24%
+each file time ~=6sec
+total time ~=4220sec
+../../testdata/PDF解密版/195陈玉珍20180102动态视野(Octopus)_NoRestriction.pdf Done!
 25%
-each file time ~=4sec
-total time ~=16sec
-../../testdata/o2/dec_272\313\325\277\241\215H20161013\266\257\314\254\312\323\322\260(Octopus) .pdf Done!
+each file time ~=6sec
+total time ~=4204sec
+../../testdata/PDF解密版/195陈玉珍20180413动态视野(Octopus)_NoRestriction.pdf Done!
+25%
+each file time ~=6sec
+total time ~=4189sec
+../../testdata/PDF解密版/197纪晓东20140507动态视野(Octopus)_NoRestriction.pdf Done!
+25%
+each file time ~=6sec
+total time ~=4186sec
+../../testdata/PDF解密版/197纪晓东20151021动态视野(Octopus)_NoRestriction.pdf Done!
+25%
+each file time ~=6sec
+total time ~=4196sec
+../../testdata/PDF解密版/197纪晓东20151216动态视野(Octopus)_NoRestriction.pdf Done!
+25%
+each file time ~=6sec
+total time ~=4193sec
+../../testdata/PDF解密版/197纪晓东20151218动态视野(Octopus)_NoRestriction.pdf Done!
+25%
+each file time ~=6sec
+total time ~=4190sec
+../../testdata/PDF解密版/197纪晓东20160726动态视野(Octopus)_NoRestriction.pdf Done!
+25%
+each file time ~=6sec
+total time ~=4186sec
+../../testdata/PDF解密版/197纪晓东20170411动态视野(Octopus)_NoRestriction.pdf Done!
+26%
+each file time ~=6sec
+total time ~=4183sec
+../../testdata/PDF解密版/197纪晓东20170930动态视野(Octopus)_NoRestriction.pdf Done!
+26%
+each file time ~=6sec
+total time ~=4182sec
+../../testdata/PDF解密版/2016 王春华 O视野 _NoRestriction.pdf Done!
+26%
+each file time ~=6sec
+total time ~=4181sec
+../../testdata/PDF解密版/2016 王春华 O视野2 _NoRestriction.pdf Done!
+26%
+each file time ~=6sec
+total time ~=4178sec
+../../testdata/PDF解密版/2017 O视野 李少华 _NoRestriction.pdf Done!
+26%
+each file time ~=6sec
+total time ~=4176sec
+../../testdata/PDF解密版/2017 李少华 O视野2 _NoRestriction.pdf Done!
+26%
+each file time ~=5sec
+total time ~=4175sec
+../../testdata/PDF解密版/2017 王春华 O视野 3 _NoRestriction.pdf Done!
+26%
+each file time ~=5sec
+total time ~=4173sec
+../../testdata/PDF解密版/2017 王春华 O视野2_NoRestriction.pdf Done!
+27%
+each file time ~=5sec
+total time ~=4170sec
+../../testdata/PDF解密版/2017 王春华 O视野_NoRestriction.pdf Done!
+27%
+each file time ~=5sec
+total time ~=4168sec
+../../testdata/PDF解密版/2018 张银兰 O视野 _NoRestriction.pdf Done!
+27%
+each file time ~=5sec
+total time ~=4155sec
+../../testdata/PDF解密版/2018 李少华 O视野 _NoRestriction.pdf Done!
+27%
+each file time ~=5sec
+total time ~=4142sec
+../../testdata/PDF解密版/207杜宝祥20171012动态视野(Octopus)_NoRestriction.pdf Done!
+27%
+each file time ~=5sec
+total time ~=4139sec
+../../testdata/PDF解密版/20王尚兴20171026动态视野(Octopus)_NoRestriction.pdf Done!
+27%
+each file time ~=5sec
+total time ~=4137sec
+../../testdata/PDF解密版/211车延明20170619动态视野(Octopus)_NoRestriction.pdf Done!
+27%
+each file time ~=5sec
+total time ~=4125sec
+../../testdata/PDF解密版/211车延明20171023动态视野(Octopus)_NoRestriction.pdf Done!
+28%
+each file time ~=5sec
+total time ~=4113sec
+../../testdata/PDF解密版/217孙继学20161024动态视野(Octopus)_NoRestriction.pdf Done!
+28%
+each file time ~=5sec
+total time ~=4112sec
+../../testdata/PDF解密版/217孙继学20170119动态视野(Octopus)_NoRestriction.pdf Done!
+28%
+each file time ~=5sec
+total time ~=4110sec
+../../testdata/PDF解密版/217孙继学20170418动态视野(Octopus)_NoRestriction.pdf Done!
+28%
+each file time ~=5sec
+total time ~=4108sec
+../../testdata/PDF解密版/217孙继学20170801动态视野(Octopus)_NoRestriction.pdf Done!
+28%
+each file time ~=5sec
+total time ~=4106sec
+../../testdata/PDF解密版/217孙继学20171024动态视野(Octopus)_NoRestriction.pdf Done!
+28%
+each file time ~=5sec
+total time ~=4104sec
+../../testdata/PDF解密版/218张静范20171026动态视野(Octopus)_NoRestriction.pdf Done!
+28%
+each file time ~=5sec
+total time ~=4102sec
+../../testdata/PDF解密版/21钱逢春20141216动态视野(Octopus)_NoRestriction.pdf Done!
+29%
+each file time ~=5sec
+total time ~=4100sec
+../../testdata/PDF解密版/21钱逢春20150602动态视野(Octopus)_NoRestriction.pdf Done!
+29%
+each file time ~=5sec
+total time ~=4098sec
+../../testdata/PDF解密版/21钱逢春20151224动态视野(Octopus)_NoRestriction.pdf Done!
+29%
+each file time ~=5sec
+total time ~=4096sec
+../../testdata/PDF解密版/21钱逢春20161103动态视野(Octopus)_NoRestriction.pdf Done!
+29%
+each file time ~=5sec
+total time ~=4093sec
+../../testdata/PDF解密版/21钱逢春20170216动态视野(Octopus)_NoRestriction.pdf Done!
+29%
+each file time ~=5sec
+total time ~=4093sec
+../../testdata/PDF解密版/21钱逢春20170817动态视野(Octopus)_NoRestriction.pdf Done!
+29%
+each file time ~=5sec
+total time ~=4091sec
+../../testdata/PDF解密版/21钱逢春20171102动态视野(Octopus)_NoRestriction.pdf Done!
+29%
+each file time ~=5sec
+total time ~=4090sec
+../../testdata/PDF解密版/221龚淑霞20161018动态视野(Octopus)_NoRestriction.pdf Done!
+30%
+each file time ~=5sec
+total time ~=4087sec
+../../testdata/PDF解密版/221龚淑霞20170216动态视野(Octopus)_NoRestriction.pdf Done!
+30%
+each file time ~=5sec
+total time ~=4087sec
+../../testdata/PDF解密版/221龚淑霞20170525动态视野(Octopus)_NoRestriction.pdf Done!
+30%
+each file time ~=5sec
+total time ~=4085sec
+../../testdata/PDF解密版/221龚淑霞20170817动态视野(Octopus)_NoRestriction.pdf Done!
+30%
+each file time ~=5sec
+total time ~=4084sec
+../../testdata/PDF解密版/221龚淑霞20171114动态视野(Octopus)_NoRestriction.pdf Done!
+30%
+each file time ~=5sec
+total time ~=4086sec
+../../testdata/PDF解密版/222张学良20170525动态视野(Octopus)_NoRestriction.pdf Done!
+30%
+each file time ~=5sec
+total time ~=4084sec
+../../testdata/PDF解密版/225张银兰20170316动态视野(Octopus)_NoRestriction.pdf Done!
+30%
+each file time ~=5sec
+total time ~=4082sec
+../../testdata/PDF解密版/226范秦鸿20140422动态视野(Octopus)_NoRestriction.pdf Done!
+31%
+each file time ~=5sec
+total time ~=4075sec
+../../testdata/PDF解密版/226范秦鸿20140903动态视野(Octopus)_NoRestriction.pdf Done!
+31%
+each file time ~=5sec
+total time ~=4068sec
+../../testdata/PDF解密版/226范秦鸿20161115动态视野(Octopus)_NoRestriction.pdf Done!
+31%
+each file time ~=5sec
+total time ~=4062sec
+../../testdata/PDF解密版/226范秦鸿20170524动态视野(Octopus)_NoRestriction.pdf Done!
+31%
+each file time ~=5sec
+total time ~=4060sec
+../../testdata/PDF解密版/226范秦鸿20171128动态视野(Octopus)_NoRestriction.pdf Done!
+31%
+each file time ~=5sec
+total time ~=4058sec
+../../testdata/PDF解密版/227韦爱祥20170609动态视野(Octopus)_NoRestriction.pdf Done!
+31%
+each file time ~=5sec
+total time ~=4057sec
+../../testdata/PDF解密版/227韦爱祥20170907动态视野(Octopus)_NoRestriction.pdf Done!
+31%
+each file time ~=5sec
+total time ~=4055sec
+../../testdata/PDF解密版/227韦爱祥20171207动态视野(Octopus)_NoRestriction.pdf Done!
+32%
+each file time ~=5sec
+total time ~=4053sec
+../../testdata/PDF解密版/228刘俊芳20140715动态视野(Octopus)_NoRestriction.pdf Done!
+32%
+each file time ~=5sec
+total time ~=4052sec
+../../testdata/PDF解密版/228刘俊芳20151117动态视野(Octopus)_NoRestriction.pdf Done!
+32%
+each file time ~=5sec
+total time ~=4051sec
+../../testdata/PDF解密版/228刘俊芳20160216动态视野(Octopus)_NoRestriction.pdf Done!
+32%
+each file time ~=5sec
+total time ~=4050sec
+../../testdata/PDF解密版/228刘俊芳20170420动态视野(Octopus)_NoRestriction.pdf Done!
+32%
+each file time ~=5sec
+total time ~=4048sec
+../../testdata/PDF解密版/228刘俊芳20171207动态视野(Octopus)_NoRestriction.pdf Done!
+32%
+each file time ~=5sec
+total time ~=4046sec
+../../testdata/PDF解密版/229单淑琴20171207动态视野(Octopus)_NoRestriction.pdf Done!
+32%
+each file time ~=5sec
+total time ~=4045sec
+../../testdata/PDF解密版/229单淑琴20180329动态视野(Octopus)_NoRestriction.pdf Done!
+33%
+each file time ~=5sec
+total time ~=4034sec
+../../testdata/PDF解密版/22冯卫家20170306动态视野(Octopus)_NoRestriction.pdf Done!
+33%
+each file time ~=5sec
+total time ~=4021sec
+../../testdata/PDF解密版/22冯卫家20170619动态视野(Octopus)_NoRestriction.pdf Done!
+33%
+each file time ~=5sec
+total time ~=4020sec
+../../testdata/PDF解密版/22冯卫家20170912动态视野(Octopus)_NoRestriction.pdf Done!
+33%
+each file time ~=5sec
+total time ~=4019sec
+../../testdata/PDF解密版/22冯卫家20171212动态视野(Octopus)_NoRestriction.pdf Done!
+33%
+each file time ~=5sec
+total time ~=4018sec
+../../testdata/PDF解密版/22冯卫家20180301动态视野(Octopus)_NoRestriction.pdf Done!
+33%
+each file time ~=5sec
+total time ~=4009sec
+../../testdata/PDF解密版/230谢柠阳20170424动态视野(Octopus)_NoRestriction.pdf Done!
+33%
+each file time ~=5sec
+total time ~=4007sec
+../../testdata/PDF解密版/230谢柠阳20170829动态视野(Octopus)_NoRestriction.pdf Done!
+34%
+each file time ~=5sec
+total time ~=4006sec
+../../testdata/PDF解密版/230谢柠阳20171207动态视野(Octopus)_NoRestriction.pdf Done!
+34%
+each file time ~=5sec
+total time ~=4005sec
+../../testdata/PDF解密版/230谢柠阳20180308动态视野(Octopus)_NoRestriction.pdf Done!
+34%
+each file time ~=5sec
+total time ~=3995sec
+../../testdata/PDF解密版/233卢玉兰20150416动态视野(Octopus)_NoRestriction.pdf Done!
+34%
+each file time ~=5sec
+total time ~=3993sec
+../../testdata/PDF解密版/233卢玉兰20160114动态视野(Octopus)_NoRestriction.pdf Done!
+34%
+each file time ~=5sec
+total time ~=3988sec
+../../testdata/PDF解密版/233卢玉兰20160512动态视野(Octopus)_NoRestriction.pdf Done!
+34%
+each file time ~=5sec
+total time ~=3983sec
+../../testdata/PDF解密版/233卢玉兰20161124动态视野(Octopus)_NoRestriction.pdf Done!
+34%
+each file time ~=5sec
+total time ~=3982sec
+../../testdata/PDF解密版/233卢玉兰20170221动态视野(Octopus)_NoRestriction.pdf Done!
+35%
+each file time ~=5sec
+total time ~=3981sec
+../../testdata/PDF解密版/233卢玉兰20170502动态视野(Octopus)_NoRestriction.pdf Done!
+35%
+each file time ~=5sec
+total time ~=3987sec
+../../testdata/PDF解密版/233卢玉兰20170817动态视野(Octopus)_NoRestriction.pdf Done!
+35%
+each file time ~=5sec
+total time ~=3986sec
+../../testdata/PDF解密版/233卢玉兰20180104动态视野(Octopus)_NoRestriction.pdf Done!
+35%
+each file time ~=5sec
+total time ~=3985sec
+../../testdata/PDF解密版/234王培艺20141128动态视野(Octopus)_NoRestriction.pdf Done!
+35%
+each file time ~=5sec
+total time ~=3983sec
+../../testdata/PDF解密版/235潘寿人20140527动态视野(Octopus)_NoRestriction.pdf Done!
+35%
+each file time ~=5sec
+total time ~=3983sec
+../../testdata/PDF解密版/235潘寿人20150730动态视野(Octopus)_NoRestriction.pdf Done!
+35%
+each file time ~=5sec
+total time ~=3982sec
+../../testdata/PDF解密版/235潘寿人20160825动态视野(Octopus)_NoRestriction.pdf Done!
+36%
+each file time ~=5sec
+total time ~=3982sec
+../../testdata/PDF解密版/235潘寿人20170323动态视野(Octopus)_NoRestriction.pdf Done!
+36%
+each file time ~=5sec
+total time ~=3982sec
+../../testdata/PDF解密版/235潘寿人20171019动态视野(Octopus)_NoRestriction.pdf Done!
+36%
+each file time ~=5sec
+total time ~=3983sec
+../../testdata/PDF解密版/237刘焕琴20141211动态视野(Octopus)_NoRestriction.pdf Done!
+36%
+each file time ~=5sec
+total time ~=4002sec
+../../testdata/PDF解密版/237刘焕琴20150430动态视野(Octopus)_NoRestriction.pdf Done!
+36%
+each file time ~=5sec
+total time ~=4006sec
+../../testdata/PDF解密版/237刘焕琴20151231动态视野(Octopus)_NoRestriction.pdf Done!
+36%
+each file time ~=5sec
+total time ~=4010sec
+../../testdata/PDF解密版/237刘焕琴20170105动态视野(Octopus)_NoRestriction.pdf Done!
+36%
+each file time ~=5sec
+total time ~=4012sec
+../../testdata/PDF解密版/237刘焕琴20170214动态视野(Octopus)_NoRestriction.pdf Done!
+37%
+each file time ~=5sec
+total time ~=4013sec
+../../testdata/PDF解密版/237刘焕琴20170511动态视野(Octopus)_NoRestriction.pdf Done!
+37%
+each file time ~=5sec
+total time ~=4012sec
+../../testdata/PDF解密版/237刘焕琴20170905动态视野(Octopus)_NoRestriction.pdf Done!
+37%
+each file time ~=5sec
+total time ~=4012sec
+../../testdata/PDF解密版/237刘焕琴20180104动态视野(Octopus)_NoRestriction.pdf Done!
+37%
+each file time ~=5sec
+total time ~=4011sec
+../../testdata/PDF解密版/238刘传兰20171103动态视野(Octopus)_NoRestriction.pdf Done!
+37%
+each file time ~=5sec
+total time ~=4010sec
+../../testdata/PDF解密版/238刘传兰20171219动态视野(Octopus)_NoRestriction.pdf Done!
+37%
+each file time ~=5sec
+total time ~=4009sec
+../../testdata/PDF解密版/238刘传兰20180104动态视野(Octopus)_NoRestriction.pdf Done!
+37%
+each file time ~=5sec
+total time ~=4009sec
+../../testdata/PDF解密版/23刘建国20150123动态视野(Octopus)_NoRestriction.pdf Done!
+38%
+each file time ~=5sec
+total time ~=4008sec
+../../testdata/PDF解密版/23刘建国20151105动态视野(Octopus)_NoRestriction.pdf Done!
+38%
+each file time ~=5sec
+total time ~=4006sec
+../../testdata/PDF解密版/23刘建国20161103动态视野(Octopus)_NoRestriction.pdf Done!
+38%
+each file time ~=5sec
+total time ~=4005sec
+../../testdata/PDF解密版/23刘建国20170926动态视野(Octopus)_NoRestriction.pdf Done!
+38%
+each file time ~=5sec
+total time ~=4005sec
+../../testdata/PDF解密版/23刘建国20180104动态视野(Octopus)_NoRestriction.pdf Done!
+38%
+each file time ~=5sec
+total time ~=4005sec
+../../testdata/PDF解密版/242王绪文20170807动态视野(Octopus)_NoRestriction.pdf Done!
+38%
+each file time ~=5sec
+total time ~=4004sec
+../../testdata/PDF解密版/242王绪文20171114动态视野(Octopus)_NoRestriction.pdf Done!
+38%
+each file time ~=5sec
+total time ~=4003sec
+../../testdata/PDF解密版/242王绪文20180105动态视野(Octopus)_NoRestriction.pdf Done!
+39%
+each file time ~=5sec
+total time ~=4002sec
+../../testdata/PDF解密版/242王绪文20180402动态视野(Octopus)_NoRestriction.pdf Done!
+39%
+each file time ~=5sec
+total time ~=3993sec
+../../testdata/PDF解密版/243张世利20161021动态视野(Octopus)_NoRestriction.pdf Done!
+39%
+each file time ~=5sec
+total time ~=3992sec
+../../testdata/PDF解密版/243张世利20180105动态视野(Octopus)_NoRestriction.pdf Done!
+39%
+each file time ~=5sec
+total time ~=3991sec
+../../testdata/PDF解密版/246吴玉兰20150512动态视野(Octopus)_NoRestriction.pdf Done!
+39%
+each file time ~=5sec
+total time ~=3991sec
+../../testdata/PDF解密版/246吴玉兰20150806动态视野(Octopus)_NoRestriction.pdf Done!
+39%
+each file time ~=5sec
+total time ~=3990sec
+../../testdata/PDF解密版/246吴玉兰20160620动态视野(Octopus)_NoRestriction.pdf Done!
+39%
+each file time ~=5sec
+total time ~=3989sec
+../../testdata/PDF解密版/246吴玉兰20161025动态视野(Octopus)_NoRestriction.pdf Done!
+40%
+each file time ~=5sec
+total time ~=3988sec
+../../testdata/PDF解密版/246吴玉兰20170120动态视野(Octopus)_NoRestriction.pdf Done!
+40%
+each file time ~=5sec
+total time ~=3987sec
+../../testdata/PDF解密版/246吴玉兰20170418动态视野(Octopus)_NoRestriction.pdf Done!
+40%
+each file time ~=5sec
+total time ~=3987sec
+../../testdata/PDF解密版/246吴玉兰20171024动态视野(Octopus)_NoRestriction.pdf Done!
+40%
+each file time ~=5sec
+total time ~=3985sec
+../../testdata/PDF解密版/247张颖20171010动态视野(Octopus)_NoRestriction.pdf Done!
+40%
+each file time ~=5sec
+total time ~=3984sec
+../../testdata/PDF解密版/248李秀珍20160721动态视野(Octopus)_NoRestriction.pdf Done!
+40%
+each file time ~=5sec
+total time ~=3983sec
+../../testdata/PDF解密版/24王沛田20140310动态视野(Octopus)_NoRestriction.pdf Done!
+40%
+each file time ~=5sec
+total time ~=3976sec
+../../testdata/PDF解密版/24王沛田20170221动态视野(Octopus)_NoRestriction.pdf Done!
+41%
+each file time ~=5sec
+total time ~=3968sec
+../../testdata/PDF解密版/250刘强20170112动态视野(Octopus)(1)_NoRestriction.pdf Done!
+41%
+each file time ~=5sec
+total time ~=3966sec
+../../testdata/PDF解密版/250刘强20170516动态视野(Octopus)_NoRestriction.pdf Done!
+41%
+each file time ~=5sec
+total time ~=3965sec
+../../testdata/PDF解密版/250刘强20170809动态视野(Octopus)_NoRestriction.pdf Done!
+41%
+each file time ~=5sec
+total time ~=3964sec
+../../testdata/PDF解密版/250刘强20171107动态视野(Octopus)_NoRestriction.pdf Done!
+41%
+each file time ~=5sec
+total time ~=3964sec
+../../testdata/PDF解密版/250刘强20180109动态视野(Octopus)_NoRestriction.pdf Done!
+41%
+each file time ~=5sec
+total time ~=3963sec
+../../testdata/PDF解密版/250刘强20180328动态视野(Octopus)_NoRestriction.pdf Done!
+41%
+each file time ~=5sec
+total time ~=3954sec
+../../testdata/PDF解密版/252肖彰华20140603动态视野(Octopus)_NoRestriction.pdf Done!
+42%
+each file time ~=5sec
+total time ~=3954sec
+../../testdata/PDF解密版/252肖彰华20161215动态视野(Octopus)_NoRestriction.pdf Done!
+42%
+each file time ~=5sec
+total time ~=3954sec
+../../testdata/PDF解密版/252肖彰华20170316动态视野(Octopus)_NoRestriction.pdf Done!
+42%
+each file time ~=5sec
+total time ~=3953sec
+../../testdata/PDF解密版/252肖彰华20170712动态视野(Octopus)_NoRestriction.pdf Done!
+42%
+each file time ~=5sec
+total time ~=3953sec
+../../testdata/PDF解密版/252肖彰华20180105动态视野(Octopus)_NoRestriction.pdf Done!
+42%
+each file time ~=5sec
+total time ~=3952sec
+../../testdata/PDF解密版/253丁香兰20180116动态视野(Octopus)_NoRestriction.pdf Done!
+42%
+each file time ~=5sec
+total time ~=3948sec
+../../testdata/PDF解密版/254阎龙20180302动态视野(Octopus)_NoRestriction.pdf Done!
+42%
+each file time ~=5sec
+total time ~=3940sec
+../../testdata/PDF解密版/255马元康20180112动态视野(Octopus)_NoRestriction.pdf Done!
+43%
+each file time ~=5sec
+total time ~=3939sec
+../../testdata/PDF解密版/258高满同20160428动态视野(Octopus)_NoRestriction.pdf Done!
+43%
+each file time ~=5sec
+total time ~=3939sec
+../../testdata/PDF解密版/258高满同20161201动态视野(Octopus)_NoRestriction.pdf Done!
+43%
+each file time ~=5sec
+total time ~=3938sec
+../../testdata/PDF解密版/258高满同20170317动态视野(Octopus)_NoRestriction.pdf Done!
+43%
+each file time ~=5sec
+total time ~=3937sec
+../../testdata/PDF解密版/258高满同20170928动态视野(Octopus)_NoRestriction.pdf Done!
+43%
+each file time ~=5sec
+total time ~=3936sec
+../../testdata/PDF解密版/258高满同20171221动态视野(Octopus)_NoRestriction.pdf Done!
+43%
+each file time ~=5sec
+total time ~=3935sec
+../../testdata/PDF解密版/258高满同20180308动态视野(Octopus)_NoRestriction.pdf Done!
+43%
+each file time ~=5sec
+total time ~=3928sec
+../../testdata/PDF解密版/259胡桂英20160206动态视野(Octopus)_NoRestriction.pdf Done!
+44%
+each file time ~=5sec
+total time ~=3928sec
+../../testdata/PDF解密版/259胡桂英20160602动态视野(Octopus)_NoRestriction.pdf Done!
+44%
+each file time ~=5sec
+total time ~=3927sec
+../../testdata/PDF解密版/259胡桂英20161110动态视野(Octopus)_NoRestriction.pdf Done!
+44%
+each file time ~=5sec
+total time ~=3927sec
+../../testdata/PDF解密版/259胡桂英20170307动态视野(Octopus)_NoRestriction.pdf Done!
+44%
+each file time ~=5sec
+total time ~=3926sec
+../../testdata/PDF解密版/259胡桂英20170526动态视野(Octopus)_NoRestriction.pdf Done!
+44%
+each file time ~=5sec
+total time ~=3926sec
+../../testdata/PDF解密版/25刘瑾丹20161222动态视野(Octopus)_NoRestriction.pdf Done!
+44%
+each file time ~=5sec
+total time ~=3925sec
+../../testdata/PDF解密版/25刘瑾丹20170314动态视野(Octopus)_NoRestriction.pdf Done!
+44%
+each file time ~=5sec
+total time ~=3925sec
+../../testdata/PDF解密版/25刘瑾丹20170613动态视野(Octopus)_NoRestriction.pdf Done!
+45%
+each file time ~=5sec
+total time ~=3928sec
+../../testdata/PDF解密版/25刘瑾丹20170831动态视野(Octopus)_NoRestriction.pdf Done!
+45%
+each file time ~=5sec
+total time ~=3927sec
+../../testdata/PDF解密版/25李家兵20170623动态视野(Octopus)_NoRestriction.pdf Done!
+45%
+each file time ~=5sec
+total time ~=3926sec
+../../testdata/PDF解密版/25李家兵20171215 动态视野(Octopus)_NoRestriction.pdf Done!
+45%
+each file time ~=5sec
+total time ~=3925sec
+../../testdata/PDF解密版/261陈郧生20171208动态视野(Octopus)_NoRestriction.pdf Done!
+45%
+each file time ~=5sec
+total time ~=3922sec
+../../testdata/PDF解密版/261陈郧生20180227动态视野(Octopus)_NoRestriction.pdf Done!
+45%
+each file time ~=5sec
+total time ~=3913sec
+../../testdata/PDF解密版/262马占武20180302动态视野(Octopus)_NoRestriction.pdf Done!
+45%
+each file time ~=5sec
+total time ~=3905sec
+../../testdata/PDF解密版/263黄健20170807动态视野(Octopus)_NoRestriction.pdf Done!
+46%
+each file time ~=5sec
+total time ~=3904sec
+../../testdata/PDF解密版/263黄健20170913动态视野(Octopus)_NoRestriction.pdf Done!
+46%
+each file time ~=5sec
+total time ~=3903sec
+../../testdata/PDF解密版/263黄健20171215动态视野(Octopus)_NoRestriction.pdf Done!
+46%
+each file time ~=5sec
+total time ~=3903sec
+../../testdata/PDF解密版/263黄健20180309动态视野(Octopus)_NoRestriction.pdf Done!
+46%
+each file time ~=5sec
+total time ~=3896sec
+../../testdata/PDF解密版/264李凤兰20150203动态视野(Octopus)_NoRestriction.pdf Done!
+46%
+each file time ~=5sec
+total time ~=3896sec
+../../testdata/PDF解密版/264李凤兰20150716动态视野(Octopus)_NoRestriction.pdf Done!
+46%
+each file time ~=5sec
+total time ~=3895sec
+../../testdata/PDF解密版/264李凤兰20160809动态视野(Octopus)_NoRestriction.pdf Done!
+46%
+each file time ~=5sec
+total time ~=3895sec
+../../testdata/PDF解密版/264李凤兰20170223动态视野(Octopus)_NoRestriction.pdf Done!
+47%
+each file time ~=5sec
+total time ~=3895sec
+../../testdata/PDF解密版/264李凤兰20180313动态视野(Octopus)_NoRestriction.pdf Done!
+47%
+each file time ~=5sec
+total time ~=3890sec
+../../testdata/PDF解密版/265杨世莹20160919动态视野(Octopus)_NoRestriction.pdf Done!
+47%
+each file time ~=5sec
+total time ~=3890sec
+../../testdata/PDF解密版/265杨世莹20170206动态视野(Octopus)_NoRestriction.pdf Done!
+47%
+each file time ~=5sec
+total time ~=3890sec
+../../testdata/PDF解密版/265杨世莹20170523动态视野(Octopus)_NoRestriction.pdf Done!
+47%
+each file time ~=5sec
+total time ~=3891sec
+../../testdata/PDF解密版/265杨世莹20180109动态视野(Octopus)_NoRestriction.pdf Done!
+47%
+each file time ~=5sec
+total time ~=3890sec
+../../testdata/PDF解密版/265杨世莹20180402动态视野(Octopus)_NoRestriction.pdf Done!
+47%
+each file time ~=5sec
+total time ~=3884sec
+../../testdata/PDF解密版/271王仪20130926动态视野(Octopus) _NoRestriction.pdf Done!
+48%
+each file time ~=5sec
+total time ~=3883sec
+../../testdata/PDF解密版/271王仪20161018动态视野(Octopus)_NoRestriction.pdf Done!
+48%
+each file time ~=5sec
+total time ~=3883sec
+../../testdata/PDF解密版/271王仪20161213动态视野(Octopus)_NoRestriction.pdf Done!
+48%
+each file time ~=5sec
+total time ~=3883sec
+../../testdata/PDF解密版/271王仪2017031408动态视野(Octopus)_NoRestriction.pdf Done!
+48%
+each file time ~=5sec
+total time ~=3883sec
+../../testdata/PDF解密版/271王仪20170606动态视野(Octopus)_NoRestriction.pdf Done!
+48%
+each file time ~=5sec
+total time ~=3882sec
+../../testdata/PDF解密版/271王仪20170830动态视野(Octopus) _NoRestriction.pdf Done!
+48%
+each file time ~=5sec
+total time ~=3881sec
+../../testdata/PDF解密版/271王仪20180110动态视野(Octopus) _NoRestriction.pdf Done!
+48%
+each file time ~=5sec
+total time ~=3881sec
+../../testdata/PDF解密版/272苏俊岺20161013动态视野(Octopus) _NoRestriction.pdf Done!
+49%
+each file time ~=5sec
+total time ~=3880sec
+../../testdata/PDF解密版/272苏俊岺20161226动态视野(Octopus) _NoRestriction.pdf Done!
+49%
+each file time ~=5sec
+total time ~=3880sec
+../../testdata/PDF解密版/272苏俊岺20170315动态视野(Octopus) _NoRestriction.pdf Done!
+49%
+each file time ~=5sec
+total time ~=3880sec
+../../testdata/PDF解密版/272苏俊岺20170619动态视野(Octopus) _NoRestriction.pdf Done!
+49%
+each file time ~=5sec
+total time ~=3879sec
+../../testdata/PDF解密版/272苏俊岺20171030动态视野(Octopus) _NoRestriction.pdf Done!
+49%
+each file time ~=5sec
+total time ~=3878sec
+../../testdata/PDF解密版/272苏俊岺20180117动态视野(Octopus) _NoRestriction.pdf Done!
+49%
+each file time ~=5sec
+total time ~=3878sec
+../../testdata/PDF解密版/272苏俊岺20180306动态视野(Octopus) _NoRestriction.pdf Done!
 50%
 each file time ~=5sec
-total time ~=20sec
-../../testdata/o2/dec_272\313\325\277\241\215H20161226\266\257\314\254\312\323\322\260(Octopus) .pdf Done!
+total time ~=3871sec
+../../testdata/PDF解密版/273刘明2014011动态视野(Octopus) _NoRestriction.pdf Done!
+50%
+each file time ~=5sec
+total time ~=3871sec
+../../testdata/PDF解密版/273刘明20150217动态视野(Octopus) _NoRestriction.pdf Done!
+50%
+each file time ~=5sec
+total time ~=3871sec
+../../testdata/PDF解密版/273刘明20160202动态视野(Octopus) _NoRestriction.pdf Done!
+50%
+each file time ~=5sec
+total time ~=3870sec
+../../testdata/PDF解密版/273刘明20160513动态视野(Octopus) _NoRestriction.pdf Done!
+50%
+each file time ~=5sec
+total time ~=3870sec
+../../testdata/PDF解密版/273刘明20160829动态视野(Octopus) _NoRestriction.pdf Done!
+50%
+each file time ~=5sec
+total time ~=3869sec
+../../testdata/PDF解密版/273刘明20161130动态视野(Octopus)_NoRestriction.pdf Done!
+50%
+each file time ~=5sec
+total time ~=3869sec
+../../testdata/PDF解密版/273刘明20170221动态视野(Octopus)_NoRestriction.pdf Done!
+51%
+each file time ~=5sec
+total time ~=3869sec
+../../testdata/PDF解密版/273刘明20170623动态视野(Octopus)_NoRestriction.pdf Done!
+51%
+each file time ~=5sec
+total time ~=3869sec
+../../testdata/PDF解密版/273刘明20171208动态视野(Octopus) _NoRestriction.pdf Done!
+51%
+each file time ~=5sec
+total time ~=3869sec
+../../testdata/PDF解密版/276刘增德20150528动态视野(Octopus) _NoRestriction.pdf Done!
+51%
+each file time ~=5sec
+total time ~=3868sec
+../../testdata/PDF解密版/276刘增德20160126动态视野(Octopus) _NoRestriction.pdf Done!
+51%
+each file time ~=5sec
+total time ~=3867sec
+../../testdata/PDF解密版/276刘增德20160524动态视野(Octopus) _NoRestriction.pdf Done!
+51%
+each file time ~=5sec
+total time ~=3867sec
+../../testdata/PDF解密版/276刘增德20170427动态视野(Octopus) _NoRestriction.pdf Done!
+51%
+each file time ~=5sec
+total time ~=3870sec
+../../testdata/PDF解密版/276刘增德20170720动态视野(Octopus) _NoRestriction.pdf Done!
+52%
+each file time ~=5sec
+total time ~=3870sec
+../../testdata/PDF解密版/276刘增德20171019动态视野(Octopus) _NoRestriction.pdf Done!
+52%
+each file time ~=5sec
+total time ~=3869sec
+../../testdata/PDF解密版/276刘增德20180118动态视野(Octopus) _NoRestriction.pdf Done!
+52%
+each file time ~=5sec
+total time ~=3869sec
+../../testdata/PDF解密版/277王胜林20151229  动态视野(Octopus)  _NoRestriction.pdf Done!
+52%
+each file time ~=5sec
+total time ~=3868sec
+../../testdata/PDF解密版/277王胜林20170526动态视野(Octopus) _NoRestriction.pdf Done!
+52%
+each file time ~=5sec
+total time ~=3868sec
+../../testdata/PDF解密版/277王胜林20171020动态视野(Octopus) _NoRestriction.pdf Done!
+52%
+each file time ~=5sec
+total time ~=3867sec
+../../testdata/PDF解密版/280王利海20140618动态视野(Octopus) _NoRestriction.pdf Done!
+52%
+each file time ~=5sec
+total time ~=3867sec
+../../testdata/PDF解密版/280王利海20141014动态视野(Octopus) _NoRestriction.pdf Done!
+53%
+each file time ~=5sec
+total time ~=3867sec
+../../testdata/PDF解密版/280王利海20141230动态视野(Octopus) _NoRestriction.pdf Done!
+53%
+each file time ~=5sec
+total time ~=3866sec
+../../testdata/PDF解密版/280王利海20150414动态视野(Octopus) _NoRestriction.pdf Done!
+53%
+each file time ~=5sec
+total time ~=3866sec
+../../testdata/PDF解密版/280王利海20150721动态视野(Octopus) _NoRestriction.pdf Done!
+53%
+each file time ~=5sec
+total time ~=3865sec
+../../testdata/PDF解密版/280王利海20161101动态视野(Octopus) _NoRestriction.pdf Done!
+53%
+each file time ~=5sec
+total time ~=3865sec
+../../testdata/PDF解密版/280王利海20170801动态视野(Octopus) _NoRestriction.pdf Done!
+53%
+each file time ~=5sec
+total time ~=3864sec
+../../testdata/PDF解密版/280王利海20171026动态视野(Octopus) _NoRestriction.pdf Done!
+53%
+each file time ~=5sec
+total time ~=3864sec
+../../testdata/PDF解密版/280王利海20180123动态视野(Octopus) _NoRestriction.pdf Done!
+54%
+each file time ~=5sec
+total time ~=3863sec
+../../testdata/PDF解密版/282郭策20160303动态视野(Octopus) _NoRestriction.pdf Done!
+54%
+each file time ~=5sec
+total time ~=3863sec
+../../testdata/PDF解密版/282郭策20160406动态视野(Octopus) _NoRestriction.pdf Done!
+54%
+each file time ~=5sec
+total time ~=3862sec
+../../testdata/PDF解密版/282郭策20160527动态视野(Octopus) _NoRestriction.pdf Done!
+54%
+each file time ~=5sec
+total time ~=3870sec
+../../testdata/PDF解密版/282郭策20160715动态视野(Octopus) _NoRestriction.pdf Done!
+54%
+each file time ~=5sec
+total time ~=3871sec
+../../testdata/PDF解密版/282郭策20161021动态视野(Octopus) _NoRestriction.pdf Done!
+54%
+each file time ~=5sec
+total time ~=3871sec
+../../testdata/PDF解密版/282郭策20170109动态视野(Octopus) _NoRestriction.pdf Done!
+54%
+each file time ~=5sec
+total time ~=3871sec
+../../testdata/PDF解密版/282郭策20170406动态视野(Octopus) _NoRestriction.pdf Done!
+55%
+each file time ~=5sec
+total time ~=3870sec
+../../testdata/PDF解密版/282郭策20170706动态视野(Octopus) _NoRestriction.pdf Done!
+55%
+each file time ~=5sec
+total time ~=3870sec
+../../testdata/PDF解密版/282郭策20171009动态视野(Octopus) _NoRestriction.pdf Done!
+55%
+each file time ~=5sec
+total time ~=3869sec
+../../testdata/PDF解密版/282郭策20180109动态视野(Octopus) _NoRestriction.pdf Done!
+55%
+each file time ~=5sec
+total time ~=3869sec
+../../testdata/PDF解密版/282郭策20180404动态视野(Octopus) _NoRestriction.pdf Done!
+55%
+each file time ~=5sec
+total time ~=3863sec
+../../testdata/PDF解密版/284张东光20130729动态视野(Octopus) _NoRestriction.pdf Done!
+55%
+each file time ~=5sec
+total time ~=3857sec
+../../testdata/PDF解密版/284张东光20140318动态视野(Octopus) _NoRestriction.pdf Done!
+55%
+each file time ~=5sec
+total time ~=3857sec
+../../testdata/PDF解密版/284张东光20141226动态视野(Octopus) _NoRestriction.pdf Done!
+56%
+each file time ~=5sec
+total time ~=3856sec
+../../testdata/PDF解密版/284张东光20180123动态视野(Octopus) _NoRestriction.pdf Done!
+56%
+each file time ~=5sec
+total time ~=3855sec
+../../testdata/PDF解密版/284张东光20180330动态视野(Octopus) _NoRestriction.pdf Done!
+56%
+each file time ~=5sec
+total time ~=3849sec
+../../testdata/PDF解密版/286刘从宪20180223动态视野(Octopus) _NoRestriction.pdf Done!
+56%
+each file time ~=5sec
+total time ~=3849sec
+../../testdata/PDF解密版/287汪超2013030动态视野(Octopus) _NoRestriction.pdf Done!
+56%
+each file time ~=5sec
+total time ~=3843sec
+../../testdata/PDF解密版/287汪超20130927动态视野(Octopus) _NoRestriction.pdf Done!
+56%
+each file time ~=5sec
+total time ~=3843sec
+../../testdata/PDF解密版/287汪超20140321动态视野(Octopus) _NoRestriction.pdf Done!
+56%
+each file time ~=5sec
+total time ~=3843sec
+../../testdata/PDF解密版/287汪超20140822动态视野(Octopus) _NoRestriction.pdf Done!
+57%
+each file time ~=5sec
+total time ~=3842sec
+../../testdata/PDF解密版/287汪超20150213动态视野(Octopus) _NoRestriction.pdf Done!
+57%
+each file time ~=5sec
+total time ~=3842sec
+../../testdata/PDF解密版/287汪超20150807动态视野(Octopus) _NoRestriction.pdf Done!
+57%
+each file time ~=5sec
+total time ~=3842sec
+../../testdata/PDF解密版/287汪超20160318动态视野(Octopus) _NoRestriction.pdf Done!
+57%
+each file time ~=5sec
+total time ~=3847sec
+../../testdata/PDF解密版/287汪超20160902动态视野(Octopus) _NoRestriction.pdf Done!
+57%
+each file time ~=5sec
+total time ~=3846sec
+../../testdata/PDF解密版/287汪超20170210动态视野(Octopus) _NoRestriction.pdf Done!
+57%
+each file time ~=5sec
+total time ~=3846sec
+../../testdata/PDF解密版/287汪超20170728动态视野(Octopus) _NoRestriction.pdf Done!
+57%
+each file time ~=5sec
+total time ~=3845sec
+../../testdata/PDF解密版/287汪超20180302动态视野(Octopus) _NoRestriction.pdf Done!
+58%
+each file time ~=5sec
+total time ~=3840sec
+../../testdata/PDF解密版/288刘丽玲20180301动态视野(Octopus) _NoRestriction.pdf Done!
+58%
+each file time ~=5sec
+total time ~=3835sec
+../../testdata/PDF解密版/289赵广芝20180302动态视野(Octopus) _NoRestriction.pdf Done!
+58%
+each file time ~=5sec
+total time ~=3829sec
+../../testdata/PDF解密版/290宋郁明20150619动态视野(Octopus) _NoRestriction.pdf Done!
+58%
+each file time ~=5sec
+total time ~=3829sec
+../../testdata/PDF解密版/292王成春20180227动态视野(Octopus) _NoRestriction.pdf Done!
+58%
+each file time ~=5sec
+total time ~=3823sec
+../../testdata/PDF解密版/298谢柠阳20170424动态视野(Octopus) _NoRestriction.pdf Done!
+58%
+each file time ~=5sec
+total time ~=3823sec
+../../testdata/PDF解密版/298谢柠阳20170829动态视野(Octopus) _NoRestriction.pdf Done!
+58%
+each file time ~=5sec
+total time ~=3823sec
+../../testdata/PDF解密版/298谢柠阳20171207动态视野(Octopus) _NoRestriction.pdf Done!
+59%
+each file time ~=5sec
+total time ~=3822sec
+../../testdata/PDF解密版/298谢柠阳20180308动态视野(Octopus) _NoRestriction.pdf Done!
+59%
+each file time ~=5sec
+total time ~=3817sec
+../../testdata/PDF解密版/29高淑芳20160621 动态视野(Octopus)_NoRestriction.pdf Done!
+59%
+each file time ~=5sec
+total time ~=3816sec
+../../testdata/PDF解密版/29高淑芳20160927 动态视野(Octopus)_NoRestriction.pdf Done!
+59%
+each file time ~=5sec
+total time ~=3816sec
+../../testdata/PDF解密版/29高淑芳20170117 动态视野(Octopus)_NoRestriction.pdf Done!
+59%
+each file time ~=5sec
+total time ~=3816sec
+../../testdata/PDF解密版/29高淑芳20170424 动态视野(Octopus)_NoRestriction.pdf Done!
+59%
+each file time ~=5sec
+total time ~=3815sec
+../../testdata/PDF解密版/29高淑芳20170717 动态视野(Octopus)_NoRestriction.pdf Done!
+59%
+each file time ~=5sec
+total time ~=3815sec
+../../testdata/PDF解密版/29高淑芳20171009 动态视野(Octopus)_NoRestriction.pdf Done!
+60%
+each file time ~=5sec
+total time ~=3814sec
+../../testdata/PDF解密版/29高淑芳20180119 动态视野(Octopus)_NoRestriction.pdf Done!
+60%
+each file time ~=5sec
+total time ~=3814sec
+../../testdata/PDF解密版/2郝慧20140609动态视野(Octopus)_NoRestriction.pdf Done!
+60%
+each file time ~=5sec
+total time ~=3813sec
+../../testdata/PDF解密版/2郝慧20160324动态视野(Octopus)_NoRestriction.pdf Done!
+60%
+each file time ~=5sec
+total time ~=3813sec
+../../testdata/PDF解密版/2郝慧20161024动态视野(Octopus)_NoRestriction.pdf Done!
+60%
+each file time ~=5sec
+total time ~=3813sec
+../../testdata/PDF解密版/2郝慧20170412动态视野(Octopus)_NoRestriction.pdf Done!
+60%
+each file time ~=5sec
+total time ~=3812sec
+../../testdata/PDF解密版/2郝慧20171023动态视野(Octopus)_NoRestriction.pdf Done!
+60%
+each file time ~=5sec
+total time ~=3812sec
+../../testdata/PDF解密版/2郝慧20180313动态视野(Octopus)_NoRestriction.pdf Done!
+61%
+each file time ~=5sec
+total time ~=3807sec
+../../testdata/PDF解密版/301果润平20180227动态视野(Octopus) _NoRestriction.pdf Done!
+61%
+each file time ~=5sec
+total time ~=3801sec
+../../testdata/PDF解密版/302刘淑玲20140610动态视野(Octopus) _NoRestriction.pdf Done!
+61%
+each file time ~=5sec
+total time ~=3801sec
+../../testdata/PDF解密版/302刘淑玲20141030动态视野(Octopus) 1_NoRestriction.pdf Done!
+61%
+each file time ~=5sec
+total time ~=3801sec
+../../testdata/PDF解密版/302刘淑玲20141030动态视野(Octopus) 2_NoRestriction.pdf Done!
+61%
+each file time ~=5sec
+total time ~=3797sec
+../../testdata/PDF解密版/302刘淑玲20151210动态视野(Octopus) _NoRestriction.pdf Done!
+61%
+each file time ~=5sec
+total time ~=3796sec
+../../testdata/PDF解密版/302刘淑玲20160531动态视野(Octopus) _NoRestriction.pdf Done!
+61%
+each file time ~=5sec
+total time ~=3796sec
+../../testdata/PDF解密版/302刘淑玲20161117动态视野(Octopus) _NoRestriction.pdf Done!
+62%
+each file time ~=5sec
+total time ~=3796sec
+../../testdata/PDF解密版/302刘淑玲20170601动态视野(Octopus) _NoRestriction.pdf Done!
+62%
+each file time ~=5sec
+total time ~=3796sec
+../../testdata/PDF解密版/302刘淑玲20170824动态视野(Octopus) _NoRestriction.pdf Done!
+62%
+each file time ~=5sec
+total time ~=3796sec
+../../testdata/PDF解密版/302刘淑玲20171120动态视野(Octopus) _NoRestriction.pdf Done!
+62%
+each file time ~=5sec
+total time ~=3795sec
+../../testdata/PDF解密版/302刘淑玲20180224动态视野(Octopus) _NoRestriction.pdf Done!
+62%
+each file time ~=5sec
+total time ~=3795sec
+../../testdata/PDF解密版/303何珊20140610动态视野(Octopus) (1)_NoRestriction.pdf Done!
+62%
+each file time ~=5sec
+total time ~=3791sec
+../../testdata/PDF解密版/305宋果福20130416动态视野(Octopus) _NoRestriction.pdf Done!
+62%
+each file time ~=5sec
+total time ~=3786sec
+../../testdata/PDF解密版/305宋果福20151029动态视野(Octopus) _NoRestriction.pdf Done!
+63%
+each file time ~=5sec
+total time ~=3786sec
+../../testdata/PDF解密版/305宋果福20170314动态视野(Octopus) _NoRestriction.pdf Done!
+63%
+each file time ~=5sec
+total time ~=3786sec
+../../testdata/PDF解密版/305宋果福20170606动态视野(Octopus) _NoRestriction.pdf Done!
+63%
+each file time ~=5sec
+total time ~=3801sec
+../../testdata/PDF解密版/305宋果福20170919动态视野(Octopus) _NoRestriction.pdf Done!
+63%
+each file time ~=5sec
+total time ~=3801sec
+../../testdata/PDF解密版/305宋果福20171214动态视野(Octopus) _NoRestriction.pdf Done!
+63%
+each file time ~=5sec
+total time ~=3801sec
+../../testdata/PDF解密版/305宋果福20180301动态视野(Octopus) _NoRestriction.pdf Done!
+63%
+each file time ~=5sec
+total time ~=3796sec
+../../testdata/PDF解密版/306冯卫家20160619动态视野(Octopus) _NoRestriction.pdf Done!
+63%
+each file time ~=5sec
+total time ~=3796sec
+../../testdata/PDF解密版/306冯卫家20170306动态视野(Octopus) _NoRestriction.pdf Done!
+64%
+each file time ~=5sec
+total time ~=3789sec
+../../testdata/PDF解密版/306冯卫家20170912动态视野(Octopus) _NoRestriction.pdf Done!
+64%
+each file time ~=5sec
+total time ~=3789sec
+../../testdata/PDF解密版/306冯卫家20171212动态视野(Octopus) _NoRestriction.pdf Done!
+64%
+each file time ~=5sec
+total time ~=3789sec
+../../testdata/PDF解密版/306冯卫家20180301动态视野(Octopus) _NoRestriction.pdf Done!
+64%
+each file time ~=5sec
+total time ~=3784sec
+../../testdata/PDF解密版/307刘金泉20140724动态视野(Octopus) _NoRestriction.pdf Done!
+64%
+each file time ~=5sec
+total time ~=3785sec
+../../testdata/PDF解密版/307刘金泉20160226动态视野(Octopus) _NoRestriction.pdf Done!
+64%
+each file time ~=5sec
+total time ~=3785sec
+../../testdata/PDF解密版/307刘金泉20160804动态视野(Octopus) _NoRestriction.pdf Done!
+64%
+each file time ~=5sec
+total time ~=3787sec
+../../testdata/PDF解密版/307刘金泉20170316动态视野(Octopus) _NoRestriction.pdf Done!
+65%
+each file time ~=5sec
+total time ~=3784sec
+../../testdata/PDF解密版/307刘金泉20170622动态视野(Octopus) 1_NoRestriction.pdf Done!
+65%
+each file time ~=5sec
+total time ~=3782sec
+../../testdata/PDF解密版/307刘金泉20170622动态视野(Octopus) 2_NoRestriction.pdf Done!
+65%
+each file time ~=5sec
+total time ~=3779sec
+../../testdata/PDF解密版/307刘金泉20170914动态视野(Octopus) _NoRestriction.pdf Done!
+65%
+each file time ~=5sec
+total time ~=3777sec
+../../testdata/PDF解密版/307刘金泉20171214动态视野(Octopus) _NoRestriction.pdf Done!
+65%
+each file time ~=5sec
+total time ~=3775sec
+../../testdata/PDF解密版/307刘金泉20180301动态视野(Octopus) _NoRestriction.pdf Done!
+65%
+each file time ~=5sec
+total time ~=3769sec
+../../testdata/PDF解密版/309韩桂荣20160512动态视野(Octopus) _NoRestriction.pdf Done!
+65%
+each file time ~=5sec
+total time ~=3765sec
+../../testdata/PDF解密版/309韩桂荣20161121动态视野(Octopus) _NoRestriction.pdf Done!
+66%
+each file time ~=5sec
+total time ~=3760sec
+../../testdata/PDF解密版/309韩桂荣20170207动态视野(Octopus) _NoRestriction.pdf Done!
+66%
+each file time ~=5sec
+total time ~=3756sec
+../../testdata/PDF解密版/309韩桂荣20170817动态视野(Octopus) _NoRestriction.pdf Done!
+66%
+each file time ~=5sec
+total time ~=3752sec
+../../testdata/PDF解密版/309韩桂荣20171116动态视野(Octopus) _NoRestriction.pdf Done!
+66%
+each file time ~=5sec
+total time ~=3748sec
+../../testdata/PDF解密版/309韩桂荣20180301动态视野(Octopus) _NoRestriction.pdf Done!
+66%
+each file time ~=5sec
+total time ~=3750sec
+../../testdata/PDF解密版/30毕幼珠20141225动态视野(Octopus)_NoRestriction.pdf Done!
+66%
+each file time ~=5sec
+total time ~=3749sec
+../../testdata/PDF解密版/30毕幼珠20170112动态视野(Octopus)_NoRestriction.pdf Done!
+66%
+each file time ~=5sec
+total time ~=3749sec
+../../testdata/PDF解密版/30毕幼珠20170330动态视野(Octopus)_NoRestriction.pdf Done!
+67%
+each file time ~=5sec
+total time ~=3749sec
+../../testdata/PDF解密版/30毕幼珠20170811动态视野(Octopus)_NoRestriction.pdf Done!
+67%
+each file time ~=5sec
+total time ~=3749sec
+../../testdata/PDF解密版/30毕幼珠20180116动态视野(Octopus)_NoRestriction.pdf Done!
+67%
+each file time ~=5sec
+total time ~=3748sec
+../../testdata/PDF解密版/310吴婉芬20130106动态视野(Octopus) _NoRestriction.pdf Done!
+67%
+each file time ~=5sec
+total time ~=3744sec
+../../testdata/PDF解密版/310吴婉芬20130507动态视野(Octopus) _NoRestriction.pdf Done!
+67%
+each file time ~=5sec
+total time ~=3739sec
+../../testdata/PDF解密版/310吴婉芬20150106动态视野(Octopus) _NoRestriction.pdf Done!
+67%
+each file time ~=5sec
+total time ~=3739sec
+../../testdata/PDF解密版/310吴婉芬20151029动态视野(Octopus) _NoRestriction.pdf Done!
+67%
+each file time ~=5sec
+total time ~=3739sec
+../../testdata/PDF解密版/310吴婉芬20170406动态视野(Octopus) _NoRestriction.pdf Done!
+68%
+each file time ~=5sec
+total time ~=3739sec
+../../testdata/PDF解密版/310吴婉芬20170720动态视野(Octopus) _NoRestriction.pdf Done!
+68%
+each file time ~=5sec
+total time ~=3739sec
+../../testdata/PDF解密版/310吴婉芬20171130动态视野(Octopus) _NoRestriction.pdf Done!
+68%
+each file time ~=5sec
+total time ~=3739sec
+../../testdata/PDF解密版/310吴婉芬20180301动态视野(Octopus) _NoRestriction.pdf Done!
+68%
+each file time ~=5sec
+total time ~=3734sec
+../../testdata/PDF解密版/31于宝旺20140715动态视野(Octopus)_NoRestriction.pdf Done!
+68%
+each file time ~=5sec
+total time ~=3734sec
+../../testdata/PDF解密版/31于宝旺20150504动态视野(Octopus)_NoRestriction.pdf Done!
+68%
+each file time ~=5sec
+total time ~=3734sec
+../../testdata/PDF解密版/31于宝旺20170725动态视野(Octopus)_NoRestriction.pdf Done!
+68%
+each file time ~=5sec
+total time ~=3734sec
+../../testdata/PDF解密版/31孙峰20140417动态视野(Octopus)_NoRestriction.pdf Done!
+69%
+each file time ~=5sec
+total time ~=3734sec
+../../testdata/PDF解密版/31孙峰20170106动态视野(Octopus)_NoRestriction.pdf Done!
+69%
+each file time ~=5sec
+total time ~=3734sec
+../../testdata/PDF解密版/31孙峰20171117动态视野(Octopus)_NoRestriction.pdf Done!
+69%
+each file time ~=5sec
+total time ~=3734sec
+../../testdata/PDF解密版/33王芝明20161130 动态视野(Octopus)_NoRestriction.pdf Done!
+69%
+each file time ~=5sec
+total time ~=3728sec
+../../testdata/PDF解密版/33王芝明20161130动态视野(Octopus)_NoRestriction.pdf Done!
+69%
+each file time ~=5sec
+total time ~=3722sec
+../../testdata/PDF解密版/33闵栋20160805动态视野(Octopus)_NoRestriction.pdf Done!
+69%
+each file time ~=5sec
+total time ~=3723sec
+../../testdata/PDF解密版/33闵栋20160808动态视野(Octopus)_NoRestriction.pdf Done!
+69%
+each file time ~=5sec
+total time ~=3722sec
+../../testdata/PDF解密版/34李永仓20170420动态视野(Octopus)_NoRestriction.pdf Done!
+70%
+each file time ~=5sec
+total time ~=3717sec
+../../testdata/PDF解密版/34沈孟育20141210动态视野(Octopus)_NoRestriction.pdf Done!
+70%
+each file time ~=5sec
+total time ~=3716sec
+../../testdata/PDF解密版/34沈孟育20170711动态视野(Octopus)_NoRestriction.pdf Done!
+70%
+each file time ~=5sec
+total time ~=3716sec
+../../testdata/PDF解密版/34沈孟育20180123动态视野(Octopus)_NoRestriction.pdf Done!
+70%
+each file time ~=5sec
+total time ~=3716sec
+../../testdata/PDF解密版/355罗政20140218动态视野(Octopus)_NoRestriction.pdf Done!
+70%
+each file time ~=5sec
+total time ~=3716sec
+../../testdata/PDF解密版/355罗政20150623动态视野(Octopus)_NoRestriction.pdf Done!
+70%
+each file time ~=5sec
+total time ~=3716sec
+../../testdata/PDF解密版/355罗政20150902动态视野(Octopus)_NoRestriction.pdf Done!
+70%
+each file time ~=5sec
+total time ~=3716sec
+../../testdata/PDF解密版/355罗政20161102动态视野(Octopus)_NoRestriction.pdf Done!
+71%
+each file time ~=5sec
+total time ~=3716sec
+../../testdata/PDF解密版/355罗政20170324动态视野(Octopus)_NoRestriction.pdf Done!
+71%
+each file time ~=5sec
+total time ~=3716sec
+../../testdata/PDF解密版/355罗政20170622动态视野(Octopus)_NoRestriction.pdf Done!
+71%
+each file time ~=5sec
+total time ~=3716sec
+../../testdata/PDF解密版/355罗政20171121动态视野(Octopus)_NoRestriction.pdf Done!
+71%
+each file time ~=5sec
+total time ~=3716sec
+../../testdata/PDF解密版/355罗政20180206动态视野(Octopus)_NoRestriction.pdf Done!
+71%
+each file time ~=5sec
+total time ~=3716sec
+../../testdata/PDF解密版/357王诗瑶20160629动态视野(Octopus)_NoRestriction.pdf Done!
+71%
+each file time ~=5sec
+total time ~=3716sec
+../../testdata/PDF解密版/357王诗瑶20170801动态视野(Octopus)_NoRestriction.pdf Done!
+71%
+each file time ~=5sec
+total time ~=3716sec
+../../testdata/PDF解密版/357王诗瑶20180130动态视野(Octopus)_NoRestriction.pdf Done!
+72%
+each file time ~=5sec
+total time ~=3716sec
+../../testdata/PDF解密版/358孟祺20150203动态视野(Octopus)_NoRestriction.pdf Done!
+72%
+each file time ~=5sec
+total time ~=3716sec
+../../testdata/PDF解密版/358孟祺20150526动态视野(Octopus)_NoRestriction.pdf Done!
+72%
+each file time ~=5sec
+total time ~=3715sec
+../../testdata/PDF解密版/358孟祺20150818动态视野(Octopus)_NoRestriction.pdf Done!
+72%
+each file time ~=5sec
+total time ~=3716sec
+../../testdata/PDF解密版/358孟祺20160126动态视野(Octopus)_NoRestriction.pdf Done!
+72%
+each file time ~=5sec
+total time ~=3716sec
+../../testdata/PDF解密版/358孟祺20160712动态视野(Octopus)_NoRestriction.pdf Done!
+72%
+each file time ~=5sec
+total time ~=3715sec
+../../testdata/PDF解密版/358孟祺20180206动态视野(Octopus)_NoRestriction.pdf Done!
+72%
+each file time ~=5sec
+total time ~=3715sec
+../../testdata/PDF解密版/359王栋20180202动态视野(Octopus)_NoRestriction.pdf Done!
+73%
+each file time ~=5sec
+total time ~=3715sec
+../../testdata/PDF解密版/35王桁20170210动态视野(Octopus)_NoRestriction.pdf Done!
+73%
+each file time ~=5sec
+total time ~=3716sec
+../../testdata/PDF解密版/35王桁20170525 动态视野(Octopus)_NoRestriction.pdf Done!
+73%
+each file time ~=5sec
+total time ~=3716sec
+../../testdata/PDF解密版/35王桁20170816 动态视野(Octopus)_NoRestriction.pdf Done!
+73%
+each file time ~=5sec
+total time ~=3715sec
+../../testdata/PDF解密版/35王桁20171109 动态视野(Octopus)_NoRestriction.pdf Done!
+73%
+each file time ~=5sec
+total time ~=3715sec
+../../testdata/PDF解密版/35王桁20180122 动态视野(Octopus)_NoRestriction.pdf Done!
+73%
+each file time ~=5sec
+total time ~=3717sec
+../../testdata/PDF解密版/35王桁20180319 动态视野(Octopus)_NoRestriction.pdf Done!
+73%
+each file time ~=5sec
+total time ~=3713sec
+../../testdata/PDF解密版/362刘凤霞20161208动态视野(Octopus)_NoRestriction.pdf Done!
+74%
+each file time ~=5sec
+total time ~=3713sec
+../../testdata/PDF解密版/362刘凤霞20170427动态视野(Octopus)_NoRestriction.pdf Done!
+74%
+each file time ~=5sec
+total time ~=3718sec
+../../testdata/PDF解密版/362刘凤霞20170803动态视野(Octopus)_NoRestriction.pdf Done!
+74%
+each file time ~=5sec
+total time ~=3718sec
+../../testdata/PDF解密版/362刘凤霞20171031动态视野(Octopus)_NoRestriction.pdf Done!
+74%
+each file time ~=5sec
+total time ~=3718sec
+../../testdata/PDF解密版/362刘凤霞20180206动态视野(Octopus)_NoRestriction.pdf Done!
+74%
+each file time ~=5sec
+total time ~=3718sec
+../../testdata/PDF解密版/366姜佩玉20140306动态视野(Octopus)_NoRestriction.pdf Done!
+74%
+each file time ~=5sec
+total time ~=3718sec
+../../testdata/PDF解密版/366姜佩玉20140911动态视野(Octopus)_NoRestriction.pdf Done!
 75%
 each file time ~=5sec
-total time ~=20sec
-../../testdata/o2/dec_272\313\325\277\241\215H20171030\266\257\314\254\312\323\322\260(Octopus) .pdf Done!
+total time ~=3718sec
+../../testdata/PDF解密版/366姜佩玉20150611动态视野(Octopus)_NoRestriction.pdf Done!
+75%
+each file time ~=5sec
+total time ~=3718sec
+../../testdata/PDF解密版/366姜佩玉20160831动态视野(Octopus)_NoRestriction.pdf Done!
+75%
+each file time ~=5sec
+total time ~=3718sec
+../../testdata/PDF解密版/366姜佩玉20161228动态视野(Octopus)_NoRestriction.pdf Done!
+75%
+each file time ~=5sec
+total time ~=3718sec
+../../testdata/PDF解密版/366姜佩玉20170313动态视野(Octopus)_NoRestriction.pdf Done!
+75%
+each file time ~=5sec
+total time ~=3718sec
+../../testdata/PDF解密版/366姜佩玉20170607动态视野(Octopus)_NoRestriction.pdf Done!
+75%
+each file time ~=5sec
+total time ~=3718sec
+../../testdata/PDF解密版/366姜佩玉20170912动态视野(Octopus)_NoRestriction.pdf Done!
+75%
+each file time ~=5sec
+total time ~=3718sec
+../../testdata/PDF解密版/366姜佩玉20171213动态视野(Octopus)_NoRestriction.pdf Done!
+76%
+each file time ~=5sec
+total time ~=3719sec
+../../testdata/PDF解密版/366姜佩玉20180227动态视野(Octopus)_NoRestriction.pdf Done!
+76%
+each file time ~=5sec
+total time ~=3715sec
+../../testdata/PDF解密版/367刘根军20170104动态视野(Octopus)_NoRestriction.pdf Done!
+76%
+each file time ~=5sec
+total time ~=3712sec
+../../testdata/PDF解密版/367刘根军20180130动态视野(Octopus)_NoRestriction.pdf Done!
+76%
+each file time ~=5sec
+total time ~=3709sec
+../../testdata/PDF解密版/369王华20161116动态视野(Octopus)_NoRestriction.pdf Done!
+76%
+each file time ~=5sec
+total time ~=3709sec
+../../testdata/PDF解密版/369王华20170718动态视野(Octopus)_NoRestriction.pdf Done!
+76%
+each file time ~=5sec
+total time ~=3709sec
+../../testdata/PDF解密版/369王华20171024动态视野(Octopus)_NoRestriction.pdf Done!
+76%
+each file time ~=5sec
+total time ~=3709sec
+../../testdata/PDF解密版/36陈莉20170712动态视野(Octopus)_NoRestriction.pdf Done!
+77%
+each file time ~=5sec
+total time ~=3708sec
+../../testdata/PDF解密版/36陈莉20171012动态视野(Octopus)_NoRestriction.pdf Done!
+77%
+each file time ~=5sec
+total time ~=3708sec
+../../testdata/PDF解密版/36陈莉20180123动态视野(Octopus)_NoRestriction.pdf Done!
+77%
+each file time ~=5sec
+total time ~=3708sec
+../../testdata/PDF解密版/370安绍宣20151119动态视野(Octopus)_NoRestriction.pdf Done!
+77%
+each file time ~=5sec
+total time ~=3708sec
+../../testdata/PDF解密版/370安绍宣20160628动态视野(Octopus)_NoRestriction.pdf Done!
+77%
+each file time ~=5sec
+total time ~=3709sec
+../../testdata/PDF解密版/370安绍宣20161019动态视野(Octopus)_NoRestriction.pdf Done!
+77%
+each file time ~=5sec
+total time ~=3708sec
+../../testdata/PDF解密版/370安绍宣20170214动态视野(Octopus)_NoRestriction.pdf Done!
+77%
+each file time ~=5sec
+total time ~=3708sec
+../../testdata/PDF解密版/370安绍宣20170515动态视野(Octopus)_NoRestriction.pdf Done!
+78%
+each file time ~=5sec
+total time ~=3708sec
+../../testdata/PDF解密版/370安绍宣20170814动态视野(Octopus)_NoRestriction.pdf Done!
+78%
+each file time ~=5sec
+total time ~=3708sec
+../../testdata/PDF解密版/370安绍宣20171120动态视野(Octopus)_NoRestriction.pdf Done!
+78%
+each file time ~=5sec
+total time ~=3708sec
+../../testdata/PDF解密版/370安绍宣20180129动态视野(Octopus)_NoRestriction.pdf Done!
+78%
+each file time ~=5sec
+total time ~=3708sec
+../../testdata/PDF解密版/372方家春20170613动态视野(Octopus)_NoRestriction.pdf Done!
+78%
+each file time ~=5sec
+total time ~=3706sec
+../../testdata/PDF解密版/372方家春20171010动态视野(Octopus)_NoRestriction.pdf Done!
+78%
+each file time ~=5sec
+total time ~=3704sec
+../../testdata/PDF解密版/372方家春20180130动态视野(Octopus)_NoRestriction.pdf Done!
+78%
+each file time ~=5sec
+total time ~=3702sec
+../../testdata/PDF解密版/375路爽20170831动态视野(Octopus)_NoRestriction.pdf Done!
+79%
+each file time ~=5sec
+total time ~=3702sec
+../../testdata/PDF解密版/376张志权20180201动态视野(Octopus)_NoRestriction.pdf Done!
+79%
+each file time ~=5sec
+total time ~=3702sec
+../../testdata/PDF解密版/377郁彤20140716动态视野(Octopus)_NoRestriction.pdf Done!
+79%
+each file time ~=5sec
+total time ~=3702sec
+../../testdata/PDF解密版/377郁彤20150722动态视野(Octopus)_NoRestriction.pdf Done!
+79%
+each file time ~=5sec
+total time ~=3702sec
+../../testdata/PDF解密版/377郁彤20160128动态视野(Octopus)_NoRestriction.pdf Done!
+79%
+each file time ~=5sec
+total time ~=3702sec
+../../testdata/PDF解密版/377郁彤20160711动态视野(Octopus)_NoRestriction.pdf Done!
+79%
+each file time ~=5sec
+total time ~=3702sec
+../../testdata/PDF解密版/377郁彤20161213动态视野(Octopus)_NoRestriction.pdf Done!
+79%
+each file time ~=5sec
+total time ~=3702sec
+../../testdata/PDF解密版/377郁彤20170525动态视野(Octopus)_NoRestriction.pdf Done!
+80%
+each file time ~=5sec
+total time ~=3702sec
+../../testdata/PDF解密版/377郁彤20180115动态视野(Octopus)_NoRestriction.pdf Done!
+80%
+each file time ~=5sec
+total time ~=3702sec
+../../testdata/PDF解密版/378周玉芝20161229动态视野(Octopus)_NoRestriction.pdf Done!
+80%
+each file time ~=5sec
+total time ~=3699sec
+../../testdata/PDF解密版/378周玉芝20170330动态视野(Octopus)_NoRestriction.pdf Done!
+80%
+each file time ~=5sec
+total time ~=3695sec
+../../testdata/PDF解密版/378周玉芝20170704动态视野(Octopus)_NoRestriction.pdf Done!
+80%
+each file time ~=5sec
+total time ~=3692sec
+../../testdata/PDF解密版/378周玉芝20171109动态视野(Octopus)_NoRestriction.pdf Done!
+80%
+each file time ~=5sec
+total time ~=3689sec
+../../testdata/PDF解密版/378周玉芝20180201动态视野(Octopus)_NoRestriction.pdf Done!
+80%
+each file time ~=5sec
+total time ~=3686sec
+../../testdata/PDF解密版/379王传钰20170221动态视野(Octopus)_NoRestriction.pdf Done!
+81%
+each file time ~=5sec
+total time ~=3686sec
+../../testdata/PDF解密版/379王传钰20170606动态视野(Octopus)_NoRestriction.pdf Done!
+81%
+each file time ~=5sec
+total time ~=3686sec
+../../testdata/PDF解密版/379王传钰20180201动态视野(Octopus)_NoRestriction.pdf Done!
+81%
+each file time ~=5sec
+total time ~=3686sec
+../../testdata/PDF解密版/37王敏治20161018动态视野(Octopus)_NoRestriction.pdf Done!
+81%
+each file time ~=5sec
+total time ~=3686sec
+../../testdata/PDF解密版/37王敏治20170112动态视野(Octopus)_NoRestriction.pdf Done!
+81%
+each file time ~=5sec
+total time ~=3686sec
+../../testdata/PDF解密版/37王敏治20170411动态视野(Octopus)_NoRestriction.pdf Done!
+81%
+each file time ~=5sec
+total time ~=3686sec
+../../testdata/PDF解密版/37王敏治20170705动态视野(Octopus)_NoRestriction.pdf Done!
+81%
+each file time ~=5sec
+total time ~=3686sec
+../../testdata/PDF解密版/37王敏治20180109动态视野(Octopus)_NoRestriction.pdf Done!
+82%
+each file time ~=5sec
+total time ~=3686sec
+../../testdata/PDF解密版/382潘友信20161201动态视野(Octopus)_NoRestriction.pdf Done!
+82%
+each file time ~=5sec
+total time ~=3690sec
+../../testdata/PDF解密版/382潘友信20170413动态视野(Octopus)_NoRestriction.pdf Done!
+82%
+each file time ~=5sec
+total time ~=3690sec
+../../testdata/PDF解密版/382潘友信20170724动态视野(Octopus)_NoRestriction.pdf Done!
+82%
+each file time ~=5sec
+total time ~=3690sec
+../../testdata/PDF解密版/382潘友信20171016动态视野(Octopus)_NoRestriction.pdf Done!
+82%
+each file time ~=5sec
+total time ~=3690sec
+../../testdata/PDF解密版/382潘友信20180207动态视野(Octopus)_NoRestriction.pdf Done!
+82%
+each file time ~=5sec
+total time ~=3690sec
+../../testdata/PDF解密版/388王英20151208动态视野(Octopus)_NoRestriction.pdf Done!
+82%
+each file time ~=5sec
+total time ~=3690sec
+../../testdata/PDF解密版/388王英20160823动态视野(Octopus)_NoRestriction.pdf Done!
+83%
+each file time ~=5sec
+total time ~=3691sec
+../../testdata/PDF解密版/388王英20170110动态视野(Octopus)_NoRestriction.pdf Done!
+83%
+each file time ~=5sec
+total time ~=3691sec
+../../testdata/PDF解密版/388王英20170718动态视野(Octopus)_NoRestriction.pdf Done!
+83%
+each file time ~=5sec
+total time ~=3691sec
+../../testdata/PDF解密版/388王英20180213动态视野(Octopus)_NoRestriction.pdf Done!
+83%
+each file time ~=5sec
+total time ~=3691sec
+../../testdata/PDF解密版/389韩建国20180130动态视野(Octopus)_NoRestriction.pdf Done!
+83%
+each file time ~=5sec
+total time ~=3691sec
+../../testdata/PDF解密版/38尹圣芳20170112动态视野(Octopus)_NoRestriction.pdf Done!
+83%
+each file time ~=5sec
+total time ~=3691sec
+../../testdata/PDF解密版/38尹圣芳20170412动态视野(Octopus)_NoRestriction.pdf Done!
+83%
+each file time ~=5sec
+total time ~=3691sec
+../../testdata/PDF解密版/38尹圣芳20170705动态视野(Octopus)_NoRestriction.pdf Done!
+84%
+each file time ~=5sec
+total time ~=3691sec
+../../testdata/PDF解密版/38尹圣芳20180124动态视野(Octopus)_NoRestriction.pdf Done!
+84%
+each file time ~=5sec
+total time ~=3692sec
+../../testdata/PDF解密版/38尹圣芳20180412动态视野(Octopus)_NoRestriction.pdf Done!
+84%
+each file time ~=5sec
+total time ~=3702sec
+../../testdata/PDF解密版/38金瑞华20150407动态视野(Octopus)_NoRestriction.pdf Done!
+84%
+each file time ~=5sec
+total time ~=3702sec
+../../testdata/PDF解密版/38金瑞华20150707动态视野(Octopus)_NoRestriction.pdf Done!
+84%
+each file time ~=5sec
+total time ~=3702sec
+../../testdata/PDF解密版/38金瑞华20161018动态视野(Octopus)_NoRestriction.pdf Done!
+84%
+each file time ~=5sec
+total time ~=3702sec
+../../testdata/PDF解密版/38金瑞华20170523动态视野(Octopus)_NoRestriction.pdf Done!
+84%
+each file time ~=5sec
+total time ~=3702sec
+../../testdata/PDF解密版/38金瑞华20170926动态视野(Octopus)_NoRestriction.pdf Done!
+85%
+each file time ~=5sec
+total time ~=3702sec
+../../testdata/PDF解密版/38金瑞华20171221动态视野(Octopus)_NoRestriction.pdf Done!
+85%
+each file time ~=5sec
+total time ~=3702sec
+../../testdata/PDF解密版/38金瑞华20180403动态视野(Octopus)_NoRestriction.pdf Done!
+85%
+each file time ~=5sec
+total time ~=3699sec
+../../testdata/PDF解密版/391任树芝20171205动态视野(Octopus)_NoRestriction.pdf Done!
+85%
+each file time ~=5sec
+total time ~=3699sec
+../../testdata/PDF解密版/392潘鸿器20180412动态视野(Octopus)_NoRestriction.pdf Done!
+85%
+each file time ~=5sec
+total time ~=3695sec
+../../testdata/PDF解密版/393任萍实20150305动态视野(Octopus)_NoRestriction.pdf Done!
+85%
+each file time ~=5sec
+total time ~=3695sec
+../../testdata/PDF解密版/393任萍实20170328动态视野(Octopus)_NoRestriction.pdf Done!
+85%
+each file time ~=5sec
+total time ~=3696sec
+../../testdata/PDF解密版/393任萍实20171024动态视野(Octopus)_NoRestriction.pdf Done!
+86%
+each file time ~=5sec
+total time ~=3696sec
+../../testdata/PDF解密版/393任萍实20180222动态视野(Octopus)_NoRestriction.pdf Done!
+86%
+each file time ~=5sec
+total time ~=3696sec
+../../testdata/PDF解密版/397黄天明20140617动态视野(Octopus)_NoRestriction.pdf Done!
+86%
+each file time ~=5sec
+total time ~=3696sec
+../../testdata/PDF解密版/397黄天明20150616动态视野(Octopus)_NoRestriction.pdf Done!
+86%
+each file time ~=5sec
+total time ~=3696sec
+../../testdata/PDF解密版/397黄天明20151126动态视野(Octopus)_NoRestriction.pdf Done!
+86%
+each file time ~=5sec
+total time ~=3696sec
+../../testdata/PDF解密版/397黄天明20160701动态视野(Octopus)_NoRestriction.pdf Done!
+86%
+each file time ~=5sec
+total time ~=3696sec
+../../testdata/PDF解密版/397黄天明20170502动态视野(Octopus)_NoRestriction.pdf Done!
+86%
+each file time ~=5sec
+total time ~=3700sec
+../../testdata/PDF解密版/397黄天明20170815动态视野(Octopus)_NoRestriction.pdf Done!
+87%
+each file time ~=5sec
+total time ~=3700sec
+../../testdata/PDF解密版/397黄天明20180223动态视野(Octopus)_NoRestriction.pdf Done!
+87%
+each file time ~=5sec
+total time ~=3700sec
+../../testdata/PDF解密版/39陈春来20171221动态视野(Octopus)_NoRestriction.pdf Done!
+87%
+each file time ~=5sec
+total time ~=3700sec
+../../testdata/PDF解密版/3孟步瀛20170831动态视野(Octopus)_NoRestriction.pdf Done!
+87%
+each file time ~=5sec
+total time ~=3700sec
+../../testdata/PDF解密版/3孟步瀛20180410动态视野(Octopus)_NoRestriction.pdf Done!
+87%
+each file time ~=5sec
+total time ~=3696sec
+../../testdata/PDF解密版/3陈秀银20141202动态视野(Octopus)_NoRestriction.pdf Done!
+87%
+each file time ~=5sec
+total time ~=3696sec
+../../testdata/PDF解密版/3陈秀银20150519动态视野(Octopus)_NoRestriction.pdf Done!
+87%
+each file time ~=5sec
+total time ~=3696sec
+../../testdata/PDF解密版/3陈秀银20150811动态视野(Octopus)_NoRestriction.pdf Done!
+88%
+each file time ~=5sec
+total time ~=3696sec
+../../testdata/PDF解密版/3陈秀银20161013动态视野(Octopus)_NoRestriction.pdf Done!
+88%
+each file time ~=5sec
+total time ~=3696sec
+../../testdata/PDF解密版/3陈秀银20170117动态视野(Octopus)_NoRestriction.pdf Done!
+88%
+each file time ~=5sec
+total time ~=3697sec
+../../testdata/PDF解密版/3陈秀银20170427动态视野(Octopus)_NoRestriction.pdf Done!
+88%
+each file time ~=5sec
+total time ~=3697sec
+../../testdata/PDF解密版/3陈秀银20170921动态视野(Octopus)_NoRestriction.pdf Done!
+88%
+each file time ~=5sec
+total time ~=3697sec
+../../testdata/PDF解密版/3陈秀银20171211动态视野(Octopus)_NoRestriction.pdf Done!
+88%
+each file time ~=5sec
+total time ~=3697sec
+../../testdata/PDF解密版/3陈秀银20180315动态视野(Octopus)_NoRestriction.pdf Done!
+88%
+each file time ~=5sec
+total time ~=3693sec
+../../testdata/PDF解密版/42王淑荣20140304 动态视野(Octopus)_NoRestriction.pdf Done!
+89%
+each file time ~=5sec
+total time ~=3693sec
+../../testdata/PDF解密版/42王淑荣20141009 动态视野(Octopus)_NoRestriction.pdf Done!
+89%
+each file time ~=5sec
+total time ~=3704sec
+../../testdata/PDF解密版/42王淑荣20161212 动态视野(Octopus)_NoRestriction.pdf Done!
+89%
+each file time ~=5sec
+total time ~=3707sec
+../../testdata/PDF解密版/42王淑荣20170710 动态视野(Octopus)_NoRestriction.pdf Done!
+89%
+each file time ~=5sec
+total time ~=3708sec
+../../testdata/PDF解密版/42王淑荣20171009 动态视野(Octopus)_NoRestriction.pdf Done!
+89%
+each file time ~=5sec
+total time ~=3708sec
+../../testdata/PDF解密版/42颜家珍20180125动态视野(Octopus)_NoRestriction.pdf Done!
+89%
+each file time ~=5sec
+total time ~=3708sec
+../../testdata/PDF解密版/47白帆20170203动态视野(Octopus)_NoRestriction.pdf Done!
+89%
+each file time ~=5sec
+total time ~=3708sec
+../../testdata/PDF解密版/4刘文彦20140509 动态视野(Octopus)_NoRestriction.pdf Done!
+90%
+each file time ~=5sec
+total time ~=3708sec
+../../testdata/PDF解密版/4刘文彦20140930动态视野(Octopus)_NoRestriction.pdf Done!
+90%
+each file time ~=5sec
+total time ~=3708sec
+../../testdata/PDF解密版/4刘文彦20150324动态视野(Octopus)_NoRestriction.pdf Done!
+90%
+each file time ~=5sec
+total time ~=3708sec
+../../testdata/PDF解密版/4刘文彦20150811动态视野(Octopus)_NoRestriction.pdf Done!
+90%
+each file time ~=5sec
+total time ~=3708sec
+../../testdata/PDF解密版/4刘文彦20160113 动态视野(Octopus)_NoRestriction.pdf Done!
+90%
+each file time ~=5sec
+total time ~=3708sec
+../../testdata/PDF解密版/4刘文彦20160407动态视野(Octopus)_NoRestriction.pdf Done!
+90%
+each file time ~=5sec
+total time ~=3708sec
+../../testdata/PDF解密版/4刘文彦20160913动态视野(Octopus)_NoRestriction.pdf Done!
+90%
+each file time ~=5sec
+total time ~=3708sec
+../../testdata/PDF解密版/4刘文彦20170309动态视野(Octopus)_NoRestriction.pdf Done!
+91%
+each file time ~=5sec
+total time ~=3708sec
+../../testdata/PDF解密版/4刘文彦20170829动态视野(Octopus)_NoRestriction.pdf Done!
+91%
+each file time ~=5sec
+total time ~=3708sec
+../../testdata/PDF解密版/4刘文彦20180227动态视野(Octopus)_NoRestriction.pdf Done!
+91%
+each file time ~=5sec
+total time ~=3705sec
+../../testdata/PDF解密版/51陈中杰20140422动态视野(Octopus)_NoRestriction.pdf Done!
+91%
+each file time ~=5sec
+total time ~=3705sec
+../../testdata/PDF解密版/55段昊泓20140606动态视野(Octopus)_NoRestriction.pdf Done!
+91%
+each file time ~=5sec
+total time ~=3705sec
+../../testdata/PDF解密版/55段昊泓20140912动态视野(Octopus)_NoRestriction.pdf Done!
+91%
+each file time ~=5sec
+total time ~=3705sec
+../../testdata/PDF解密版/55段昊泓20150217动态视野(Octopus)_NoRestriction.pdf Done!
+91%
+each file time ~=5sec
+total time ~=3705sec
+../../testdata/PDF解密版/55段昊泓20171222动态视野(Octopus)_NoRestriction.pdf Done!
+92%
+each file time ~=5sec
+total time ~=3705sec
+../../testdata/PDF解密版/5霍总生20161206动态视野(Octopus)_NoRestriction.pdf Done!
+92%
+each file time ~=5sec
+total time ~=3706sec
+../../testdata/PDF解密版/5霍总生20170606动态视野(Octopus)_NoRestriction.pdf Done!
+92%
+each file time ~=5sec
+total time ~=3706sec
+../../testdata/PDF解密版/5霍总生20180118动态视野(Octopus)_NoRestriction.pdf Done!
+92%
+each file time ~=5sec
+total time ~=3706sec
+../../testdata/PDF解密版/62贺平20160715动态视野(Octopus) _NoRestriction.pdf Done!
+92%
+each file time ~=5sec
+total time ~=3708sec
+../../testdata/PDF解密版/65金朝阳20171122动态视野(Octopus) _NoRestriction.pdf Done!
+92%
+each file time ~=5sec
+total time ~=3716sec
+../../testdata/PDF解密版/66来印敬20140313动态视野(Octopus) _NoRestriction.pdf Done!
+92%
+each file time ~=5sec
+total time ~=3718sec
+../../testdata/PDF解密版/66来印敬20150319动态视野(Octopus) _NoRestriction.pdf Done!
+93%
+each file time ~=5sec
+total time ~=3732sec
+../../testdata/PDF解密版/66来印敬20160623动态视野(Octopus) _NoRestriction.pdf Done!
+93%
+each file time ~=5sec
+total time ~=3733sec
+../../testdata/PDF解密版/66来印敬20161229动态视野(Octopus) _NoRestriction.pdf Done!
+93%
+each file time ~=5sec
+total time ~=3733sec
+../../testdata/PDF解密版/66来印敬20180125动态视野(Octopus) _NoRestriction.pdf Done!
+93%
+each file time ~=5sec
+total time ~=3734sec
+../../testdata/PDF解密版/68李贺瑞20130902动态视野(Octopus) _NoRestriction.pdf Done!
+93%
+each file time ~=5sec
+total time ~=3736sec
+../../testdata/PDF解密版/6甄之中20151210动态视野(Octopus)_NoRestriction.pdf Done!
+93%
+each file time ~=5sec
+total time ~=3737sec
+../../testdata/PDF解密版/6甄之中20170117动态视野(Octopus)_NoRestriction.pdf Done!
+93%
+each file time ~=5sec
+total time ~=3738sec
+../../testdata/PDF解密版/6甄之中20170518 动态视野(Octopus)_NoRestriction.pdf Done!
+94%
+each file time ~=5sec
+total time ~=3739sec
+../../testdata/PDF解密版/6甄之中20170823 动态视野(Octopus)_NoRestriction.pdf Done!
+94%
+each file time ~=5sec
+total time ~=3740sec
+../../testdata/PDF解密版/6甄之中20180312 动态视野(Octopus)_NoRestriction.pdf Done!
+94%
+each file time ~=5sec
+total time ~=3738sec
+../../testdata/PDF解密版/79马世芬20131106动态视野(Octopus) _NoRestriction.pdf Done!
+94%
+each file time ~=5sec
+total time ~=3741sec
+../../testdata/PDF解密版/79马世芬20140820动态视野(Octopus) _NoRestriction.pdf Done!
+94%
+each file time ~=5sec
+total time ~=3738sec
+../../testdata/PDF解密版/79马世芬20171129动态视野(Octopus) _NoRestriction.pdf Done!
+94%
+each file time ~=5sec
+total time ~=3742sec
+../../testdata/PDF解密版/7刘慕怡20170328动态视野(Octopus)_NoRestriction.pdf Done!
+94%
+each file time ~=5sec
+total time ~=3742sec
+../../testdata/PDF解密版/7刘慕怡20170815动态视野(Octopus)_NoRestriction.pdf Done!
+95%
+each file time ~=5sec
+total time ~=3743sec
+../../testdata/PDF解密版/7刘慕怡20171031 动态视野(Octopus)_NoRestriction.pdf Done!
+95%
+each file time ~=5sec
+total time ~=3743sec
+../../testdata/PDF解密版/7刘慕怡20180227 动态视野(Octopus)_NoRestriction.pdf Done!
+95%
+each file time ~=5sec
+total time ~=3740sec
+../../testdata/PDF解密版/7白长根20140417动态视野(Octopus)_NoRestriction.pdf Done!
+95%
+each file time ~=5sec
+total time ~=3741sec
+../../testdata/PDF解密版/7白长根20161115动态视野(Octopus)_NoRestriction.pdf Done!
+95%
+each file time ~=5sec
+total time ~=3741sec
+../../testdata/PDF解密版/7白长根20170328动态视野(Octopus)_NoRestriction.pdf Done!
+95%
+each file time ~=5sec
+total time ~=3742sec
+../../testdata/PDF解密版/83孟旻20131106动态视野(Octopus) _NoRestriction.pdf Done!
+95%
+each file time ~=5sec
+total time ~=3737sec
+../../testdata/PDF解密版/张银兰 2017 O视野 _NoRestriction.pdf Done!
+96%
+each file time ~=5sec
+total time ~=3739sec
+../../testdata/PDF解密版/李少华 2013 O视野 _NoRestriction.pdf Done!
+96%
+each file time ~=5sec
+total time ~=3736sec
+../../testdata/PDF解密版/李少华 2014 O视野 _NoRestriction.pdf Done!
+96%
+each file time ~=5sec
+total time ~=3736sec
+../../testdata/PDF解密版/李少华 2017 O视野3 _NoRestriction.pdf Done!
+96%
+each file time ~=5sec
+total time ~=3731sec
+../../testdata/PDF解密版/杨明 2016 O视野 2 _NoRestriction.pdf Done!
+96%
+each file time ~=5sec
+total time ~=3731sec
+../../testdata/PDF解密版/杨明 2016 O视野_NoRestriction.pdf Done!
+96%
+each file time ~=5sec
+total time ~=3731sec
+../../testdata/PDF解密版/杨明 2017 O视野_NoRestriction.pdf Done!
+96%
+each file time ~=5sec
+total time ~=3731sec
+../../testdata/PDF解密版/杨明 2018 O视野 _NoRestriction.pdf Done!
+97%
+each file time ~=5sec
+total time ~=3728sec
+../../testdata/PDF解密版/杨明2013 O视野 _NoRestriction.pdf Done!
+97%
+each file time ~=5sec
+total time ~=3725sec
+../../testdata/PDF解密版/王成发 O 视野 2013 _NoRestriction.pdf Done!
+97%
+each file time ~=5sec
+total time ~=3725sec
+../../testdata/PDF解密版/王成发 O视野 2018_NoRestriction.pdf Done!
+97%
+each file time ~=5sec
+total time ~=3729sec
+../../testdata/PDF解密版/王成发O视野 2014_NoRestriction.pdf Done!
+97%
+each file time ~=5sec
+total time ~=3729sec
+../../testdata/PDF解密版/王成发O视野 2015 _NoRestriction.pdf Done!
+97%
+each file time ~=5sec
+total time ~=3730sec
+../../testdata/PDF解密版/王春华 2017 O视野 4 _NoRestriction.pdf Done!
+97%
+each file time ~=5sec
+total time ~=3731sec
+../../testdata/PDF解密版/王春华 O视野 2018 _NoRestriction.pdf Done!
+98%
+each file time ~=5sec
+total time ~=3727sec
+../../testdata/PDF解密版/王秀英2013 O视野1 _NoRestriction.pdf Done!
+98%
+each file time ~=5sec
+total time ~=3728sec
+../../testdata/PDF解密版/王秀英2013 O视野2 _NoRestriction.pdf Done!
+98%
+each file time ~=5sec
+total time ~=3732sec
+../../testdata/PDF解密版/王秀英2014 O视野1 _NoRestriction.pdf Done!
+98%
+each file time ~=5sec
+total time ~=3741sec
+../../testdata/PDF解密版/王秀英2014 O视野2 _NoRestriction.pdf Done!
+98%
+each file time ~=5sec
+total time ~=3741sec
+../../testdata/PDF解密版/王秀英2015 O视野1_NoRestriction.pdf Done!
+98%
+each file time ~=5sec
+total time ~=3741sec
+../../testdata/PDF解密版/王秀英2015 O视野2 _NoRestriction.pdf Done!
+98%
+each file time ~=5sec
+total time ~=3741sec
+../../testdata/PDF解密版/王秀英2016 O视野1 _NoRestriction.pdf Done!
+99%
+each file time ~=5sec
+total time ~=3741sec
+../../testdata/PDF解密版/王秀英2016 O视野2 _NoRestriction.pdf Done!
+99%
+each file time ~=5sec
+total time ~=3744sec
+../../testdata/PDF解密版/王秀英2017 O视野_NoRestriction.pdf Done!
+99%
+each file time ~=5sec
+total time ~=3744sec
+../../testdata/PDF解密版/王秀英2018 O视野_NoRestriction.pdf Done!
+99%
+each file time ~=5sec
+total time ~=3741sec
+../../testdata/PDF解密版/董庆华 2014 O视野 _NoRestriction.pdf Done!
+99%
+each file time ~=5sec
+total time ~=3741sec
+../../testdata/PDF解密版/董庆华2013 O视野_NoRestriction.pdf Done!
+99%
+each file time ~=5sec
+total time ~=3741sec
+../../testdata/PDF解密版/董庆华2014 O视野_NoRestriction.pdf Done!
 100%
 each file time ~=5sec
-total time ~=20sec
+total time ~=3741sec
 </pre>
 </div>
 </div>
